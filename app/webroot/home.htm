@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Creature Report</title>
+        <meta name="description" content="Wrangling and reporting on your little monsters so you can determine what to do with them">
+      
+        <link rel="stylesheet" href="css/normalize.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+
+<header>
+  <div id="headerPanel" class="headerPanel">
+  <div class="container">
+    <div class="panelL"> <img src="images/logo.png"/>
+      <h3>Critter Report - v 0.0.0.1</h3>
+    </div>
+   </div>
+  </div>
+</header>
+
+	
+	<div class="subnav">
+		<div class="container" id="menuBar">
+			<ul class="nav nav-pills">
+				<li><a href="home.htm">Home</a></li>
+				 <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Admin <!-- <b class="caret"></b> --></a>
+				
+				    <ul class="dropdown-menu" >
+					    <li><a tabindex="-1" href="#">Add Students</a></li>
+					    <li><a tabindex="-1" href="#">Add Teachers</a></li>
+					    <li class="divider"></li>
+					    <li><a tabindex="-1" href="#">Admin Dashboard</a></li>
+				    </ul>
+				</li>
+				 <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						User <!-- <b class="caret"></b> --></a>
+				    <ul class="dropdown-menu" >
+					    <li><a tabindex="-1" href="report.htm">Create Report</a></li>
+					    <li class="divider"></li>
+					    <li><a tabindex="-1" href="#">User Dashboard</a></li>
+				    </ul>
+				</li>
+				<li><a href="#">About</a></li>
+				<li><a href="signup.htm">Sign Up</a></li>
+				<li><a href="#">Mobile</a></li>
+				<li><a href="#global">Contact Us</a></li>
+				
+			</ul>
+		</div>
+	</div>
+	<div class="wrapper">
+	<div class="container" id="homeContainer">
+	 <div class="jumbotron well ">
+         <h2>Sign Up Today!</h2>
+				<ul class="lead">
+					<li><small>[placeholder content] Create you daily reports with ease and style!</small></li>
+					<li> <small>[placeholder content] Download our Mobile App and free yourself from the tedium!</small></li>
+					<li><small>[placeholder content] Use our reporting tools to chart progress.</small></li>
+					<li><small>[placeholder content] Earn back that lost time from having to handwrite all reports! </small></li>
+				</ul>
+				<a class="btn btn-success" href="#">More &raquo;</a>
+        </div>
+      <hr>
+      
+       <!-- Example row of columns -->
+      <div class="row-fluid">
+        
+        <div class="span4">
+          <h2>News</h2>
+          <ul>
+					<li><small>[placeholder content] The CopperNickel team is feverishly working to bring you Critter Report Alpha!</small></li>
+					<li> <small>[placeholder content] Download our Mobile App and free yourself from the tedium!</small></li>
+					<li><small>[placeholder content] Use our reporting tools to chart progress.</small></li>
+					<li><small>[placeholder content] Earn back that lost time from having to handwrite all reports! </small></li>
+				</ul>
+<!--           <p><a class="btn" href="#">View details &raquo;</a></p> -->
+        </div>
+       <div class="span4">
+          <h2>Service</h2>
+          <ul>
+					<li><small>[placeholder content] <a class="link" href="#">View our Terms of Service (TOS)</a></small></li>
+					<li> <small>[placeholder content] <a class="link" href="#">Customer Support</a></small></li>
+					<li><small>[placeholder content] Use our reporting tools to chart progress.</small></li>
+					<li><small>[placeholder content] Earn back that lost time from having to handwrite all reports! </small></li>
+				</ul>
+<!--           <p><a class="btn" href="#">View details &raquo;</a></p> -->
+        </div>
+        <div class="span4 well">
+        <form id="f" action="" class="cmxform">
+         <h2>Sign In</h2>
+			<fieldset id="user-details">
+				<label for="j_username">User Name : <span class="required">*</span></label>
+				<input id="j_username" type="text" name="j_username" value="" /> <label
+						for="password">Password: <span class="required">*</span>
+				</label> <input id="j_password" type="password" name="j_password" value="" />
+				<div ><a id="submitBtn" class="btn " role="button" href="javascript:doAjaxLogin();">SignIn »</a></div>
+			</fieldset>
+			<div class="errorblock" id="loginErrorDiv" style="display:none">
+			Invalid Username or Password <br>
+			Please try again.
+			</div>
+		</form>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p>&copy; CopperNickel 2013</p>
+      </div>
+	
+	
+	</div>
+	</div>
+	<script src="js/jquery-1.9.0.min.js" ></script>        
+    <script src="js/modernizr-2.6.2.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		
+	});
+	
+	function doAjaxLogin(){
+	   // var my_callback = form.my_callback.value; // The original function which accessed the protected resource
+	    var user_pass = f.j_password.value;
+	    var user_name = f.j_username.value; 
+		console.log("user: " + user_name + " / pass: " + user_pass);
+	//Ajax login - we send credentials to j_spring_security_check (as in form based login
+	    $.ajax({
+	          url: "/j_spring_security_check",   
+	          data: { j_username: user_name , j_password: user_pass },
+	          type: "POST",
+	          beforeSend: function (xhr) {
+	             xhr.setRequestHeader("X-Ajax-call", "true");
+	          },
+	          success: function(result) {      
+	          //if login is success, hide the login modal and
+	          //re-execute the function which called the protected resource
+	          //(#7 in the diagram flow)
+	          if (result == "ok") {
+	  
+	            $("#loginErrorDiv").html("");           
+	            return true;
+	          }
+	          else {          
+	             
+	            $("#loginErrorDiv").html('<span  class="alert ">Bad user/password</span>') ;
+	            return false;          
+	        }
+	    },
+	    error: function(XMLHttpRequest, textStatus, errorThrown){
+	        $("#loginErrorDiv").html("Bad user/password") ;
+	        return false;
+	    }
+	});
+	
+	    console.log("user: " + user_name + " / pass: " + user_pass);
+	}
+	
+	
+	</script>
+    </body>
+</html>
+
