@@ -64,8 +64,23 @@ class UsersController extends AppController {
  public function dashboard_administrators() {
  $this->layout = 'dashboard';
  }
+ 
  public function dashboard_users() {
  $this->layout = 'dashboard';
+ 
+ $this->loadModel('Child');
+ $childrenOptions = $this->Child->find('list'); 
+ $childrenOptions = $this->Child->find('all',array('fields' => array('first_name','last_name','id')));
+ $childrenOptions_list = Set::combine($childrenOptions, '{n}.Child.id', array('{0} {1}', '{n}.Child.first_name', '{n}.Child.last_name'));
+ $this->set('childrenOptions', $childrenOptions_list);
+ 
+ /*$this->loadModel('Report');
+ $reports = $this->Report->find('list'); 
+ $reports = $this->Report->find('all',array('fields' => array('first_name','last_name','id')));
+ $reports = Set::combine($reports, '{n}.Child.id', array('{0} {1}', '{n}.Child.first_name', '{n}.Child.last_name'));
+ $this->set('childrenOptions', $reports_list);*/
+ 
+ 
  }
   
   
