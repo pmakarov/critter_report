@@ -68,7 +68,16 @@
             <!--/row -->
             
               
-              
+ <div class="row-fluid">
+ <div class="span12 well">
+	<table class="table table-striped">
+	 <tr><td>id</td></tr>
+	 <?php foreach ($reports as $report): ?>
+	 <tr><td><?php echo h($report['Report']['id']); ?></td></tr>
+	 <?php endforeach; ?>
+	 </table>
+ </div>
+ </div>
 <div class="row-fluid">
 <div class="span12 well">
 

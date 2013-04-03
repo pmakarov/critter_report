@@ -20,11 +20,11 @@ class UsersController extends AppController {
 		//$this->Auth->allow('initDB'); // We can remove this line after we're finished
 	}
 
-	/* custom function to quickset ACLs Son...
-	public function initDB() {
+	//custom function to quickset ACLs Son...
+	/*public function initDB() {
     $role = $this->User->Role;
     //Allow admins to everything
-    $role->id = 1;
+     $role->id = 1;
     $this->Acl->allow($role, 'controllers');
 
     //allow managers to posts and widgets
@@ -37,6 +37,7 @@ class UsersController extends AppController {
     //allow users to only add and edit on posts and widgets
     $role->id = 3;
     $this->Acl->deny($role, 'controllers');
+    $this->Acl->allow($role, 'controllers/Reports/ajax_function');
     $this->Acl->allow($role, 'controllers/Reports/add');
     $this->Acl->allow($role, 'controllers/Reports/edit');
 	$this->Acl->allow($role, 'controllers/Posts/add');
@@ -73,6 +74,17 @@ class UsersController extends AppController {
  $childrenOptions = $this->Child->find('all',array('fields' => array('first_name','last_name','id')));
  $childrenOptions_list = Set::combine($childrenOptions, '{n}.Child.id', array('{0} {1}', '{n}.Child.first_name', '{n}.Child.last_name'));
  $this->set('childrenOptions', $childrenOptions_list);
+ 
+ $this->loadModel('Report');
+ //$reports = 
+$start = date('Y-m-d');
+//$end = date('Y-m-d', strtotime('+1 month'));
+//$conditions = array('Event.start <=' => $end, 'Event.end >=' => $start);
+$conditions = array($start);
+$reports = $this->Report->find('all', array('conditions' => $conditions));
+//var_dump($reports);
+$this->set('reports', $reports);
+
  
  /*$this->loadModel('Report');
  $reports = $this->Report->find('list'); 

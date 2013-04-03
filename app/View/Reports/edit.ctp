@@ -4,7 +4,7 @@
 		<legend><?php echo __('Edit Report'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('child_id');
+		echo $this->Form->input('child_id', array('options'=> $childrenOptions_list));
 		echo $this->Form->input('room_id');
 		echo $this->Form->input('daycare_center_id');
 		echo $this->Form->input('date');

@@ -45,9 +45,9 @@
               <div class="span6">
                 <label>Child's Name</label>
 				<?php 
-					echo $this->Form->input('childrenList', array('required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $childrenOptions));
+					echo $this->Form->input('child_id', array('required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $childrenOptions_list));
 				?>
-               <!-- <select id="childrenList"  style="width:300px" required="true">
+               <!-- <select id="child_id"  style="width:300px" required="true">
                   <option></option>
                   <option value="1">Arnold, Saga</option>
                   <option value="2">Makarov, Mila</option>
@@ -427,7 +427,7 @@ var _REPORT_ID = "";
 			        	 $("#errorBox").hide();
 			        	 $('#datepicker').datepicker('setValue', d);
 			        	
-			        	$("#childrenList").select2({ 
+			        	$("#child_id").select2({ 
 			        	    placeholder: "Select a Child"
 			        		});
 			        	
@@ -648,7 +648,7 @@ var _REPORT_ID = "";
 	 	 //$.get('https://pawsbk.ncr.disa.mil/DDOrderEntry-tsr/DDOELookup?id=Agency', function(data){cb(data)});
 	 	// console.log("Date: " + $("#datepicker").data('date'));
 	 	
-	 	 /*console.log("Child: " + $("#childrenList option:selected").text());
+	 	 /*console.log("Child: " + $("#child_id option:selected").text());
 	 	 console.log("Teachers: " + $("#teachersList option:selected").text());
 	 	 console.log($("#teachersList").val());
 	 	 console.log("Needed items: " + $("#neededItemsList option:selected").val());
@@ -697,7 +697,7 @@ var _REPORT_ID = "";
 		 	 "id" : _REPORT_ID,
 		 	 "userId" : "999",
 			 "status" : _STATUS,
-			 "student" : $("#childrenList option:selected").val(),
+			 "student" : $("#child_id option:selected").val(),
 			 "date" : $("#datepicker").data('date'),
 			 "teachers" : tl.get().join("|"),
 			 "dailyActivity" : activityString,
@@ -748,7 +748,7 @@ var _REPORT_ID = "";
 	 	    });
 	}
 	function resetForm(){
-	    /*console.log("Child: " + $("#childrenList option:selected").text());
+	    /*console.log("Child: " + $("#child_id option:selected").text());
 	 	 console.log("Teachers: " + $("#teachersList option:selected").text());
 	 	 console.log($("#teachersList").val());
 	 	 console.log("Needed items: " + $("#neededItemsList option:selected").val());
@@ -765,7 +765,7 @@ var _REPORT_ID = "";
 		 console.log($('#slider2').slider("option", "value"));
 		 console.log($('#slider3').slider("option", "value"));*/
 		
-		 $("#childrenList").select2("data", null);
+		 $("#child_id").select2("data", null);
 		 $("#teachersList").select2("data", null);
 		 $("#personalityList").select2("data", null);
 		 $("#neededItemsList").select2("data", null);
@@ -846,11 +846,11 @@ var _REPORT_ID = "";
 			
 		    case "SELECT":
 			var select = $(el).attr('id');
-			//if(select == "childrenList" || select == "neededItemsList" || select == "teachersList" || select == "personalityList")
+			//if(select == "child_id" || select == "neededItemsList" || select == "teachersList" || select == "personalityList")
 			//handleSelect2ComboboxValidation(select);
 			var tmp = $("#" + select).select2("data");
 			
-			if(select == "childrenList" && (tmp == null || tmp.length == 0))
+			if(select == "child_id" && (tmp == null || tmp.length == 0))
 			{
 			   
 			    var msg = "Error: You did not select a child."
@@ -948,7 +948,7 @@ var _REPORT_ID = "";
 		{
 		    switch(select)
 		    {
-			    case "childrenList":
+			    case "child_id":
 				$("#s2id_"+select).css('border', '1px solid #f00');
 				//$("#s2id_"+select).attr('title', "Please select a child from the dropdown");
 				$("#s2id_"+select).alert();

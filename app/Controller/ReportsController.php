@@ -50,7 +50,7 @@ var $components = array('RequestHandler');
 		$teacherComments = $data_back->{"teacherComments"};
 		
 		
-		$formData = array('user_id' => $userId, 'status' => $status, 'date' => $date, 'child_Id' => $childId, 'teacher_list' => $teachers, 'needed_items' => $neededItems,
+		$formData = array('user_id' => $userId, 'status' => $status, 'date' => $date, 'child_id' => $childId, 'teacher_list' => $teachers, 'needed_items' => $neededItems,
 					'attitude' => $attitudes, 'sleep' => $sleepMessage, 'breakfast' => $percentageBreakfastComplete, 'lunch' => $percentageLunchComplete, 'snack' => $percentageSnackComplete,
 					'potty' => $pottyEvents, 'notes' => $teacherComments, "daily_activity" =>  $dailyActivity,);
 		if ($this->Report->save($formData)) {
@@ -135,8 +135,12 @@ var $components = array('RequestHandler');
 		$childrenOptions = $this->Child->find('all',array('fields' => array('first_name','last_name','id')));
 		$childrenOptions_list = Set::combine($childrenOptions, '{n}.Child.id', array('{0} {1}', '{n}.Child.first_name', '{n}.Child.last_name'));
 		
-		$this->set('childrenOptions', $childrenOptions_list);
+		$children = $this->Report->Child->find('list');
+		$rooms = $this->Report->Room->find('list');
+		$daycareCenters = $this->Report->DaycareCenter->find('list');
+		$teachers = $this->Report->Teacher->find('list');
 		
+		$this->set(compact('children', 'rooms', 'daycareCenters', 'teachers', 'childrenOptions_list'));
 		
 		
 		if ($this->request->is('post')) {
@@ -179,11 +183,17 @@ var $components = array('RequestHandler');
 			$options = array('conditions' => array('Report.' . $this->Report->primaryKey => $id));
 			$this->request->data = $this->Report->find('first', $options);
 		}
+		$this->loadModel('Child');
+		$childrenOptions = $this->Child->find('list'); 
+		$childrenOptions = $this->Child->find('all',array('fields' => array('first_name','last_name','id')));
+		$childrenOptions_list = Set::combine($childrenOptions, '{n}.Child.id', array('{0} {1}', '{n}.Child.first_name', '{n}.Child.last_name'));
+		
 		$children = $this->Report->Child->find('list');
 		$rooms = $this->Report->Room->find('list');
 		$daycareCenters = $this->Report->DaycareCenter->find('list');
 		$teachers = $this->Report->Teacher->find('list');
-		$this->set(compact('children', 'rooms', 'daycareCenters', 'teachers'));
+		
+		$this->set(compact('children', 'rooms', 'daycareCenters', 'teachers', 'childrenOptions_list'));
 	}
 
 
