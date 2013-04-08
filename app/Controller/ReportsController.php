@@ -31,7 +31,7 @@ var $components = array('RequestHandler');
 		$data_back = json_decode(file_get_contents('php://input'));
 		
 		// set json string to php variables
-		sleep(4);
+		//sleep(4);
 		//First I'm going to try things the hard way...
 		$id = $data_back->{"id"};
 		$userId = $data_back->{"userId"};

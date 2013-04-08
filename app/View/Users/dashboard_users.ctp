@@ -145,14 +145,52 @@
 <!-- <script src="js/jquery.validity.js"></script>  -->
 
 <script type="text/javascript">
+//initialize variables from PHPs
+var locationSelected = "<?php echo $locationSelected; ?>";
 
 var warn = true;
 var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
 var _REPORT_ID = "";
+
+function setBlueRoom(){
+	console.log("yo yo in blue room fct");
+	var msg = {
+		"location" : "blue room"
+	};
+	 $.ajax({
+	 	        type: "POST",
+	 	        async: false,
+	 	        data: JSON.stringify(msg),
+	 	        dataType: "JSON",
+	 	        url: '../users/set_location',
+	 	        beforeSend: function(x) {
+	 	            if (x && x.overrideMimeType) {
+	 	              x.overrideMimeType("application/j-son;charset=UTF-8");
+	 	            }
+	 	        },
+	 	        success: function(result) {
+	 	 	   		//TODO: Reset form, 
+	 	 	   		console.log("location:"+ result.location + " was successfully submitted by: " + result.userId + " on: " + result.date);
+	 	 	   		_REPORT_ID = result.id;
+	 	 	   		
+	 	 	   		$("#spinner").hide();
+	 	          },
+	 	       error: function (request, status, error) {
+	 		   		alert(status + " : " + error);
+	 		        //alert(request.responseText);
+	 		   		
+	 	 	   			$("#spinner").hide();
+	 		    }
+	 	    });
+}
 	$(document).ready(function(){
 		
 						
+						if(locationSelected === "false"){
+							alert("select room now motha, no? i'll set it for you!");
+							setBlueRoom();
+						}
 					
 						$("#saveBtn").click(function(){
 							doSave();

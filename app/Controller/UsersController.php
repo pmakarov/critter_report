@@ -6,8 +6,9 @@ App::uses('AppController', 'Controller');
  * @property User $User
  */
 class UsersController extends AppController {
-	public $helpers = array('Html', 'Form', 'Session');
-
+	public $helpers = array('Js', 'Html', 'Form', 'Session');
+	var $components = array('RequestHandler');
+	
 	public function beforeFilter() {
 		parent::beforeFilter();
 
@@ -21,10 +22,10 @@ class UsersController extends AppController {
 	}
 
 	//custom function to quickset ACLs Son...
-	/*public function initDB() {
+	public function initDB() {
     $role = $this->User->Role;
     //Allow admins to everything
-     $role->id = 1;
+    $role->id = 1;
     $this->Acl->allow($role, 'controllers');
 
     //allow managers to posts and widgets
@@ -42,12 +43,14 @@ class UsersController extends AppController {
     $this->Acl->allow($role, 'controllers/Reports/edit');
 	$this->Acl->allow($role, 'controllers/Posts/add');
     $this->Acl->allow($role, 'controllers/Posts/edit');
+	//$this->Acl->allow($role, 'controllers/Users/set_location');
     $this->Acl->allow($role, 'controllers/Widgets/add');
-    $this->Acl->allow($role, 'controllers/Widgets/edit');
+    $this->Acl->allow($role, 'controllers/Widgets/edit'); 
+   
     //we add an exit to avoid an ugly "missing views" error message
     echo "all done";
     exit;
-	}*/
+	}
 	
 	
 /**
@@ -66,8 +69,33 @@ class UsersController extends AppController {
  $this->layout = 'dashboard';
  }
  
+ public function set_location($data = null){
+		$data_back = json_decode(file_get_contents('php://input'));
+		$location = $data_back->{"location"};
+		$formData = array('location' => $location);
+		if ($this->User->save($formData)) {
+			$response = array('success' => true, 'userId' => $this->User->id,  'message' => __('My success message', true),
+			'status' => '200');
+			$this->layout = '';
+			$this->set('response', $response);
+		}
+		else {
+			$response = array('success' => false,  'userId' => $this->User->id, 'message' => __('My error message', true),
+			'status' => '200');
+			$this->layout = '';
+			$this->set('response', $response);
+		}
+		
+ }
  public function dashboard_users() {
  $this->layout = 'dashboard';
+ 
+ //see if user has selected a location
+ if(!$this->User->location) {
+ 	//echo "aint got no location set";
+	 $this->set('locationSelected', 'false');
+ }
+		
  
  $this->loadModel('Child');
  $childrenOptions = $this->Child->find('list'); 
