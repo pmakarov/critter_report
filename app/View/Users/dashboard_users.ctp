@@ -46,11 +46,14 @@
                 <div class="control-group">
                   <label class="control-label">Room:</label>
                   <div class="controls">
-                    <select id="roomList" style="width:300px" required="true">
+				  <?php 
+					echo $this->Form->input('room_id', array('required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false));
+					?>
+                   <!-- <select id="roomList" style="width:300px" required="true">
                       <option value="1">Blue</option>
                       <option value="2">Purple</option>
                       <option value="3">Yellow</option>
-                    </select>
+                    </select> -->
                   </div>
                 </div></div>
               <!--/span-->
@@ -146,17 +149,20 @@
 
 <script type="text/javascript">
 //initialize variables from PHPs
-var locationSelected = "<?php echo $locationSelected; ?>";
+var userId  = "<?php echo $userId; ?>";
+var userLocation = "<?php echo $userLocation; ?>";
 
 var warn = true;
 var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
 var _REPORT_ID = "";
 
-function setBlueRoom(){
-	console.log("yo yo in blue room fct");
+function setBlueRoom(room){
+	
+	console.log(room);
+	var ul = (room != null) ? room : "Blue";
 	var msg = {
-		"location" : "blue room"
+		"location" : ul
 	};
 	 $.ajax({
 	 	        type: "POST",
@@ -170,26 +176,28 @@ function setBlueRoom(){
 	 	            }
 	 	        },
 	 	        success: function(result) {
-	 	 	   		//TODO: Reset form, 
-	 	 	   		console.log("location:"+ result.location + " was successfully submitted by: " + result.userId + " on: " + result.date);
-	 	 	   		_REPORT_ID = result.id;
 	 	 	   		
+	 	 	   		console.log("location:"+ result.location + " was successfully submitted by: " + result.userId);
+	 	 
 	 	 	   		$("#spinner").hide();
 	 	          },
 	 	       error: function (request, status, error) {
 	 		   		alert(status + " : " + error);
-	 		        //alert(request.responseText);
-	 		   		
-	 	 	   			$("#spinner").hide();
+					$("#spinner").hide();
 	 		    }
 	 	    });
 }
 	$(document).ready(function(){
 		
-						
-						if(locationSelected === "false"){
-							alert("select room now motha, no? i'll set it for you!");
-							setBlueRoom();
+						console.log("curernt user: " + userId);
+						alert(userLocation);
+						if(userLocation === "false"){
+							//alert("select room now motha, no? i'll set it for you!");
+							setBlueRoom("Blue");
+						}
+						else
+						{
+							console.log("durrr...");
 						}
 					
 						$("#saveBtn").click(function(){
@@ -215,10 +223,12 @@ function setBlueRoom(){
 			        	    placeholder: "Select a Child"
 			        		});
 			        	
-			        	$("#roomList").select2({ 
-			        	   disabled:true
-			        		}).select2("disable"); 
-			        	
+			        	$("#room_id").select2({ 
+			        		}).select2(); 
+			        	$("#room_id").change(function(){
+							
+							console.log($("#room_id").val());
+						});
 			        	
 			        	$("#teachersList").select2({ 
 			        	    placeholder: "Select Teachers"

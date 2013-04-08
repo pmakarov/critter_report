@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2013 at 12:09 AM
+-- Generation Time: Apr 09, 2013 at 01:30 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `critter`
+-- Database: `cakeblog`
 --
 
 -- --------------------------------------------------------
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `aros` (
   `lft` int(10) DEFAULT NULL,
   `rght` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `aros`
@@ -176,10 +176,14 @@ CREATE TABLE IF NOT EXISTS `aros` (
 INSERT INTO `aros` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `rght`) VALUES
 (1, NULL, 'Role', 1, NULL, 1, 4),
 (2, NULL, 'Role', 2, NULL, 5, 8),
-(3, NULL, 'Role', 3, NULL, 9, 12),
+(3, NULL, 'Role', 3, NULL, 9, 18),
 (4, 1, 'User', 2, NULL, 2, 3),
 (5, 2, 'User', 3, NULL, 6, 7),
-(6, 3, 'User', 4, NULL, 10, 11);
+(6, 3, 'User', 4, NULL, 10, 11),
+(7, NULL, 'User', 5, NULL, 19, 20),
+(8, 3, 'User', 6, NULL, 12, 13),
+(9, 3, 'User', 7, NULL, 14, 15),
+(10, 3, 'User', 8, NULL, 16, 17);
 
 -- --------------------------------------------------------
 
@@ -197,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `aros_acos` (
   `_delete` varchar(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `aros_acos`
@@ -215,7 +219,8 @@ INSERT INTO `aros_acos` (`id`, `aro_id`, `aco_id`, `_create`, `_read`, `_update`
 (9, 3, 7, '1', '1', '1', '1'),
 (10, 3, 8, '1', '1', '1', '1'),
 (11, 3, 25, '1', '1', '1', '1'),
-(12, 3, 26, '1', '1', '1', '1');
+(12, 3, 26, '1', '1', '1', '1'),
+(13, 3, 75, '1', '1', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -384,16 +389,15 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `reports`
 --
 
 INSERT INTO `reports` (`id`, `user_id`, `status`, `child_id`, `teacher_list`, `room_id`, `daycare_center_id`, `date`, `daily_activity`, `needed_items`, `attitude`, `sleep`, `breakfast`, `lunch`, `snack`, `potty`, `notes`, `created`, `modified`) VALUES
-(1, 0, '', 1, '', 1, 1, '2013-02-27', 'banging monkeys', 'trojan x large', '', '50', 70, 70, 80, 'i think i shit myself', '', '0000-00-00 00:00:00', NULL),
-(9, 999, 'SUBMITTED', 0, 'Paul|Kate Winslut|Little Miss Moffet', 0, 0, '2003-05-13', 'went to the gym|went outside|did arts and crafts|banged horses after the monkeys ran away ;-)', 'Diapers|Wipes|Extra Clothes|Sheet|Blanket', 'Helpful|Happy|Friendly|Silly|Curious|Chatty', 'I slept from: 03:00 PM to: 07:00 PM.', 27, 77, 50, '|Potty Event- @12:00 AM it was an accident|Potty Event- @05:00 PM I made a  BM it was an accident', 'All these snippets work in all browsers. In those modern ones a little bit faster. But thatâ€™s about all. You can already use it without any worries. And some day you can just turn of the fallback.', '0000-00-00 00:00:00', NULL),
-(10, 999, 'SUBMITTED', 0, 'Kate Winslut', 0, 0, '2003-08-13', 'fuct', 'Diapers|Wipes|Sheet', 'Sad|Friendly|Teary', 'I slept from: 12:15 AM to: 04:15 PM.', 76, 89, 62, '|Potty Event- @04:15 PM I tried to go Potty my diaper was wet I went pee I made a  BM it was an accident', 'kkk', '2013-03-08 22:22:27', '2013-03-08 22:22:27');
+(10, 999, 'SUBMITTED', 2, 'Kate Winslut', 1, 1, '2004-03-13', 'went to the gym', 'Sheet', 'Friendly', 'I slept from: 01:00 PM to: 03:00 PM.', 29, 61, 69, '|Potty Event- @03:00 PM I went pee it was an accident', 'sadsf asd fsadf ', '2013-04-03 21:03:39', '2013-04-03 22:47:05'),
+(15, 999, 'SUBMITTED', 3, 'Kate Winslut', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02');
 
 -- --------------------------------------------------------
 
@@ -449,14 +453,16 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `daycare_center_id` int(11) NOT NULL,
   `name` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `rooms`
 --
 
 INSERT INTO `rooms` (`id`, `daycare_center_id`, `name`) VALUES
-(1, 1, 'Blue');
+(1, 1, 'Blue'),
+(2, 1, 'Purple'),
+(3, 1, 'Yellow');
 
 -- --------------------------------------------------------
 
@@ -487,6 +493,22 @@ INSERT INTO `teachers` (`id`, `email`, `password`, `name`, `room_id`, `employee_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tokens`
+--
+
+CREATE TABLE IF NOT EXISTS `tokens` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `token` varchar(32) DEFAULT NULL,
+  `data` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `token` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -494,20 +516,24 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
+  `email` varchar(200) NOT NULL,
+  `lastlogin` datetime NOT NULL,
+  `location` varchar(50) NOT NULL,
   `role_id` varchar(20) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `role_id`, `created`, `modified`) VALUES
-(2, 'crAdmin', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '1', '2013-03-08 00:02:47', '2013-03-08 00:02:47'),
-(3, 'crManager', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '2', '2013-03-08 00:03:15', '2013-03-08 00:03:15'),
-(4, 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '3', '2013-03-08 00:03:34', '2013-03-08 00:03:34');
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `lastlogin`, `location`, `role_id`, `created`, `modified`) VALUES
+(2, 'crAdmin', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '0000-00-00 00:00:00', '', '1', '2013-03-08 00:02:47', '2013-03-08 00:02:47'),
+(3, 'crManager', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-08 00:00:00', '', '2', '2013-03-08 00:03:15', '2013-03-08 00:03:15'),
+(4, 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-09 01:28:50', 'Blue', '3', '2013-03-08 00:03:34', '2013-04-09 01:28:50');
 
 -- --------------------------------------------------------
 

@@ -622,31 +622,7 @@ var _REPORT_ID = "";
 	 	$("#spinner").show();
 	 	$("#submitBtn").addClass("disabled");
 	 	$("#saveBtn").addClass("disabled");
-	 	/*$("#submitBtn").click(function(event){
-	 	   event.preventDefault(); 
-	 	});*/
 	 	
-	 	//var jsonObjects = [{id:1, name:"amit"}, {id:2, name:"ankit"},{id:3, name:"atin"},{id:1, name:"puneet"}];
-	 	/* 
-	 	jQuery.ajax({
-	 	          url: <Url of the action>,
-	 	          type: "POST",
-	 	          data: {students: JSON.stringify(jsonObjects) },
-	 	          dataType: "json",
-	 	          beforeSend: function(x) {
-	 	            if (x && x.overrideMimeType) {
-	 	              x.overrideMimeType("application/j-son;charset=UTF-8");
-	 	            }
-	 	          },
-	 	          success: function(result) {
-	 	 	     //Write your code here
-	 	 	     alert("success motha flower");
-	 	          }
-	 	});*/
-	 	
-	 	 //$.get("http://localhost/critter/critter.php", function(data){cb(data)});
-	 	 //$.get('https://pawsbk.ncr.disa.mil/DDOrderEntry-tsr/DDOELookup?id=Agency', function(data){cb(data)});
-	 	// console.log("Date: " + $("#datepicker").data('date'));
 	 	
 	 	 /*console.log("Child: " + $("#child_id option:selected").text());
 	 	 console.log("Teachers: " + $("#teachersList option:selected").text());

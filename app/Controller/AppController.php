@@ -39,7 +39,8 @@ class AppController extends Controller {
                 'Actions' => array('actionPath' => 'controllers')
             )
         ),
-        'Session'
+        'Session',
+		//'DebugKit.Toolbar'
     );
 	
     public $helpers = array('Js', 'Html', 'Form', 'Session');
@@ -53,4 +54,13 @@ class AppController extends Controller {
 		$this->Auth->allow('display');
 
     }
+	
+	/**
+     * Before Render
+     */
+   /* function beforeRender()
+    {
+        unset($this->data['User']['password']);
+        unset($this->data['User']['password_confirm']);
+    }*/
 }
