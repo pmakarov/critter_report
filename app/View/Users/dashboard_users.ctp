@@ -1,18 +1,15 @@
 <?php
-	echo $this->Html->css('custom-theme/jquery-ui-1.10.0.custom.css');
-	echo $this->Html->css('datepicker.css');
-	echo $this->Html->css('bootstrap-timepicker.css');
-	echo $this->Html->css('select2.css');
-	echo $this->Html->css('timepicker.css');
-  	
-  	echo $this->Html->script('jquery-ui-1.10.0.custom.min.js');
-    echo $this->Html->script('bootstrap-typeahead.js');
-    echo $this->Html->script('select2.js');
-    echo $this->Html->script('bootstrap-datepicker.js');
-    echo $this->Html->script('bootstrap-timepicker.js');
-	
-	//echo $this->fetch('script');
-       
+echo $this -> Html -> css('custom-theme/jquery-ui-1.10.0.custom.css');
+echo $this -> Html -> css('datepicker.css');
+echo $this -> Html -> css('bootstrap-timepicker.css');
+echo $this -> Html -> css('select2.css');
+echo $this -> Html -> css('timepicker.css');
+
+echo $this -> Html -> script('jquery-ui-1.10.0.custom.min.js');
+echo $this -> Html -> script('bootstrap-typeahead.js');
+echo $this -> Html -> script('select2.js');
+echo $this -> Html -> script('bootstrap-datepicker.js');
+echo $this -> Html -> script('bootstrap-timepicker.js');
 ?>
 <div class="reports form">
 <div class="wrapper">
@@ -46,14 +43,7 @@
                 <div class="control-group">
                   <label class="control-label">Room:</label>
                   <div class="controls">
-				  <?php 
-					echo $this->Form->input('room_id', array('empty'=>'Choose One', 'required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $rooms));
-					?>
-                   <!-- <select id="roomList" style="width:300px" required="true">
-                      <option value="1">Blue</option>
-                      <option value="2">Purple</option>
-                      <option value="3">Yellow</option>
-                    </select> -->
+				  	<?php echo $this->Form->input('room_id', array('empty'=>'Choose One', 'required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $rooms));?>
                   </div>
                 </div></div>
               <!--/span-->
@@ -73,21 +63,25 @@
               
  <div class="row-fluid">
  <div class="span12 well">
-	<table class="table table-striped">
+	 <!-- <table class="table table-striped">
 	 <tr><td>id</td></tr>
-	 <?php foreach ($reports as $report): ?>
+	<?php foreach ($reports as $report): ?>
 	 <tr><td><?php echo h($report['Report']['id']); ?></td></tr>
 	 <?php endforeach; ?>
-	 </table>
+	 </table> -->
  </div>
  </div>
 <div class="row-fluid">
 <div class="span12 well">
-
 	<h2>Reports</h2>
 	<table cellpadding="0" cellspacing="0" class="table table-striped">
-	<tr><td>Name</td><td>date</td><td>status</td><td>actions</td></tr>
-	<?php foreach ($childrenOptions as $child): ?>
+		<tr>
+			<td>Name</td>
+			<td>date</td>
+			<td>status</td>
+			<td>actions</td>
+		</tr>
+		<?php foreach ($childrenOptions as $child): ?>
 	<!-- <tr>
 		<td><?php echo h($child['Child']['id']); ?>&nbsp;</td>
 		<td>
@@ -107,11 +101,15 @@
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $child['Child']['id']), null, __('Are you sure you want to delete # %s?', $child['Child']['id'])); ?>
 		</td>
 	</tr> -->
-	
-	<tr><td><?php echo $child ?></td><td>4/1/13</td><td><span class="icon-edit"/> </td><td><a class="icon-chevron-right pull-right" id="submitBtn" role="button" href="javascript:alert('go to report for kidx');"></a></td></tr>
-<?php endforeach; ?>
+		<tr>
+			<td><?php echo $child ?></td>
+			<td>4/1/13</td>
+			<td><span class="icon-edit"/> </td>
+			<td><a class="icon-chevron-right pull-right" id="submitBtn" role="button" href="javascript:alert('go to report for kidx');"></a></td>
+		</tr>
+		<?php endforeach; ?>
 	</table>
-	<p>
+	
 </div>
 </div>
            </div>
@@ -132,20 +130,7 @@
       <div id="spinner" class="spinner" style="display:none;">
 		<img id="img-spinner" src="../img/spinner.gif" alt="Loading"/>
 	  </div>
-<!--
-<script src="js/jquery-1.9.0.min.js" ></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script> 
-<script src="js/modernizr-2.6.2.min.js"></script> 
-<script src="js/bootstrap-typeahead.js" type="text/javascript"></script> 
-<script src="js/select2.js" type="text/javascript"></script> 
-<script src="js/bootstrap-datepicker.js"></script> 
-<script src="js/bootstrap-timepicker.js"></script> -->
 
-
-
-<!-- <script src="js/jquery.validate.js"></script>  -->
-<!-- <script src="js/jquery.validity.js"></script>  -->
 
 <script type="text/javascript">
 //initialize variables from PHPs
@@ -157,36 +142,7 @@ var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
 var _REPORT_ID = "";
 
-function setRoom(room){
-	
-	console.log(room);
-	var ul = (room != null) ? room : "Blue";
-	var msg = {
-		"location" : ul
-	};
-	 $.ajax({
-	 	        type: "POST",
-	 	        async: false,
-	 	        data: JSON.stringify(msg),
-	 	        dataType: "JSON",
-	 	        url: '../users/set_location',
-	 	        beforeSend: function(x) {
-	 	            if (x && x.overrideMimeType) {
-	 	              x.overrideMimeType("application/j-son;charset=UTF-8");
-	 	            }
-	 	        },
-	 	        success: function(result) {
-	 	 	   		
-	 	 	   		console.log("location: was successfully submitted by: " + result.userId);
-					userLocation = room;
-	 	 	   		$("#spinner").hide();
-	 	          },
-	 	       error: function (request, status, error) {
-	 		   		alert(status + " : " + error);
-					$("#spinner").hide();
-	 		    }
-	 	    });
-}
+
 	$(document).ready(function(){
 		
 						
@@ -222,89 +178,14 @@ function setRoom(room){
 							setRoom($("#room_id option:selected").text());
 						});
 			        	
-			        	$("#teachersList").select2({ 
-			        	    placeholder: "Select Teachers"
-			        		});
 			        	
-			        	$("#neededItemsList").select2({ 
-			        	    placeholder: "Select Needed Items"
-			        		});
-			        	
-			        	$("#personalityList").select2({ 
-			        	    placeholder: "Select a Personality"
-			        		});
-			        	 
 			        	
 			        	 $('#timepicker1').timepicker({
 			        	     //defaultTime: false
 			        	 });
-			        	 $('#timepicker2').timepicker({
-			        	    // defaultTime: false
-			        	 });
-			        	 
-			        	 $('#timepicker3').timepicker({
-			        	    // defaultTime: false
-			        	 });
-			        	 
-			        	 $('#otherActivity').click(function(event){
-			        	    
-			        	     $('#otherTextInputDiv').toggle('fast');
-			        	     if(!$("#otherActivity").is(":checked")){
-			        	     	$("#otherTextInput").val("");
-			        	 	}
-			        	     
-			        	 });
-						 
-						  $('#notSleepy').click(function(event){
-			        	    
-			        	     $('#sleepyDiv').toggle();
-							 $('#sleepyDiv2').toggle();
-							
-			        	 });
+			        	
+			        	
 	
-	 					$('#otherTextInputDiv').hide();
-	
-	 					var slider =  $( "#slider" ).slider({
-	 					    range: "min"
-	 					    }); 
-	 					var options = [ "25%", "50%", "75%", "100%"];
-	 					
-	 					//how far apart each option label should appear
-	 					var width = slider.width() / (options.length);
-
-	 					//after the slider create a containing div with p tags of a set width.
-	 					slider.after('<div style="width:'+width+'" ><span style="width:' + width + 'px;display:inline-block;text-align:right">' + options.join('</span><span style="width:' + width + 'px;display:inline-block;text-align:right">') +'</span></div>');
-	 					//slider.after('<div class="ui-slider-legend"><p style="width:' + width + 'px;">' + options.join('</p><p style="width:' + width + 'px;">') +'</p></div>');
-	 					
-	 					var slider2 =  $( "#slider2" ).slider({
-	 					    range: "min"
-	 					    }); 
-	 					slider2.after('<div style="width:'+width+'" ><span style="width:' + width + 'px;display:inline-block;text-align:right">' + options.join('</span><span style="width:' + width + 'px;display:inline-block;text-align:right">') +'</span></div>');
-	 					
-
-	 					var slider3 =  $( "#slider3" ).slider({
-	 					    range: "min"
-	 					    }); 
-	 					slider3.after('<div style="width:'+width+'" ><span style="width:' + width + 'px;display:inline-block;text-align:right">' + options.join('</span><span style="width:' + width + 'px;display:inline-block;text-align:right">') +'</span></div>');
-	 					
-	 					
-	 					
-	 					$("#optionsRadios3").change(function(){
-	 					   var $this = $(this);
-	 					    if ($this.val()== "diapers") {
-	 						console.log("diapers checked");
-	 							$("#wetBoxDiv").show();
-		 					   	$("#dryBoxDiv").show();
-	 					    }
-	 					    else{
-	 						console.log("diapers unchecked");
-		 						$("#wetBoxDiv").hide();
-		 					   	$("#dryBoxDiv").hide();
-	 					    }
-	 					  
-	 					   
-	 					});
-						
 						console.log("curernt user: " + userId);
 						//alert(userLocation);
 						if(userLocation === "false"){
@@ -319,7 +200,7 @@ function setRoom(room){
 						}
 						else
 						{
-							console.log("durrr... " + userLocation);
+							//console.log("durrr... " + userLocation);
 							
 							switch(userLocation)
 							{
@@ -917,12 +798,56 @@ function setRoom(room){
 	    }
 		
 	}
-	function dismissWarning(){
-	    console.log("dismissWarning called");
-	    $("#warningTextContainer").html("");
-	    $("#warnBox").hide();
-	    warn = false;
-	}
+	
+function dismissWarning(){
+	console.log("dismissWarning called");
+	$("#warningTextContainer").html("");
+	$("#warnBox").hide();
+	warn = false;
+}
+
+//  ========== 
+//  = Set Room = 
+//  ========== 
+function setRoom(room){
+	//console.log(room);
+	var ul = (room != null) ? room : "Blue";
+	var msg = {
+		"location" : ul
+	};
+	 $.ajax({
+	 	type: "POST",
+	 	async: false,
+	 	data: JSON.stringify(msg),
+	 	dataType: "JSON",
+	 	url: '../users/set_location',
+	 	beforeSend: function(x) {
+	 		if (x && x.overrideMimeType) {
+	 			x.overrideMimeType("application/j-son;charset=UTF-8");
+	 		}
+	 	},
+	 	success: function(result) {
+	 		console.log("location: was successfully submitted by: " + result.userId);
+			userLocation = room;
+			/*$("#room_id").select2({ 
+				disabled:true,
+				}).select2("disable"); */
+			$("#room_id").popover('hide');	
+	 	 	$("#spinner").hide();
+			
+			//get report list by room filter by today's date
+			getReportsByRoom();
+		},
+		error: function (request, status, error) {
+	 		   		alert(status + " : " + error);
+					$("#spinner").hide();
+	 		    }
+	 	    });
+}
+
+function getReportsByRoom(){
+	
+}
 	</script>
 </div>
 <!-- <div class="actions">

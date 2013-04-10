@@ -89,7 +89,7 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
 							}?>
             </p>
 			<ul class="nav nav-pills">
-				<li class="active"><a href="../">Home</a></li>
+				<li class="active"><?php $this->Html->link('Home', array('controller' => 'users', 'action' => 'dashboard_users')); ?>  </li>
 				
 			</ul>
           </div><!--/.nav-collapse -->

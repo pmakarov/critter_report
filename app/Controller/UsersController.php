@@ -264,9 +264,9 @@ class UsersController extends AppController {
 	//$end = date('Y-m-d', strtotime('+1 month'));
 	//$conditions = array('Event.start <=' => $end, 'Event.end >=' => $start);
 	//$conditions = array($start);
-	$reports = $this->Report->find('all', array('conditions' => array('DATE(Report.created)' => $start)));
+	//$reports = $this->Report->find('all', array('conditions' => array('DATE(Report.created)' => $start)));
 	//var_dump($reports);
-	$this->set('reports', $reports);
+	//$this->set('reports', $reports);
 	$children = $this->Report->Child->find('list');
 	$rooms = $this->Report->Room->find('list');
 	//$daycareCenters = $this->Report->DaycareCenter->find('list');
@@ -411,29 +411,30 @@ class UsersController extends AppController {
 					// Load the user (avoid populating $this->data)
 					$current_user = $this->User->findById($this->User->id);
 					$this->set('current_user', $current_user);
-					/*if ($this->User->saveField('lastlogin', date('Y-m-d H:i:s')))
+					if ($this->User->saveField('lastlogin', date('Y-m-d H:i:s')))
 					{
-						debug($this->User->validationErrors); die();
+						$role_name = $this->User->Role->field('name', array('id' => $this->Auth->User('role_id')));
+						//group selection logic here
+						$action = 'dashboard_' . $role_name;
+					   // $this->redirect('controller' => 'users' => 'action' => $action);
+						//$this->redirect(array('controller'=>'users','action' => $action), null, false);
+						 $arr = array("login" => "true" , "redirect" => Router::url(array("controller"=>"users","action"=>$action)));
+						// $this->redirect(array('controller'=>'reports','action' => 'index'));
+						 echo json_encode($arr);
 					}
 					else
 					{
-						debug($this->User->validationErrors); die();
+						$arr = array("login" => "false" , "error" => "Login service unvailable <br> Please try again.");
+						echo json_encode($arr);
 					}
-					*/
+					
 					
 					//$id = $this->Auth->user('id'); 
 					//$fields = array('lastlogin' => date('Y-m-d H:i:s'), 'modified' => false);
 					//$this->User->id = $id;
 					//$this->User->save($fields, false, array('lastlogin'));
 				
-					$role_name = $this->User->Role->field('name', array('id' => $this->Auth->User('role_id')));
-					//group selection logic here
-					$action = 'dashboard_' . $role_name;
-				   // $this->redirect('controller' => 'users' => 'action' => $action);
-					//$this->redirect(array('controller'=>'users','action' => $action), null, false);
-			         $arr = array("login" => "true" , "redirect" => Router::url(array("controller"=>"users","action"=>$action)));
-					// $this->redirect(array('controller'=>'reports','action' => 'index'));
-			         echo json_encode($arr);
+					
 			    }  
 			    else  
 			    {  

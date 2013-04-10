@@ -94,7 +94,7 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
 	<div class="subnav">
 		<div class="container" id="menuBar">
 			<ul class="nav nav-pills">
-				<li><a href="/critter/">Home</a></li>
+				<li><?php echo $this->Html->link('Home', '/'); ?></li>
 				 <li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						Admin <!-- <b class="caret"></b> --></a>
