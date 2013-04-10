@@ -47,7 +47,7 @@
                   <label class="control-label">Room:</label>
                   <div class="controls">
 				  <?php 
-					echo $this->Form->input('room_id', array('required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false));
+					echo $this->Form->input('room_id', array('empty'=>'Choose One', 'required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $rooms));
 					?>
                    <!-- <select id="roomList" style="width:300px" required="true">
                       <option value="1">Blue</option>
@@ -157,7 +157,7 @@ var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
 var _REPORT_ID = "";
 
-function setBlueRoom(room){
+function setRoom(room){
 	
 	console.log(room);
 	var ul = (room != null) ? room : "Blue";
@@ -177,8 +177,8 @@ function setBlueRoom(room){
 	 	        },
 	 	        success: function(result) {
 	 	 	   		
-	 	 	   		console.log("location:"+ result.location + " was successfully submitted by: " + result.userId);
-	 	 
+	 	 	   		console.log("location: was successfully submitted by: " + result.userId);
+					userLocation = room;
 	 	 	   		$("#spinner").hide();
 	 	          },
 	 	       error: function (request, status, error) {
@@ -189,16 +189,7 @@ function setBlueRoom(room){
 }
 	$(document).ready(function(){
 		
-						console.log("curernt user: " + userId);
-						alert(userLocation);
-						if(userLocation === "false"){
-							//alert("select room now motha, no? i'll set it for you!");
-							setBlueRoom("Blue");
-						}
-						else
-						{
-							console.log("durrr...");
-						}
+						
 					
 						$("#saveBtn").click(function(){
 							doSave();
@@ -227,7 +218,8 @@ function setBlueRoom(room){
 			        		}).select2(); 
 			        	$("#room_id").change(function(){
 							
-							console.log($("#room_id").val());
+							//console.log($("#room_id option:selected").text());
+							setRoom($("#room_id option:selected").text());
 						});
 			        	
 			        	$("#teachersList").select2({ 
@@ -312,6 +304,48 @@ function setBlueRoom(room){
 	 					  
 	 					   
 	 					});
+						
+						console.log("curernt user: " + userId);
+						//alert(userLocation);
+						if(userLocation === "false"){
+							
+							$("#s2id_room_id").popover({
+								'content': " Select a room so we can setup your reports for the day.",
+								'title' : "<b>Hello there!</b>",
+								'html' : true
+							});
+							$("#s2id_room_id").popover('show');
+								
+						}
+						else
+						{
+							console.log("durrr... " + userLocation);
+							
+							switch(userLocation)
+							{
+								case "Blue":
+									$("#room_id").select2("val", 1);
+									break;
+									
+								case "Purple":
+									$("#room_id").select2("val", 2);
+									break;
+									
+								case "Yellow":
+									$("#room_id").select2("val", 3);
+									break;
+									
+								default:
+									break;
+							}
+									
+						
+							//console.log("Selected value is: "+ $("#room_id option:selected").text()); 
+							$("#room_id").select2({ 
+			        	   disabled:true,
+			        		}).select2("disable"); 
+							
+						}
 	 	
 	
 	});

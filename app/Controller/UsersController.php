@@ -185,9 +185,11 @@ class UsersController extends AppController {
 		$data_back = json_decode(file_get_contents('php://input'));
 		$location = $data_back->{"location"};
 		
-		$id = $this->Auth->user('id');
-		$this->User->id = $id;
-		$formData = array('id'=>$id, 'location' => $location);
+		$id = $this->User->id = $this->Auth->user('id');
+        $current_user = $this->User->findById($this->User->id);
+        $this->set('current_user', $current_user);
+		
+		$formData = array('id'=> $id, 'location' => $location);
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));
 		}
@@ -200,7 +202,11 @@ class UsersController extends AppController {
 
 			//$this->User->set('location', $location);
 			//$this->User->read(null, 1);
-			$this->User->id = $id;
+			
+			//var_dump($current_user);
+			//die();
+			
+			
 			$this->User->saveField('location', $location);
 			$response = array('success' => true, 'userId' => $id,  'message' => __('My success message', true),
 				'status' => '200');
@@ -208,6 +214,7 @@ class UsersController extends AppController {
 				$this->autoRender = false;
 			    echo json_encode($response);
 			
+				$this->Session->write('Auth.User.location', $location);
 			/*if ($this->User->saveField('location', $location)) {
 				$response = array('success' => true, 'userId' =>$id,  'message' => __('My success message', true),
 				'status' => '200');
@@ -240,6 +247,7 @@ class UsersController extends AppController {
  else
  {
 	 $this->set('userLocation', $this->Session->read('Auth.User.location'));
+	  //$current_user = $this->User->findById($this->User->id);
  }
 		
  
@@ -255,8 +263,8 @@ class UsersController extends AppController {
 	$start = date('Y-m-d');
 	//$end = date('Y-m-d', strtotime('+1 month'));
 	//$conditions = array('Event.start <=' => $end, 'Event.end >=' => $start);
-	$conditions = array($start);
-	$reports = $this->Report->find('all', array('conditions' => $conditions));
+	//$conditions = array($start);
+	$reports = $this->Report->find('all', array('conditions' => array('DATE(Report.created)' => $start)));
 	//var_dump($reports);
 	$this->set('reports', $reports);
 	$children = $this->Report->Child->find('list');

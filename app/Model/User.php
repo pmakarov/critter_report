@@ -11,7 +11,12 @@ App::uses('AuthComponent', 'Controller/Component');
 class User extends AppModel {
 
 	public function beforeSave($options = array()) {
+		if (!empty($this->data['User']['password'])) {
+		
         $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+		
+		}
+		
         return true;
     }
 
@@ -172,7 +177,7 @@ class User extends AppModel {
 			echo "<br/>" .  Security::hash($data['password_old'], null, true);
 			echo "<br/>" . $password;
 			echo "<br/>" . AuthComponent::password($data['password_old']);
-			echo "<br/>" . $data['password_old'] . " fuck " . $password;
+			echo "<br/>" . $data['password_old'] . " plus " . $password;
 		return $password === AuthComponent::password($data['password_old']);
     }
 	
