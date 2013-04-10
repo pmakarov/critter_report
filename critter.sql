@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2013 at 01:30 AM
+-- Generation Time: Apr 10, 2013 at 07:18 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `aros` (
   `lft` int(10) DEFAULT NULL,
   `rght` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `aros`
@@ -183,7 +183,12 @@ INSERT INTO `aros` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 (7, NULL, 'User', 5, NULL, 19, 20),
 (8, 3, 'User', 6, NULL, 12, 13),
 (9, 3, 'User', 7, NULL, 14, 15),
-(10, 3, 'User', 8, NULL, 16, 17);
+(10, 3, 'User', 8, NULL, 16, 17),
+(11, NULL, 'User', 9, NULL, 21, 22),
+(12, NULL, 'User', 10, NULL, 23, 24),
+(13, NULL, 'User', 11, NULL, 25, 26),
+(14, NULL, 'User', 12, NULL, 27, 28),
+(15, NULL, 'User', 13, NULL, 29, 30);
 
 -- --------------------------------------------------------
 
@@ -389,7 +394,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `reports`
@@ -397,7 +402,8 @@ CREATE TABLE IF NOT EXISTS `reports` (
 
 INSERT INTO `reports` (`id`, `user_id`, `status`, `child_id`, `teacher_list`, `room_id`, `daycare_center_id`, `date`, `daily_activity`, `needed_items`, `attitude`, `sleep`, `breakfast`, `lunch`, `snack`, `potty`, `notes`, `created`, `modified`) VALUES
 (10, 999, 'SUBMITTED', 2, 'Kate Winslut', 1, 1, '2004-03-13', 'went to the gym', 'Sheet', 'Friendly', 'I slept from: 01:00 PM to: 03:00 PM.', 29, 61, 69, '|Potty Event- @03:00 PM I went pee it was an accident', 'sadsf asd fsadf ', '2013-04-03 21:03:39', '2013-04-03 22:47:05'),
-(15, 999, 'SUBMITTED', 3, 'Kate Winslut', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02');
+(15, 999, 'SUBMITTED', 3, 'Kate Winslut', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02'),
+(16, 999, 'SUBMITTED', 2, 'Paul', 0, 0, '2004-09-13', 'Happy Happy in the Sun', '', 'Happy|Sleepy', 'I slept from: 12:15 PM to: 03:15 PM.', 21, 96, 98, '|Potty Event- @10:23 PM I went pee', 'We had a great day!', '2013-04-09 18:26:43', '2013-04-09 18:26:43');
 
 -- --------------------------------------------------------
 
@@ -524,7 +530,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
@@ -533,7 +539,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `lastlogin`, `location`, `role_id`, `created`, `modified`) VALUES
 (2, 'crAdmin', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '0000-00-00 00:00:00', '', '1', '2013-03-08 00:02:47', '2013-03-08 00:02:47'),
 (3, 'crManager', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-08 00:00:00', '', '2', '2013-03-08 00:03:15', '2013-03-08 00:03:15'),
-(4, 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-09 01:28:50', 'Blue', '3', '2013-03-08 00:03:34', '2013-04-09 01:28:50');
+(4, 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-10 12:06:56', 'Purple', '3', '2013-03-08 00:03:34', '2013-04-10 12:06:56');
 
 -- --------------------------------------------------------
 
