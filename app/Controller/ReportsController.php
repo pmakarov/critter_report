@@ -7,7 +7,8 @@ App::uses('AppController', 'Controller');
  * @property Report $Report
  */
 class ReportsController extends AppController {
-var $components = array('RequestHandler');
+public $helpers = array('Js', 'Html', 'Form', 'Session');
+var $components = array('Auth', 'Email', 'RequestHandler');
 /**
 /**
  * index method
@@ -35,6 +36,7 @@ var $components = array('RequestHandler');
 		//First I'm going to try things the hard way...
 		$id = $data_back->{"id"};
 		$userId = $data_back->{"userId"};
+		$roomId = $data_back->{"room"};
 		$status = $data_back->{"status"};
 		$date = $data_back->{"date" };
 		$childId = $data_back->{"student"};
@@ -50,7 +52,7 @@ var $components = array('RequestHandler');
 		$teacherComments = $data_back->{"teacherComments"};
 		
 		
-		$formData = array('user_id' => $userId, 'status' => $status, 'date' => $date, 'child_id' => $childId, 'teacher_list' => $teachers, 'needed_items' => $neededItems,
+		$formData = array('user_id' => $userId, 'room_id' => $roomId, 'status' => $status, 'date' => $date, 'child_id' => $childId, 'teacher_list' => $teachers, 'needed_items' => $neededItems,
 					'attitude' => $attitudes, 'sleep' => $sleepMessage, 'breakfast' => $percentageBreakfastComplete, 'lunch' => $percentageLunchComplete, 'snack' => $percentageSnackComplete,
 					'potty' => $pottyEvents, 'notes' => $teacherComments, "daily_activity" =>  $dailyActivity,);
 		if ($this->Report->save($formData)) {
@@ -139,6 +141,15 @@ var $components = array('RequestHandler');
 		$rooms = $this->Report->Room->find('list');
 		$daycareCenters = $this->Report->DaycareCenter->find('list');
 		$teachers = $this->Report->Teacher->find('list');
+		
+		
+ 		$this->set('userId', $this->Session->read('Auth.User.id'));
+		if(!$this->Session->read("Auth.User.location")) {
+			 $this->set('userLocation', 'false');
+		 }
+		 else {
+			 $this->set('userLocation', $this->Session->read('Auth.User.location'));
+		 }
 		
 		$this->set(compact('children', 'rooms', 'daycareCenters', 'teachers', 'childrenOptions_list'));
 		
@@ -319,4 +330,96 @@ var $components = array('RequestHandler');
 		$this->Session->setFlash(__('Report was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
-}
+	
+	public function get_reports($data = null){
+		
+		$data_back = json_decode(file_get_contents('php://input'));
+				$date = $data_back->{"date"};
+				$room = $data_back->{"room"};
+				
+				//$start = date('Y-m-d');
+				//$end = date('Y-m-d', strtotime('+1 month'));
+				//$conditions = array('Event.start <=' => $end, 'Event.end >=' => $start);
+				$conditions = array($date);
+				$children = $this->Report->Child->find('all');
+				//echo count($children) . "<br/>";
+				
+				$reports = $this->Report->find(
+					'all', 
+					array(
+						'conditions' => array(
+								'DATE(Report.created)' => $date,
+								'Report.room_id' => $room
+						)
+					)
+				);
+				//echo count($reports) . "<br/>";
+				
+				if( count($reports) == 0)
+				{
+					$start = date('Y-m-d');
+					$data = array();
+					    
+					foreach ($children as $key) {
+						$formData = array(
+							'user_id' => $this->Session->read('Auth.User.id'), 
+							'room_id' => $room, 
+							'status' => "DRAFT", 
+							'date' => $start, 
+							'child_id' => $key['Child']['id']);
+						
+						array_push($data, $formData);
+					}
+					
+					if($this->Report->saveAll($data))
+					{
+						
+						$response = array('success' => true,  'reports' => json_encode($data), 'message' => __('My success message', true),
+						'status' => '200');
+						$this->layout = 'ajax';
+						$this->autoRender = false;
+						echo json_encode($response);
+					}
+					else {
+						$response = array('success' => false, 'message' => __('My epic fail message', true),
+						'status' => '200');
+						$this->layout = 'ajax';
+						$this->autoRender = false;
+						echo json_encode($response);
+					}
+				}
+				else {
+				
+					$response = array('success' => true,  'reports' => json_encode($reports), 'message' => __('My success message', true),
+						'status' => '200');
+						$this->layout = 'ajax';
+						$this->autoRender = false;
+						echo json_encode($response);
+					
+				}
+				
+				
+			
+			/*if ($this->User->saveField('location', $location)) {
+				$response = array('success' => true, 'userId' =>$id,  'message' => __('My success message', true),
+				'status' => '200');
+				$this->layout = 'ajax';
+				$this->autoRender = false;
+			    echo json_encode($response);
+				//$this->layout = '';
+				//$this->set('response', $response);
+				
+			}
+			else {
+				$response = array('success' => false,  'userId' => $id, 'message' => __('My error message', true),
+				'status' => '200');
+				$this->layout = '';
+				$this->set('response', $response);
+			}*/
+		}
+		
+		
+ }
+	
+
+

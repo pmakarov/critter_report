@@ -21,11 +21,11 @@ class UsersController extends AppController {
 		// For CakePHP 2.1 and up
 		$this->Auth->allow();
 		
-		$this->Auth->allow('initDB'); // We can remove this line after we're finished
+		//$this->Auth->allow('initDB'); // We can remove this line after we're finished
 	}
 
 	//custom function to quickset ACLs Son...
-	public function initDB() {
+	/*public function initDB() {
     $role = $this->User->Role;
     //Allow admins to everything
     $role->id = 1;
@@ -53,7 +53,7 @@ class UsersController extends AppController {
     //we add an exit to avoid an ugly "missing views" error message
     echo "all done";
     exit;
-	}
+	}*/
 	
 	/**
      * Registration page for new users

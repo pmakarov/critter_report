@@ -82,25 +82,6 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
 			<td>actions</td>
 		</tr>
 		<?php foreach ($childrenOptions as $child): ?>
-	<!-- <tr>
-		<td><?php echo h($child['Child']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($child['DaycareCenter']['name'], array('controller' => 'daycare_centers', 'action' => 'view', $child['DaycareCenter']['id'])); ?>
-		</td>
-		<td><?php echo h($child['Child']['first_name']); ?>&nbsp;</td>
-		<td><?php echo h($child['Child']['middle_name']); ?>&nbsp;</td>
-		<td><?php echo h($child['Child']['last_name']); ?>&nbsp;</td>
-		<td><?php echo h($child['Child']['birthday']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($child['Room']['name'], array('controller' => 'rooms', 'action' => 'view', $child['Room']['id'])); ?>
-		</td>
-		<td><?php echo h($child['Child']['special_needs']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $child['Child']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $child['Child']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $child['Child']['id']), null, __('Are you sure you want to delete # %s?', $child['Child']['id'])); ?>
-		</td>
-	</tr> -->
 		<tr>
 			<td><?php echo $child ?></td>
 			<td>4/1/13</td>
@@ -129,6 +110,7 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
       
       <div id="spinner" class="spinner" style="display:none;">
 		<img id="img-spinner" src="../img/spinner.gif" alt="Loading"/>
+		Loading...
 	  </div>
 
 
@@ -136,6 +118,8 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
 //initialize variables from PHPs
 var userId  = "<?php echo $userId; ?>";
 var userLocation = "<?php echo $userLocation; ?>";
+
+
 
 var warn = true;
 var isValid = false;
@@ -219,16 +203,20 @@ var _REPORT_ID = "";
 								default:
 									break;
 							}
+							
+							
 									
 						
 							//console.log("Selected value is: "+ $("#room_id option:selected").text()); 
 							$("#room_id").select2({ 
 			        	   disabled:true,
 			        		}).select2("disable"); 
+			        		
+			        		getReportsByRoom();
 							
 						}
 	 	
-	
+
 	});
 	
 	function addPottyEvent(evt){
@@ -845,23 +833,61 @@ function setRoom(room){
 	 	    });
 }
 
-function getReportsByRoom(){
+function getReportsByRoom(date){
+	$("#spinner").show();
 	
+	var d = new Date();
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+	var hour = d.getHours();
+	var minute = d.getMinutes();
+	var second = d.getSeconds();
+	
+	var output = d.getFullYear() + '-' +
+	    ((''+month).length<2 ? '0' : '') + month + '-' +
+	    ((''+day).length<2 ? '0' : '') + day;
+	    
+	    /* full date string to match PHP
+	    var output = d.getFullYear() + '-' +
+	    ((''+month).length<2 ? '0' : '') + month + '-' +
+	    ((''+day).length<2 ? '0' : '') + day + ' ' +
+	    ((''+hour).length<2 ? '0' :'') + hour + ':' +
+	    ((''+minute).length<2 ? '0' :'') + minute + ':' +
+	    ((''+second).length<2 ? '0' :'') + second; */
+	    
+	var ul = (date != null) ? date : output ;
+	var msg = {
+		"date" : ul,
+		"room" : userLocation
+	};
+	
+	 
+	 $.ajax({
+			  type: "POST",
+			  async: false,
+			  data: JSON.stringify(msg),
+			  dataType: "JSON",
+			  url: '../reports/get_reports',
+			  beforeSend: function(x) {
+				  if (x && x.overrideMimeType) {
+					  x.overrideMimeType("application/j-son;charset=UTF-8");
+				  }
+			  },
+			  success: function(result) {
+				  console.log("report list generated: was successfully submitted by: " + result.success);
+				console.log(result.reports)
+				console.log(result.reports[0]);
+				 $("#spinner").hide();
+				//TODO write UI code to populate a data grid with the report list.
+				
+			 },
+			 error: function (request, status, error) {
+							 alert(status + " : " + error);
+						 $("#spinner").hide();
+					  }
+				  });
+		
+	 
 }
 	</script>
 </div>
-<!-- <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Reports'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Children'), array('controller' => 'children', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Child'), array('controller' => 'children', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Rooms'), array('controller' => 'rooms', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Room'), array('controller' => 'rooms', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Daycare Centers'), array('controller' => 'daycare_centers', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Daycare Center'), array('controller' => 'daycare_centers', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Teachers'), array('controller' => 'teachers', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Teacher'), array('controller' => 'teachers', 'action' => 'add')); ?> </li>
-	</ul>
-</div> -->

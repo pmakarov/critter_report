@@ -73,11 +73,7 @@
                 <div class="control-group">
                   <label class="control-label">Room:</label>
                   <div class="controls">
-                    <select id="roomList" style="width:300px" required="true">
-                      <option value="1">Blue</option>
-                      <option value="2">Purple</option>
-                      <option value="3">Yellow</option>
-                    </select>
+				  	<?php echo $this->Form->input('room_id', array('required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $rooms));?>
                   </div>
                 </div>
               </div>
@@ -382,6 +378,7 @@
       
       <div id="spinner" class="spinner" style="display:none;">
 		<img id="img-spinner" src="../img/spinner.gif" alt="Loading"/>
+		Loading...
 	  </div>
 <!--
 <script src="js/jquery-1.9.0.min.js" ></script> 
@@ -399,7 +396,8 @@
 <!-- <script src="js/jquery.validity.js"></script>  -->
 
 <script type="text/javascript">
-
+var userId  = "<?php echo $userId; ?>";
+var userLocation = "<?php echo $userLocation; ?>";
 var warn = true;
 var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
@@ -431,9 +429,9 @@ var _REPORT_ID = "";
 			        	    placeholder: "Select a Child"
 			        		});
 			        	
-			        	$("#roomList").select2({ 
-			        	   disabled:true
-			        		}).select2("disable"); 
+			        	$("#room_id").select2({ 
+			        	  
+			        		}); 
 			        	
 			        	
 			        	$("#teachersList").select2({ 
@@ -671,7 +669,8 @@ var _REPORT_ID = "";
 		
 		 var creatureReport = {
 		 	 "id" : _REPORT_ID,
-		 	 "userId" : "999",
+		 	 "userId" : userId,
+		 	 "room" : $("#room_id").select2("val"),
 			 "status" : _STATUS,
 			 "student" : $("#child_id option:selected").val(),
 			 "date" : $("#datepicker").data('date'),

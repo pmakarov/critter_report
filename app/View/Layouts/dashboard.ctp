@@ -36,15 +36,7 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
 </title>
  <meta name="description" content="Wrangling and reporting on your little monsters so you can determine what to do with them">
       
-       
-      
-       echo $this->Html->css('custom-theme/jquery-ui-1.10.0.custom.css');
-  	
-        <!--
-        <script src="js/jquery-1.9.0.min.js" ></script>        
-        <script src="js/modernizr-2.6.2.min.js"></script>
-        -->
-        
+     
    <?php
 		echo $this->Html->meta('icon');
 
@@ -53,6 +45,7 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
  		echo $this->Html->css('main.css');
         echo $this->Html->css('bootstrap.min.css');
         echo $this->Html->css('bootstrap-responsive.min.css');
+        echo $this->Html->css('custom-theme/jquery-ui-1.10.0.custom.css');
         echo $this->Html->css('style.css');
         echo $this->Html->script('jquery-1.9.0.min.js');
         echo $this->Html->script('modernizr-2.6.2.min.js');
