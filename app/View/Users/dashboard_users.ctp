@@ -61,8 +61,8 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
             <!--/row -->
             
               
- <div class="row-fluid">
- <div class="span12 well">
+ <div class="row-fluid" id="templateRow">
+ <div class="span12 well" id="templateContainer">
 	 <!-- <table class="table table-striped">
 	 <tr><td>id</td></tr>
 	<?php foreach ($reports as $report): ?>
@@ -71,24 +71,10 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
 	 </table> -->
  </div>
  </div>
-<div class="row-fluid">
-<div class="span12 well">
+<div class="row-fluid" id="reportGridRow">
+<div class="span12 well" id="reportGridContainer" >
 	<h2>Reports</h2>
-	<table cellpadding="0" cellspacing="0" class="table table-striped">
-		<tr>
-			<td>Name</td>
-			<td>date</td>
-			<td>status</td>
-			<td>actions</td>
-		</tr>
-		<?php foreach ($childrenOptions as $child): ?>
-		<tr>
-			<td><?php echo $child ?></td>
-			<td>4/1/13</td>
-			<td><span class="icon-edit"/> </td>
-			<td><a class="icon-chevron-right pull-right" id="submitBtn" role="button" href="javascript:alert('go to report for kidx');"></a></td>
-		</tr>
-		<?php endforeach; ?>
+	<table id="reportTable" cellpadding="0" cellspacing="0" class="table table-striped">
 	</table>
 	
 </div>
@@ -155,6 +141,7 @@ var _REPORT_ID = "";
 			        		});
 			        	
 			        	$("#room_id").select2({ 
+			        		 placeholder: "Select a Personality"
 			        		}).select2(); 
 			        	$("#room_id").change(function(){
 							
@@ -205,8 +192,6 @@ var _REPORT_ID = "";
 							}
 							
 							
-									
-						
 							//console.log("Selected value is: "+ $("#room_id option:selected").text()); 
 							$("#room_id").select2({ 
 			        	   disabled:true,
@@ -216,6 +201,16 @@ var _REPORT_ID = "";
 							
 						}
 	 	
+	 	$("tr").not(':first').hover(
+			function () {
+			
+				$(this).addClass("highlight");
+			}, 
+			function () {
+				$(this).removeClass("highlight");
+			}
+		);
+						
 
 	});
 	
@@ -799,7 +794,24 @@ function dismissWarning(){
 //  ========== 
 function setRoom(room){
 	//console.log(room);
-	var ul = (room != null) ? room : "Blue";
+	var ul = (room != null || room != 'Choose One') ? room : "Blue";
+	/*switch(ul)
+	{
+		case "Blue":
+		ul = 1;
+		break;
+		
+		case "Purple":
+		ul = 2;
+		break;
+		
+		case "Yellow":
+		ul = 3;
+		break;
+		
+		default:
+		break;
+	}*/
 	var msg = {
 		"location" : ul
 	};
@@ -817,10 +829,11 @@ function setRoom(room){
 	 	success: function(result) {
 	 		console.log("location: was successfully submitted by: " + result.userId);
 			userLocation = room;
+			console.log(userLocation + " after set_location");
 			/*$("#room_id").select2({ 
 				disabled:true,
 				}).select2("disable"); */
-			$("#room_id").popover('hide');	
+			$("#room_id").popover("destroy");	
 	 	 	$("#spinner").hide();
 			
 			//get report list by room filter by today's date
@@ -855,13 +868,33 @@ function getReportsByRoom(date){
 	    ((''+minute).length<2 ? '0' :'') + minute + ':' +
 	    ((''+second).length<2 ? '0' :'') + second; */
 	    
+	    
+	    console.log(userLocation);
+	    var hack = 0;
+	    switch(userLocation){
+	    	case "Blue":
+	    	hack = 1;
+	    	break;
+	    	
+	    	case "Purple":
+	    	hack = 2;
+	    	break;
+	    	
+	    	case "Yellow":
+	    	hack = 3;
+	    	break;
+	    	
+	    	default:
+	    	break;
+	    }
 	var ul = (date != null) ? date : output ;
+	
 	var msg = {
 		"date" : ul,
-		"room" : userLocation
+		"room" : hack
 	};
 	
-	 
+	 console.log(msg["room"] + " is teh value for room after local conversion");
 	 $.ajax({
 			  type: "POST",
 			  async: false,
@@ -874,11 +907,13 @@ function getReportsByRoom(date){
 				  }
 			  },
 			  success: function(result) {
-				  console.log("report list generated: was successfully submitted by: " + result.success);
-				console.log(result.reports)
-				console.log(result.reports[0]);
+				  console.log("report list generated: was successfully generated: " + result.success);
+				//console.log(result.reports)
+				//console.log(result.reports.count);
+				 obj = $.parseJSON(result.reports);
+				//console.log(obj.length);
+				buildReportGrid(obj);
 				 $("#spinner").hide();
-				//TODO write UI code to populate a data grid with the report list.
 				
 			 },
 			 error: function (request, status, error) {
@@ -889,5 +924,69 @@ function getReportsByRoom(date){
 		
 	 
 }
+
+function buildReportGrid(reports){
+	
+	$("#reportTable").html("");
+	$("#reportTable").append("<tr><td><strong>Name</strong></td><td><strong>Status</strong></td><td><strong class='pull-right'></strong></td><td></td></tr>");
+	$.each(reports, function(i, item) {
+    	//console.log(reports[i].status);
+    	$("#reportTable").append("<tr id="+reports[i].id+"><td>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'><!-- <a class='btn btn-danger btn-mini' href='javascript:clearReport("+reports[i].id+")'>clear <span class='icon-warning-sign'></span></a> &nbsp; &nbsp;<a class='' href='../reports/edit/"+reports[i].id+"'></a>--></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
+	});
+	$("#reportTable tr").click(function(evt){
+		console.log(this.id);
+		window.location.href = "../reports/edit/" + this.id;
+	});
+	
+	$("tr").not(':first').hover(
+			function () {
+			
+				$(this).addClass("highlight");
+			}, 
+			function () {
+				$(this).removeClass("highlight");
+			}
+		);
+}
+
+function clearReport(id){
+	$("#spinner").show();
+	
+	if(id==null || id === ""){
+		return;
+	}
+	
+	
+	var msg = {
+		"id" : ul
+	};
+	
+	 $.ajax({
+			  type: "POST",
+			  async: false,
+			  data: JSON.stringify(msg),
+			  dataType: "JSON",
+			  url: '../reports/clear_reports',
+			  beforeSend: function(x) {
+				  if (x && x.overrideMimeType) {
+					  x.overrideMimeType("application/j-son;charset=UTF-8");
+				  }
+			  },
+			  success: function(result) {
+				  console.log("report " + id+ " as successfully cleared: " + result.success);
+			
+				 $("#spinner").hide();
+			
+				
+			 },
+			 error: function (request, status, error) {
+							 alert(status + " : " + error);
+						 $("#spinner").hide();
+					  }
+				  });
+		
+	 
+}
+
 	</script>
 </div>

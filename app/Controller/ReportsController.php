@@ -340,8 +340,14 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 				//$start = date('Y-m-d');
 				//$end = date('Y-m-d', strtotime('+1 month'));
 				//$conditions = array('Event.start <=' => $end, 'Event.end >=' => $start);
+				//echo "<br/>" .  $room;
+				
 				$conditions = array($date);
-				$children = $this->Report->Child->find('all');
+				$children = $this->Report->Child->find(
+					'all',
+					array( 'order' => array('Child.last_name' => 'ASC'),
+					)
+				);
 				//echo count($children) . "<br/>";
 				
 				$reports = $this->Report->find(
@@ -350,11 +356,12 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 						'conditions' => array(
 								'DATE(Report.created)' => $date,
 								'Report.room_id' => $room
+								),
+						'order' => array('Child.last_name' => "ASC") 
 						)
-					)
 				);
-				//echo count($reports) . "<br/>";
 				
+				//Check to see if we have ANY reports; if no then let's create and insert new report shells into db
 				if( count($reports) == 0)
 				{
 					$start = date('Y-m-d');
@@ -374,6 +381,41 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 					if($this->Report->saveAll($data))
 					{
 						
+						$reports = $this->Report->find(
+							'all', 
+							array(
+								'conditions' => array(
+										'DATE(Report.created)' => $date,
+										'Report.room_id' => $room
+										),
+								'order' => array('Child.last_name' => "ASC") 
+								)
+						);
+						
+						$data = array();
+					 
+						foreach ($reports as $key) {
+							//echo "<br/>" .  $key['Report']['room_id'];
+							
+							$formData = array(
+								'id' => $key['Report']['id'],
+								'user_id' => $key['Report']['user_id'], 
+								'room_id' => $key['Report']['room_id'], 
+								'status' => $key['Report']['status'], 
+								'date' => $key['Report']['date'], 
+								'child_id' => $key['Report']['child_id']
+								);
+							
+							foreach($children as $var){
+								
+								if($var['Child']['id'] == $key['Report']['child_id'])
+								{
+									$formData['child_name'] = $var['Child']['last_name'] . ', ' . $var['Child']['first_name'];
+								}
+							}
+							
+							array_push($data, $formData);
+						}
 						$response = array('success' => true,  'reports' => json_encode($data), 'message' => __('My success message', true),
 						'status' => '200');
 						$this->layout = 'ajax';
@@ -390,7 +432,30 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 				}
 				else {
 				
-					$response = array('success' => true,  'reports' => json_encode($reports), 'message' => __('My success message', true),
+					$data = array();
+					 
+					foreach ($reports as $key) {
+						$formData = array(
+							'id' => $key['Report']['id'],
+							'user_id' => $key['Report']['user_id'], 
+							'room_id' => $key['Report']['room_id'], 
+							'status' => $key['Report']['status'], 
+							'date' => $key['Report']['date'], 
+							'child_id' => $key['Report']['child_id']
+							);
+						
+						foreach($children as $var){
+							
+							if($var['Child']['id'] == $key['Report']['child_id'])
+							{
+								$formData['child_name'] = $var['Child']['last_name'] . ', ' . $var['Child']['first_name'];
+							}
+						}
+						
+						array_push($data, $formData);
+					}
+					
+					$response = array('success' => true,  'reports' => json_encode($data), 'message' => __('My success message', true),
 						'status' => '200');
 						$this->layout = 'ajax';
 						$this->autoRender = false;
@@ -417,8 +482,29 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 				$this->set('response', $response);
 			}*/
 		}
+		public function clear_report($data = null){
 		
-		
+		$data_back = json_decode(file_get_contents('php://input'));
+		$id = $data_back->{"id"};
+		$this->Report->id =  $id;
+		$formData = array('user_id' => null, 'room_id' => null, 'status' => 'DRAFT', 
+					);
+		if ($this->Report->save($formData)) {
+			$response = array('success' => true,  'id' => $this->Report->id,
+			'message' => __('My success message', true),
+			'status' => '200');
+			$this->layout = 'ajax';
+			$this->autoRender = false;
+			$this->set('response', $response);
+		}
+		else {
+			$response = array('success' => false,  'userId' => $id, 'message' => __('My error message', true),
+				'status' => '200');
+				$this->layout = 'ajax';
+				$this->autoRender = false;
+				$this->set('response', $response);
+			}
+		}
  }
 	
 

@@ -238,6 +238,13 @@ class UsersController extends AppController {
  public function dashboard_users() {
  $this->layout = 'dashboard';
  
+ 
+ if(is_null($this->Session->read('Auth.User.id')== null))
+ {
+ 	$this->Session->setFlash(__("you've been logged out of the system"));
+	$this->redirect(array('controller'=>'users', 'action'=>'login'));
+ }
+ 
  //see if user has selected a location
  $this->set('userId', $this->Session->read('Auth.User.id'));
  

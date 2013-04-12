@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2013 at 07:55 PM
+-- Generation Time: Apr 12, 2013 at 07:21 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -35,14 +35,14 @@ CREATE TABLE IF NOT EXISTS `acos` (
   `lft` int(10) DEFAULT NULL,
   `rght` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=112 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=113 ;
 
 --
 -- Dumping data for table `acos`
 --
 
 INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `rght`) VALUES
-(1, NULL, NULL, NULL, 'controllers', 1, 222),
+(1, NULL, NULL, NULL, 'controllers', 1, 224),
 (2, 1, NULL, NULL, 'Pages', 2, 5),
 (3, 2, NULL, NULL, 'display', 3, 4),
 (4, 1, NULL, NULL, 'Posts', 6, 17),
@@ -114,7 +114,7 @@ INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 (70, 62, NULL, NULL, 'admin_add', 143, 144),
 (71, 62, NULL, NULL, 'admin_edit', 145, 146),
 (72, 62, NULL, NULL, 'admin_delete', 147, 148),
-(73, 1, NULL, NULL, 'Reports', 150, 177),
+(73, 1, NULL, NULL, 'Reports', 150, 179),
 (74, 73, NULL, NULL, 'index', 151, 152),
 (75, 73, NULL, NULL, 'ajax_function', 153, 154),
 (76, 73, NULL, NULL, 'save', 155, 156),
@@ -127,32 +127,33 @@ INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 (83, 73, NULL, NULL, 'admin_add', 169, 170),
 (84, 73, NULL, NULL, 'admin_edit', 171, 172),
 (85, 73, NULL, NULL, 'admin_delete', 173, 174),
-(86, 1, NULL, NULL, 'Rooms', 178, 199),
-(87, 86, NULL, NULL, 'index', 179, 180),
-(88, 86, NULL, NULL, 'view', 181, 182),
-(89, 86, NULL, NULL, 'add', 183, 184),
-(90, 86, NULL, NULL, 'edit', 185, 186),
-(91, 86, NULL, NULL, 'delete', 187, 188),
-(92, 86, NULL, NULL, 'admin_index', 189, 190),
-(93, 86, NULL, NULL, 'admin_view', 191, 192),
-(94, 86, NULL, NULL, 'admin_add', 193, 194),
-(95, 86, NULL, NULL, 'admin_edit', 195, 196),
-(96, 86, NULL, NULL, 'admin_delete', 197, 198),
-(97, 1, NULL, NULL, 'Teachers', 200, 221),
-(98, 97, NULL, NULL, 'index', 201, 202),
-(99, 97, NULL, NULL, 'view', 203, 204),
-(100, 97, NULL, NULL, 'add', 205, 206),
-(101, 97, NULL, NULL, 'edit', 207, 208),
-(102, 97, NULL, NULL, 'delete', 209, 210),
-(103, 97, NULL, NULL, 'admin_index', 211, 212),
-(104, 97, NULL, NULL, 'admin_view', 213, 214),
-(105, 97, NULL, NULL, 'admin_add', 215, 216),
-(106, 97, NULL, NULL, 'admin_edit', 217, 218),
-(107, 97, NULL, NULL, 'admin_delete', 219, 220),
+(86, 1, NULL, NULL, 'Rooms', 180, 201),
+(87, 86, NULL, NULL, 'index', 181, 182),
+(88, 86, NULL, NULL, 'view', 183, 184),
+(89, 86, NULL, NULL, 'add', 185, 186),
+(90, 86, NULL, NULL, 'edit', 187, 188),
+(91, 86, NULL, NULL, 'delete', 189, 190),
+(92, 86, NULL, NULL, 'admin_index', 191, 192),
+(93, 86, NULL, NULL, 'admin_view', 193, 194),
+(94, 86, NULL, NULL, 'admin_add', 195, 196),
+(95, 86, NULL, NULL, 'admin_edit', 197, 198),
+(96, 86, NULL, NULL, 'admin_delete', 199, 200),
+(97, 1, NULL, NULL, 'Teachers', 202, 223),
+(98, 97, NULL, NULL, 'index', 203, 204),
+(99, 97, NULL, NULL, 'view', 205, 206),
+(100, 97, NULL, NULL, 'add', 207, 208),
+(101, 97, NULL, NULL, 'edit', 209, 210),
+(102, 97, NULL, NULL, 'delete', 211, 212),
+(103, 97, NULL, NULL, 'admin_index', 213, 214),
+(104, 97, NULL, NULL, 'admin_view', 215, 216),
+(105, 97, NULL, NULL, 'admin_add', 217, 218),
+(106, 97, NULL, NULL, 'admin_edit', 219, 220),
+(107, 97, NULL, NULL, 'admin_delete', 221, 222),
 (108, 16, NULL, NULL, 'login', 41, 42),
 (109, 16, NULL, NULL, 'logout', 43, 44),
 (110, 73, NULL, NULL, 'get_reports', 175, 176),
-(111, 16, NULL, NULL, 'set_location', 45, 46);
+(111, 16, NULL, NULL, 'set_location', 45, 46),
+(112, 73, NULL, NULL, 'clear_report', 177, 178);
 
 -- --------------------------------------------------------
 
@@ -252,8 +253,8 @@ CREATE TABLE IF NOT EXISTS `children` (
 --
 
 INSERT INTO `children` (`id`, `daycare_center_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `room_id`, `special_needs`) VALUES
-(1, 1, 'Senya', 'Lilley', 'Makarow', '1993-02-27', 1, 'needs extra large diapers'),
-(2, 1, 'Mila', 'Christine', 'Makarov', '2010-05-29', 1, 'i like turtles '),
+(1, 1, 'Senya', 'Balls', 'Makarow', '1993-02-27', 1, 'needs extra large diapers'),
+(2, 1, 'Mila', 'Christine', 'Makarov', '2010-05-29', 1, 'i ridez the short bus.. durr...'),
 (3, 1, 'Saga', 'F', 'Arnold', '2010-08-31', 1, 'har har yar yo ho ho!');
 
 -- --------------------------------------------------------
@@ -396,26 +397,23 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=76 ;
 
 --
 -- Dumping data for table `reports`
 --
 
 INSERT INTO `reports` (`id`, `user_id`, `status`, `child_id`, `teacher_list`, `room_id`, `daycare_center_id`, `date`, `daily_activity`, `needed_items`, `attitude`, `sleep`, `breakfast`, `lunch`, `snack`, `potty`, `notes`, `created`, `modified`) VALUES
-<<<<<<< HEAD
 (10, 999, 'SUBMITTED', 2, 'Kate Winslut', 1, 1, '2004-03-13', 'went to the gym', 'Sheet', 'Friendly', 'I slept from: 01:00 PM to: 03:00 PM.', 29, 61, 69, '|Potty Event- @03:00 PM I went pee it was an accident', 'sadsf asd fsadf ', '2013-04-03 21:03:39', '2013-04-03 22:47:05'),
 (15, 999, 'SUBMITTED', 3, 'Kate Winslut', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02'),
 (16, 999, 'SUBMITTED', 2, 'Paul', 0, 0, '2004-09-13', 'Happy Happy in the Sun', '', 'Happy|Sleepy', 'I slept from: 12:15 PM to: 03:15 PM.', 21, 96, 98, '|Potty Event- @10:23 PM I went pee', 'We had a great day!', '2013-04-09 18:26:43', '2013-04-09 18:26:43'),
 (21, 4, 'SUBMITTED', 2, 'Paul|Kate Winslut|Little Miss Moffet', 3, 0, '2004-11-13', 'went outside|did arts and crafts', 'Diapers', 'Not Myself|Happy|Curious', 'I slept from: 02:15 PM to: 04:15 PM.', 93, 92, 93, '|Potty Event- @04:00 PM I went pee I made a  BM', 'asd asd sadf sadf ', '2013-04-11 16:20:25', '2013-04-11 16:20:25'),
 (25, 4, 'DRAFT', 1, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28'),
 (26, 4, 'DRAFT', 2, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28'),
-(27, 4, 'DRAFT', 3, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28');
-=======
-(10, 999, 'SUBMITTED', 2, 'Kate Winslet', 1, 1, '2004-03-13', 'went to the gym', 'Sheet', 'Friendly', 'I slept from: 01:00 PM to: 03:00 PM.', 29, 61, 69, '|Potty Event- @03:00 PM I went pee it was an accident', 'sadsf asd fsadf ', '2013-04-03 21:03:39', '2013-04-03 22:47:05'),
-(15, 999, 'SUBMITTED', 3, 'Kate Winslet', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02'),
-(16, 999, 'SUBMITTED', 2, 'Paul', 0, 0, '2004-09-13', 'Happy Happy in the Sun', '', 'Happy|Sleepy', 'I slept from: 12:15 PM to: 03:15 PM.', 21, 96, 98, '|Potty Event- @10:23 PM I went pee', 'We had a great day!', '2013-04-09 18:26:43', '2013-04-09 18:26:43');
->>>>>>> 106c29029064f2b8780795bb60644bbc40d8ff30
+(27, 4, 'DRAFT', 3, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28'),
+(73, 4, 'DRAFT', 3, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
+(74, 4, 'DRAFT', 2, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
+(75, 4, 'DRAFT', 1, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36');
 
 -- --------------------------------------------------------
 
@@ -428,14 +426,15 @@ CREATE TABLE IF NOT EXISTS `reports_teachers` (
   `report_id` int(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `reports_teachers`
 --
 
 INSERT INTO `reports_teachers` (`id`, `report_id`, `teacher_id`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 31, 1);
 
 -- --------------------------------------------------------
 
@@ -505,7 +504,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
 
 INSERT INTO `teachers` (`id`, `email`, `password`, `name`, `room_id`, `employee_type_id`, `daycare_center_id`) VALUES
 (1, 'makarov9mm@gmail.com', 'paul', 'Paul', 1, 0, 1),
-(2, 'katewinslet@exul.com', 'password', 'Kate Winslet', 1, 0, 1),
+(2, 'katewinslut@slut.com', 'password', 'Kate Winslut', 1, 0, 1),
 (3, 'fooboo@boofoo.com', 'password', 'Little Miss Moffet', 1, 0, 1);
 
 -- --------------------------------------------------------
@@ -551,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `lastlogin`, `location`, `role_id`, `created`, `modified`) VALUES
 (2, 'crAdmin', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-11 17:41:31', '', '1', '2013-03-08 00:02:47', '2013-04-11 17:41:31'),
 (3, 'crManager', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-08 00:00:00', '', '2', '2013-03-08 00:03:15', '2013-03-08 00:03:15'),
-(4, 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-11 18:02:01', 'Blue', '3', '2013-03-08 00:03:34', '2013-04-11 18:02:01');
+(4, 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-12 19:17:24', 'Blue', '3', '2013-03-08 00:03:34', '2013-04-12 19:18:42');
 
 -- --------------------------------------------------------
 
