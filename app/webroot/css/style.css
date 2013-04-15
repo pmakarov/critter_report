@@ -35,6 +35,14 @@
 	padding:20px;
 }
 
+/*table highlights */
+.highlight{
+    background-color: #D2E4F7
+}
+.table-striped tbody tr.highlight:nth-child(odd) td {
+    background-color: #D2E4F7;
+}
+
 .spinner {
 	position: fixed;
 	top: 50%;
@@ -47,7 +55,7 @@
 	overflow: auto;
 	width: 100px; /* width of the spinner gif */
 	height: 28px; /*hight of the spinner gif +2px to fix IE8 issue */
-	background:none;
+	background: #fff;
 	 -webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;

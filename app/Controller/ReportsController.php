@@ -126,7 +126,7 @@ var $components = array('Auth', 'Email', 'RequestHandler');
  * @return void
  */
 	public function add() {
-		$this->layout = 'twit';
+		$this->layout = 'dashboard';
 		
 		$this->loadModel('Teacher');
 		$teacherOptions = $this->Teacher->find('list'); 
@@ -194,10 +194,28 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 			$options = array('conditions' => array('Report.' . $this->Report->primaryKey => $id));
 			$this->request->data = $this->Report->find('first', $options);
 		}
+		
+		$this->layout = 'dashboard';
+		
+		$this->loadModel('Teacher');
+		$teacherOptions = $this->Teacher->find('list'); 
+		$this->set('teacherOptions', $teacherOptions);
+		
 		$this->loadModel('Child');
 		$childrenOptions = $this->Child->find('list'); 
 		$childrenOptions = $this->Child->find('all',array('fields' => array('first_name','last_name','id')));
 		$childrenOptions_list = Set::combine($childrenOptions, '{n}.Child.id', array('{0} {1}', '{n}.Child.first_name', '{n}.Child.last_name'));
+		
+ 		$this->set('userId', $this->Session->read('Auth.User.id'));
+		if(!$this->Session->read("Auth.User.location")) {
+			 $this->set('userLocation', 'false');
+		 }
+		 else {
+			 $this->set('userLocation', $this->Session->read('Auth.User.location'));
+		 }
+		
+		
+		
 		
 		$children = $this->Report->Child->find('list');
 		$rooms = $this->Report->Room->find('list');

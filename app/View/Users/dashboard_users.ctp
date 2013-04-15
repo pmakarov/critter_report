@@ -47,12 +47,12 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
                   </div>
                 </div></div>
               <!--/span-->
-				<div class="span6">
-                <div class="control-group">
+				<div class="span6 pull-right">
+                <div class="control-group pull-right">
                   <label class="control-label">Todays Date:</label>
                   <div class="controls">
                     <div data-date-format="mm/dd/yy" id="datepicker" class="input-append date">
-                      <input type="text" placeholder="mm/dd/yy" id="datepicker" value="" required="true">
+                      <input type="text"  placeholder="mm/dd/yy" id="datepicker" value="" required="true">
                       <span class="add-on"><i class="icon-th"></i></span> </div>
                   </div>
                 </div>
@@ -61,19 +61,73 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
             <!--/row -->
             
               
- <div class="row-fluid" id="templateRow">
- <div class="span12 well" id="templateContainer">
-	 <!-- <table class="table table-striped">
-	 <tr><td>id</td></tr>
-	<?php foreach ($reports as $report): ?>
-	 <tr><td><?php echo h($report['Report']['id']); ?></td></tr>
-	 <?php endforeach; ?>
-	 </table> -->
+ <!-- <div class="row-fluid" id="templateRow">
+ <div class="span12 well pull-right" id="templateContainer">
+	<span class="label">Default</span><span class="label label-success">Success</span><span class="label label-warning">Warning</span><span class="label label-important">Important</span><span class="label label-info">Info</span>
  </div>
- </div>
+ </div> -->
 <div class="row-fluid" id="reportGridRow">
 <div class="span12 well" id="reportGridContainer" >
-	<h2>Reports</h2>
+	
+	    <div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </a>
+                  <a href="#" class="brand">Reports</a>
+                  <div class="nav-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav pull-right">
+                    	
+                      <li class="divider-vertical"></li>
+                      <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-pencil"></span>&nbsp;Mark</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Mark Absent</a></li>
+                          
+                           <li class="divider"></li>
+                            <li class="nav-header">Clear</li>
+                          		<li><a href="#">Clear Select</a></li>
+                          		<li><a href="#">Clear All</a></li>
+                          		 <li class="divider"></li>
+                          		 <li class="nav-header">Remove</li>
+                          		<li><a href="#">Remove Select</a></li>
+                          		<li><a href="#">Remove All</a></li>
+                        </ul>
+                      </li>
+                      <li class="divider-vertical"></li>
+                      <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-envelope"></span>&nbsp;Email</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Email Select</a></li>
+                           <li class="divider"></li>
+                          <li><a href="#">Email All</a></li>
+                        </ul>
+                      </li>
+                      <li class="divider-vertical"></li>
+                      <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-print"></span>&nbsp;Print</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Print Select</a></li>
+                           <li class="divider"></li>
+                          <li><a href="#">Print All</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div><!-- /.nav-collapse -->
+                </div>
+              </div><!-- /navbar-inner -->
+            </div>
+	<!-- <div class="pull-right">
+		
+		<a href="" ><span class="icon-download-alt"></span>&nbsp; apply template</a> |
+		<a href="" class="btn btn-small"><span class="icon-pencil"></span>&nbsp; mark absent</a> | 
+		<a href="" class="btn btn-small"><span class="icon-envelope"></span>&nbsp; email</a> | 
+		<a href="" class="btn btn-small"><span class="icon-print"></span>&nbsp; print</a></div> 
+	</div> -->
+	
 	<table id="reportTable" cellpadding="0" cellspacing="0" class="table table-striped">
 	</table>
 	
@@ -151,13 +205,12 @@ var _REPORT_ID = "";
 			        	
 			        	
 			        	
-			        	 $('#timepicker1').timepicker({
-			        	     //defaultTime: false
-			        	 });
-			        	
-			        	
+			        
 	
-						console.log("curernt user: " + userId);
+						//console.log("curernt user: " + userId);
+						if(userId==="" ){
+							window.location.href = "../";
+						}
 						//alert(userLocation);
 						if(userLocation === "false"){
 							
@@ -373,7 +426,7 @@ var _REPORT_ID = "";
 		 var nl = $("#neededItemsList option:selected").map(function(){return this.text});
 		 
 		 var al = $("#personalityList option:selected").map(function(){return this.text});
-		 console.log("attitude List: " + al.get().join("|"));
+		// console.log("attitude List: " + al.get().join("|"));
 		 
 		 //get sleep status
 		 var sleepMessage = "";
@@ -382,7 +435,7 @@ var _REPORT_ID = "";
 		 }
 		 else sleepMessage = "I was not sleepy.";
 		
-		 console.log("sleep message: " + sleepMessage);
+		// console.log("sleep message: " + sleepMessage);
 		
 		
 		 var creatureReport = {
@@ -418,7 +471,7 @@ var _REPORT_ID = "";
 	 	        },
 	 	        success: function(result) {
 	 	 	   		//TODO: Reset form, 
-	 	 	   		console.log("Report id:"+ result.id +" for : " + result.student + " was successfully submitted by: " + result.userId + " on: " + result.date);
+	 	 	   		//console.log("Report id:"+ result.id +" for : " + result.student + " was successfully submitted by: " + result.userId + " on: " + result.date);
 	 	 	   		_REPORT_ID = result.id;
 	 	 	   		if(!_STATUS === "DRAFT"){
 	 	 	   			resetForm();
@@ -532,7 +585,7 @@ var _REPORT_ID = "";
 			    	else{
 			    		$(el).css('border', 'none');
 			    	}
-			    	console.log($("#otherActivity").is(":checked"));
+			    	//console.log($("#otherActivity").is(":checked"));
 	    		}
 			break;
 			
@@ -783,7 +836,7 @@ var _REPORT_ID = "";
 	}
 	
 function dismissWarning(){
-	console.log("dismissWarning called");
+	//console.log("dismissWarning called");
 	$("#warningTextContainer").html("");
 	$("#warnBox").hide();
 	warn = false;
@@ -827,9 +880,9 @@ function setRoom(room){
 	 		}
 	 	},
 	 	success: function(result) {
-	 		console.log("location: was successfully submitted by: " + result.userId);
+	 		//console.log("location: was successfully submitted by: " + result.userId);
 			userLocation = room;
-			console.log(userLocation + " after set_location");
+			//console.log(userLocation + " after set_location");
 			/*$("#room_id").select2({ 
 				disabled:true,
 				}).select2("disable"); */
@@ -869,7 +922,7 @@ function getReportsByRoom(date){
 	    ((''+second).length<2 ? '0' :'') + second; */
 	    
 	    
-	    console.log(userLocation);
+	   // console.log(userLocation);
 	    var hack = 0;
 	    switch(userLocation){
 	    	case "Blue":
@@ -894,7 +947,7 @@ function getReportsByRoom(date){
 		"room" : hack
 	};
 	
-	 console.log(msg["room"] + " is teh value for room after local conversion");
+	// console.log(msg["room"] + " is teh value for room after local conversion");
 	 $.ajax({
 			  type: "POST",
 			  async: false,
@@ -907,7 +960,7 @@ function getReportsByRoom(date){
 				  }
 			  },
 			  success: function(result) {
-				  console.log("report list generated: was successfully generated: " + result.success);
+				 // console.log("report list generated: was successfully generated: " + result.success);
 				//console.log(result.reports)
 				//console.log(result.reports.count);
 				 obj = $.parseJSON(result.reports);
@@ -934,7 +987,7 @@ function buildReportGrid(reports){
     	$("#reportTable").append("<tr id="+reports[i].id+"><td>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'><!-- <a class='btn btn-danger btn-mini' href='javascript:clearReport("+reports[i].id+")'>clear <span class='icon-warning-sign'></span></a> &nbsp; &nbsp;<a class='' href='../reports/edit/"+reports[i].id+"'></a>--></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
 	});
 	$("#reportTable tr").click(function(evt){
-		console.log(this.id);
+		//console.log(this.id);
 		window.location.href = "../reports/edit/" + this.id;
 	});
 	
@@ -973,7 +1026,7 @@ function clearReport(id){
 				  }
 			  },
 			  success: function(result) {
-				  console.log("report " + id+ " as successfully cleared: " + result.success);
+				  //console.log("report " + id+ " as successfully cleared: " + result.success);
 			
 				 $("#spinner").hide();
 			

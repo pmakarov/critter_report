@@ -377,7 +377,8 @@
       </div><!--/end Wrapper Div -->
       
       <div id="spinner" class="spinner" style="display:none;">
-		<img id="img-spinner" src="../img/spinner.gif" alt="Loading"/>
+      	<?php echo $this->Html->image('spinner.gif', array('alt' => 'Loading', 'id' => 'img-spinner')); ?>
+		<!-- <img id="img-spinner" src="../img/spinner.gif" alt="Loading"/> -->
 		Loading...
 	  </div>
 <!--

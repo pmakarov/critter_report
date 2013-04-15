@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2013 at 07:21 PM
+-- Generation Time: Apr 15, 2013 at 06:15 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -397,7 +397,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=76 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=79 ;
 
 --
 -- Dumping data for table `reports`
@@ -408,12 +408,12 @@ INSERT INTO `reports` (`id`, `user_id`, `status`, `child_id`, `teacher_list`, `r
 (15, 999, 'SUBMITTED', 3, 'Kate Winslut', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02'),
 (16, 999, 'SUBMITTED', 2, 'Paul', 0, 0, '2004-09-13', 'Happy Happy in the Sun', '', 'Happy|Sleepy', 'I slept from: 12:15 PM to: 03:15 PM.', 21, 96, 98, '|Potty Event- @10:23 PM I went pee', 'We had a great day!', '2013-04-09 18:26:43', '2013-04-09 18:26:43'),
 (21, 4, 'SUBMITTED', 2, 'Paul|Kate Winslut|Little Miss Moffet', 3, 0, '2004-11-13', 'went outside|did arts and crafts', 'Diapers', 'Not Myself|Happy|Curious', 'I slept from: 02:15 PM to: 04:15 PM.', 93, 92, 93, '|Potty Event- @04:00 PM I went pee I made a  BM', 'asd asd sadf sadf ', '2013-04-11 16:20:25', '2013-04-11 16:20:25'),
-(25, 4, 'DRAFT', 1, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28'),
-(26, 4, 'DRAFT', 2, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28'),
-(27, 4, 'DRAFT', 3, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28'),
 (73, 4, 'DRAFT', 3, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
 (74, 4, 'DRAFT', 2, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
-(75, 4, 'DRAFT', 1, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36');
+(75, 4, 'DRAFT', 1, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
+(76, 4, 'DRAFT', 3, '', 1, 0, '2013-04-15', '', '', '', '', 0, 0, 0, '', '', '2013-04-15 10:19:16', '2013-04-15 10:19:16'),
+(77, 4, 'DRAFT', 2, '', 1, 0, '2013-04-15', '', '', '', '', 0, 0, 0, '', '', '2013-04-15 10:19:16', '2013-04-15 10:19:16'),
+(78, 4, 'DRAFT', 1, '', 1, 0, '2013-04-15', '', '', '', '', 0, 0, 0, '', '', '2013-04-15 10:19:16', '2013-04-15 10:19:16');
 
 -- --------------------------------------------------------
 
@@ -550,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `lastlogin`, `location`, `role_id`, `created`, `modified`) VALUES
 (2, 'crAdmin', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-11 17:41:31', '', '1', '2013-03-08 00:02:47', '2013-04-11 17:41:31'),
 (3, 'crManager', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-08 00:00:00', '', '2', '2013-03-08 00:03:15', '2013-03-08 00:03:15'),
-(4, 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-12 19:17:24', 'Blue', '3', '2013-03-08 00:03:34', '2013-04-12 19:18:42');
+(4, 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-15 18:05:56', 'Blue', '3', '2013-03-08 00:03:34', '2013-04-15 18:06:14');
 
 -- --------------------------------------------------------
 

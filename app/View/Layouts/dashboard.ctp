@@ -69,7 +69,7 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="#" class="brand">Critter Report</a>
+          <a href="#" class="brand">Critter</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
               Logged in as <?php
