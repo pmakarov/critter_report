@@ -67,12 +67,15 @@ class UsersController extends AppController {
 					$this->Session->setFlash(__('The user has been saved'));
 					$this->redirect(array('action' => 'index'));
 				} else {
-					$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+					$message = 'The user could not be saved. Please, try again.';
+					$this->Session->setFlash($message, 'default',  array('class' => 'flash'));
 				}
 			}
 		}
 		
-		$roles = $this->User->Role->find('list');
+		//$roles = $this->Role->findById('3');
+		$roles = $this->User->Role->field('id', array('id' => '3'));
+		//var_dump($roles);
 		$this->set(compact('roles'));
 	}
 	

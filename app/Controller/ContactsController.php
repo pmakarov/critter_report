@@ -19,7 +19,7 @@ class ContactsController extends Controller {
                 } else {
                     $this->Email->from = $this->data['Contact']['name'] . ' <' . $this->data['Contact']['email'] . '>';
                 }
-                $this->Email->to = 'lababidi@gmail.com';
+                $this->Email->to = 'krain.arnold@gmail.com';
 				$this->Email->cc = 'makarov9mm@gmail.com';
                 $this->Email->subject = 'Critter request';
 				try {
