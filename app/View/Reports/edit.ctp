@@ -47,7 +47,8 @@
                         </ul>
                       </li>
                       <li class="divider-vertical"></li>
-                      <li><a href="#"> <span class="icon-envelope"></span>&nbsp;Email</a></li>
+                      <li><?php echo $this->Html->link('<span class="icon-envelope"></span>&nbsp;'. 'Email', array('action' => 'send_report', $id), array('escape' => false)); ?></li>
+                     
                       <li class="divider-vertical"></li>
                       <li><a href="#"> <span class="icon-print"></span>&nbsp;Print</a></li>
                       <li class="divider-vertical"></li>

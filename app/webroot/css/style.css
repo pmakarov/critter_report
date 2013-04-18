@@ -348,17 +348,7 @@
 	margin-top:10px;
 	margin-bottom:10px;
 }
-.teachersBox {
-	position:fixed;
-	
-	width:250px;
-	top:170;
-	right:0px;
-	padding:10px;
-	border:2px dashed #08D;
-	margin-top:10px;
-	margin-bottom:10px;
-}
+
 .AteBox {
 	position:fixed;
 	
@@ -393,11 +383,44 @@
 .needBox {
 	position:fixed;
 	
-	width:120px;
+	width:100px;
+	top:234;
+	left:300px;
+	padding:10px;
+	border:2px solid #6966AD;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.pottyBox {
+	position:fixed;
+	width:250px;
+	top:234;
+	right:0px;
+	padding:10px;
+	border:2px solid #08D;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.attitudeBox {
+	position:fixed;
+	
+	width:85px;
 	top:234;
 	left:170px;
 	padding:10px;
-	border:2px solid #6966AD;
+	border:2px dashed #f00;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.activityBox {
+	position:fixed;
+	
+	width:530px;
+	top:312;
+	left:170px;
+	border:2px solid #80AA29;
+	padding:10px;
 	margin-top:10px;
 	margin-bottom:10px;
 }

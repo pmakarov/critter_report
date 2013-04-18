@@ -64,7 +64,7 @@
 	<div class="dateBox">
 		<strong><?php echo __('Date'); ?>:</strong>
 		
-			<?php echo date('m/d/Y',strtotime($report['Report']['date'])); ?>
+			<?php echo $report['Report']['date']; ?>
 			
 	</div>
 	
@@ -117,28 +117,52 @@
 		<strong>I NEED!!!</strong>:<br/>
 		<?php echo h($report['Report']['needed_items']); ?>
 	</div>
-	
-	<div class="pottyBox">
-		<strong>Potty Events</strong>:<br/>
-		<?php 
-		$des = str_replace("|", ", ", $report['Report']['potty']); 
-		echo $des; ?>
-	</div>
-	
-	<div class="attitudeBox">
-		<strong>Today I was</strong>:<br/>
-		<?php 
-		$fes = str_replace("|", ", ", $report['Report']['attitude']); 
-		echo $fes; ?>
-	</div>
-	
-	<div class="activityBox">
-		<strong>Today we</strong>:<br/>
-		<?php 
-		$fes = str_replace("|", ", ", $report['Report']['daily_activity']); 
-		echo $fes; ?>
-	</div>
-	
+	<!--
+	<dl>
+		
+		<dt><?php echo __('Daily Activity'); ?></dt>
+		<dd>
+			<?php echo h($report['Report']['daily_activity']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Needed Iterms'); ?></dt>
+		<dd>
+			<?php echo h($report['Report']['needed_items']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Attitude'); ?></dt>
+		<dd>
+			<?php echo h($report['Report']['attitude']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Sleep'); ?></dt>
+		<dd>
+			<?php echo h($report['Report']['sleep']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Breakfast'); ?></dt>
+		<dd>
+			<?php echo h($report['Report']['breakfast']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Lunch'); ?></dt>
+		<dd>
+			<?php echo h($report['Report']['lunch']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Snack'); ?></dt>
+		<dd>
+			<?php echo h($report['Report']['snack']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Potty'); ?></dt>
+		<dd>
+			<?php echo h($report['Report']['potty']); ?>
+			&nbsp;
+		</dd>
+		
+		
+	</dl> -->
 </div>
 </div>
 </div>

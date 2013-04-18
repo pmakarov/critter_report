@@ -1,6 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
-
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Reports Controller
  *
@@ -52,7 +52,9 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 		$teacherComments = $data_back->{"teacherComments"};
 		
 		
-		$formData = array('id' => $id, 'user_id' => $userId, 'room_id' => $roomId, 'status' => $status, 'date' => $date, 'child_id' => $childId, 'teacher_list' => $teachers, 'needed_items' => $neededItems,
+	
+		
+		$formData = array('id' => $id, 'user_id' => $userId, 'room_id' => $roomId, 'status' => $status, 'date' =>  date('Y-m-d', strtotime($date)), 'child_id' => $childId, 'teacher_list' => $teachers, 'needed_items' => $neededItems,
 					'attitude' => $attitudes, 'sleep' => $sleepMessage, 'breakfast' => $percentageBreakfastComplete, 'lunch' => $percentageLunchComplete, 'snack' => $percentageSnackComplete,
 					'potty' => $pottyEvents, 'notes' => $teacherComments, "daily_activity" =>  $dailyActivity,);
 		if ($this->Report->save($formData)) {
@@ -533,6 +535,24 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 		    ini_set('memory_limit', '512M');
 		    $this->set('report', $this->Report->read(null, $id));
 		}
+		
+		public function send_report($id = null) {
+			$this->Report->id = $id;
+			 if (!$this->Report->exists()) {
+		        throw new NotFoundException(__('Invalid report'));
+		    }
+			
+			$report = $this->Report->read(null, $id);
+			
+			$Email = new CakeEmail('default');	
+			//$Email->viewVars(array($report));
+			$Email->template('critter_report');
+		    $Email->emailFormat('html');
+		    $Email->to(array('subv14@hotmail.com'));
+		    $Email->from('makarov9mm@gmail.com');
+		    $Email->send();
+		}
+				
  }
 	
 
