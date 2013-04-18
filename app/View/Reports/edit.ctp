@@ -50,6 +50,8 @@
                       <li><a href="#"> <span class="icon-envelope"></span>&nbsp;Email</a></li>
                       <li class="divider-vertical"></li>
                       <li><a href="#"> <span class="icon-print"></span>&nbsp;Print</a></li>
+                      <li class="divider-vertical"></li>
+                      <li><?php echo $this->Html->link(__('PDF'), array('action' => 'view_pdf', 'ext' => 'pdf', $id)); ?></li>
                     </ul>
                   </div><!-- /.nav-collapse -->
                 </div>
@@ -434,7 +436,7 @@ var userLocation = "<?php echo $userLocation; ?>";
 var warn = true;
 var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
-var _REPORT_ID = "";
+var _REPORT_ID = "<?php echo $id; ?>";
 	$(document).ready(function(){
 		
 						
@@ -726,7 +728,7 @@ var _REPORT_ID = "";
 	 	        async: false,
 	 	        data: JSON.stringify(creatureReport),
 	 	        dataType: "JSON",
-	 	        url: '../reports/ajax_function',
+	 	        url: '../ajax_function',
 	 	        beforeSend: function(x) {
 	 	            if (x && x.overrideMimeType) {
 	 	              x.overrideMimeType("application/j-son;charset=UTF-8");

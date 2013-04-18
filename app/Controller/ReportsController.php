@@ -52,7 +52,7 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 		$teacherComments = $data_back->{"teacherComments"};
 		
 		
-		$formData = array('user_id' => $userId, 'room_id' => $roomId, 'status' => $status, 'date' => $date, 'child_id' => $childId, 'teacher_list' => $teachers, 'needed_items' => $neededItems,
+		$formData = array('id' => $id, 'user_id' => $userId, 'room_id' => $roomId, 'status' => $status, 'date' => $date, 'child_id' => $childId, 'teacher_list' => $teachers, 'needed_items' => $neededItems,
 					'attitude' => $attitudes, 'sleep' => $sleepMessage, 'breakfast' => $percentageBreakfastComplete, 'lunch' => $percentageLunchComplete, 'snack' => $percentageSnackComplete,
 					'potty' => $pottyEvents, 'notes' => $teacherComments, "daily_activity" =>  $dailyActivity,);
 		if ($this->Report->save($formData)) {
@@ -222,7 +222,7 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 		$daycareCenters = $this->Report->DaycareCenter->find('list');
 		$teachers = $this->Report->Teacher->find('list');
 		
-		$this->set(compact('children', 'rooms', 'daycareCenters', 'teachers', 'childrenOptions_list'));
+		$this->set(compact('children', 'rooms', 'daycareCenters', 'teachers', 'childrenOptions_list', 'id'));
 	}
 
 
@@ -522,6 +522,16 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 				$this->autoRender = false;
 				$this->set('response', $response);
 			}
+		}
+		
+		public function view_pdf($id = null) {
+		    $this->Report->id = $id;
+		    if (!$this->Report->exists()) {
+		        throw new NotFoundException(__('Invalid report'));
+		    }
+		    // increase memory limit in PHP
+		    ini_set('memory_limit', '512M');
+		    $this->set('report', $this->Report->read(null, $id));
 		}
  }
 	

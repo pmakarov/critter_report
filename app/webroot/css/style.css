@@ -20,6 +20,11 @@
 	height: 150px;
 	float:left;
 }
+.panelS img {
+	width:	150px;
+	height: 56px;
+	float:left;
+}
 
 .panelL h3{
 	float:left;
@@ -48,7 +53,11 @@
 	color:#343352;
 	padding:20px;
 }
-
+.footerBlock
+{
+	position:absolute;
+	bottom:0px;
+}
 /*table highlights */
 .highlight{
     background-color: #D2E4F7
@@ -269,4 +278,126 @@
 	width:480px;
 	border:2px solid #ccc;
 	margin-bottom:20px;
+}
+
+/* =====================================================================================
+   pretty print
+   ===================================================================================== */
+  
+.roomBox {
+	position:fixed;
+	height:30px;
+	width:200px;
+	top:60;
+	left:0px;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+	font-size:20;
+}
+.nameBox {
+	position:fixed;
+	height:30px;
+	width:200px;
+	top:84;
+	left:0px;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.dateBox {
+	position:fixed;
+	height:30px;
+	width:180px;
+	top:84;
+	right:74px;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.commentsBox {
+	position:fixed;
+	
+	width:400px;
+	top:110;
+	left:0px;
+	border:2px solid #80AA29;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.sleepBox {
+	position:fixed;
+	
+	width:250px;
+	top:110;
+	right:0px;
+	border:2px dashed #6966AD;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.teachersBox {
+	position:fixed;
+	
+	width:250px;
+	top:170;
+	right:0px;
+	padding:10px;
+	border:2px dashed #08D;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.teachersBox {
+	position:fixed;
+	
+	width:250px;
+	top:170;
+	right:0px;
+	padding:10px;
+	border:2px dashed #08D;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.AteBox {
+	position:fixed;
+	
+	width:120px;
+	top:234;
+	left:0px;
+	padding:10px;
+	border:2px solid #6966AD;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.breakfastBox {
+	position:relative;
+	padding-top:10px;
+	padding-bottom:10px;
+	
+	
+}
+.lunchBox {
+	position:relative;
+	border-top:2px solid #6966AD;
+	padding-top:10px;
+	padding-bottom:10px;
+	
+}
+.snackBox {
+	position:relative;
+	border-top:2px solid #6966AD;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.needBox {
+	position:fixed;
+	
+	width:120px;
+	top:234;
+	left:170px;
+	padding:10px;
+	border:2px solid #6966AD;
+	margin-top:10px;
+	margin-bottom:10px;
 }

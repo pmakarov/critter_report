@@ -12,6 +12,7 @@
 		echo $this->Form->input('email');
 		echo $this->Form->input('password_confirm', array('label' => 'Password', 'type' => 'password'));
 		echo $this->Form->input('password', array('label' => 'Password Confirm'));
+		echo $this->Form->input('role_id', array('hidden' => true, 'selected' => '3', 'label'=>false));
 	?>
 	</fieldset>
 <?php echo $this->Form->submit(__('Submit'), array('class' => 'btn btn-success'));

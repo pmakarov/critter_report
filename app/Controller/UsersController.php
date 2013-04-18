@@ -63,9 +63,16 @@ class UsersController extends AppController {
 		if($this->request->is('post') && $this->request->data) {
 			if ($this->request->data['User']['password'] == $this->request->data['User']['password_confirm']){
 				$this->User->create();
+				//$roleId = array('role_id'=> '3');
+				//array_push($this->data, $roleId);
 				if ($this->User->save($this->data)) {
 					$this->Session->setFlash(__('The user has been saved'));
-					$this->redirect(array('action' => 'index'));
+					$id = $this->User->id;
+			        $this->request->data['User'] = array_merge($this->request->data['User'], array('id' => $id));
+			        $this->Auth->login($this->request->data['User']);
+			        //$this->redirect('/users/home');
+					$this->redirect(array('controller'=>'users','action' => 'dashboard_users'), null, false);
+					
 				} else {
 					$message = 'The user could not be saved. Please, try again.';
 					$this->Session->setFlash($message, 'default',  array('class' => 'flash'));
@@ -74,8 +81,9 @@ class UsersController extends AppController {
 		}
 		
 		//$roles = $this->Role->findById('3');
-		$roles = $this->User->Role->field('id', array('id' => '3'));
+		//$roles = $this->User->Role->field('id', array('id' => '3'));
 		//var_dump($roles);
+		$roles = $this->User->Role->find('list');
 		$this->set(compact('roles'));
 	}
 	
@@ -144,29 +152,34 @@ class UsersController extends AppController {
      */
     public function account()
     {
+    	$this->layout = "dashboard";
         // Set User's ID in model which is needed for validation
         $this->User->id = $this->Auth->user('id');
-         
+        if ($this->Auth->user()) {
         // Load the user (avoid populating $this->data)
-        $current_user = $this->User->findById($this->User->id);
-        $this->set('current_user', $current_user);
- 
-        $this->User->useValidationRules('ChangePassword');
-        $this->User->validate['password_confirm']['compare']['rule'] = array('password_match', 'password', false);
- 
-        $this->User->set($this->data);
-        if (!empty($this->data) && $this->User->validates()) {
-		
-			// old algorithm asked to hass $password w/ Auth comp but no need.
-		   $password = $this->data['User']['password'];
-			//echo AuthComponent::password($password) . "<br/>";
-			//die(); //23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9 for password hash
-            $this->User->saveField('password', $password);
- 
-            $this->Session->setFlash('Your password has been updated');
-            $this->redirect(array('action' => 'account'));
-        }       
-    }
+	        $current_user = $this->User->findById($this->User->id);
+	        $this->set('current_user', $current_user);
+	 
+	        $this->User->useValidationRules('ChangePassword');
+	        $this->User->validate['password_confirm']['compare']['rule'] = array('password_match', 'password', false);
+	 
+	        $this->User->set($this->data);
+	        if (!empty($this->data) && $this->User->validates()) {
+			
+				// old algorithm asked to hass $password w/ Auth comp but no need.
+			   $password = $this->data['User']['password'];
+				//echo AuthComponent::password($password) . "<br/>";
+				//die(); //23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9 for password hash
+	            $this->User->saveField('password', $password);
+	 
+	            $this->Session->setFlash('Your password has been updated');
+	            $this->redirect(array('action' => 'account'));
+	        }       
+    	}
+		   else{
+		   		 $this->redirect(array('action' => 'login'));
+		   }
+	}
 
 /**
 * Dashboards
@@ -244,6 +257,8 @@ class UsersController extends AppController {
  
  if(is_null($this->Session->read('Auth.User.id')== null))
  {
+ 	echo "here mother fucker";
+	die();
  	$this->Session->setFlash(__("you've been logged out of the system"));
 	$this->redirect(array('controller'=>'users', 'action'=>'login'));
  }

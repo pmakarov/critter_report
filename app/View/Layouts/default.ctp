@@ -83,9 +83,13 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
 		}
 	?>
 	</div> -->
-    <div class="panelL"> <?php echo $this->Html->image('logo.png')?>
-     
+    <div class="panelL"> <?php echo $this->Html->image('logo.png'); ?>
+     							
     </div>
+    &nbsp;<br/>
+     &nbsp;<br/>
+      &nbsp;<br/>
+    <?php echo $this->Html->image("critter2.gif", array("alt" => "Critter")); ?>
    </div>
   </div>
 </header>
