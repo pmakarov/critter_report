@@ -110,7 +110,7 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
                       <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-print"></span>&nbsp;Print</a>
                         <ul class="dropdown-menu">
-                          <li><a href="#">Print Select</a></li>
+                          <li><a href="javascript:handlePrintClick()">Print Select</a></li>
                            <li class="divider"></li>
                           <li><a href="#">Print All</a></li>
                         </ul>
@@ -984,7 +984,7 @@ function buildReportGrid(reports){
 	$("#reportTable").append("<tr><td><strong>Name</strong></td><td><strong>Status</strong></td><td><strong class='pull-right'></strong></td><td></td></tr>");
 	$.each(reports, function(i, item) {
     	//console.log(reports[i].status);
-    	$("#reportTable").append("<tr id="+reports[i].id+"><td>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'><!-- <a class='btn btn-danger btn-mini' href='javascript:clearReport("+reports[i].id+")'>clear <span class='icon-warning-sign'></span></a> &nbsp; &nbsp;<a class='' href='../reports/edit/"+reports[i].id+"'></a>--></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
+    	$("#reportTable").append("<tr id="+reports[i].id+"><td><div style='display:none;float:left;margin:0;vertical-align: middle;'><input  style='margin:0;vertical-align:middle;' type='checkbox' name='vehicle' value='Bike'>&nbsp;&nbsp;</div>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'><!-- <a class='btn btn-danger btn-mini' href='javascript:clearReport("+reports[i].id+")'>clear <span class='icon-warning-sign'></span></a> &nbsp; &nbsp;<a class='' href='../reports/edit/"+reports[i].id+"'></a>--></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
 	});
 	$("#reportTable tr").click(function(evt){
 		//console.log(this.id);
@@ -1001,7 +1001,13 @@ function buildReportGrid(reports){
 			}
 		);
 }
+function handlePrintClick(){
+	
+	
+   $("#reportTable").find('div').show();
+   $('#reportTable tr').unbind('click');//(function(event){event.preventDefault();return false;});
 
+}
 function clearReport(id){
 	$("#spinner").show();
 	
@@ -1040,6 +1046,8 @@ function clearReport(id){
 		
 	 
 }
+
+
 
 	</script>
 </div>

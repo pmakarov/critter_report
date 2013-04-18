@@ -545,12 +545,19 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 			$report = $this->Report->read(null, $id);
 			
 			$Email = new CakeEmail('default');	
-			//$Email->viewVars(array($report));
+			//$Email->viewVars(array('happy' => '123'));
+			//$Email->viewVars($report);
+			$Email->viewVars(compact('report'));
 			$Email->template('critter_report');
 		    $Email->emailFormat('html');
+			$today = date('m/d/Y');
+			$subject = 'Critter Report- ' . $today;
+			 $Email->subject($subject);
 		    $Email->to(array('subv14@hotmail.com'));
 		    $Email->from('makarov9mm@gmail.com');
 		    $Email->send();
+			
+			$this->redirect(array('controller' => 'users', 'action' => 'dashboard_users'));
 		}
 				
  }
