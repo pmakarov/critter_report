@@ -253,8 +253,8 @@ CREATE TABLE IF NOT EXISTS `children` (
 --
 
 INSERT INTO `children` (`id`, `daycare_center_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `room_id`, `special_needs`) VALUES
-(1, 1, 'Senya', 'Balls', 'Makarow', '1993-02-27', 1, 'needs extra large diapers'),
-(2, 1, 'Mila', 'Christine', 'Makarov', '2010-05-29', 1, 'i ridez the short bus.. durr...'),
+(1, 1, 'Senya', 'Gloria', 'Makarow', '1993-02-27', 1, 'needs extra large diapers'),
+(2, 1, 'Mila', 'Christine', 'Makarov', '2010-05-29', 1, 'I am a pirate.'),
 (3, 1, 'Saga', 'F', 'Arnold', '2010-08-31', 1, 'har har yar yo ho ho!');
 
 -- --------------------------------------------------------
@@ -404,10 +404,10 @@ CREATE TABLE IF NOT EXISTS `reports` (
 --
 
 INSERT INTO `reports` (`id`, `user_id`, `status`, `child_id`, `teacher_list`, `room_id`, `daycare_center_id`, `date`, `daily_activity`, `needed_items`, `attitude`, `sleep`, `breakfast`, `lunch`, `snack`, `potty`, `notes`, `created`, `modified`) VALUES
-(10, 999, 'SUBMITTED', 2, 'Kate Winslut', 1, 1, '2004-03-13', 'went to the gym', 'Sheet', 'Friendly', 'I slept from: 01:00 PM to: 03:00 PM.', 29, 61, 69, '|Potty Event- @03:00 PM I went pee it was an accident', 'sadsf asd fsadf ', '2013-04-03 21:03:39', '2013-04-03 22:47:05'),
-(15, 999, 'SUBMITTED', 3, 'Kate Winslut', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02'),
+(10, 999, 'SUBMITTED', 2, 'Kate Winslet', 1, 1, '2004-03-13', 'went to the gym', 'Sheet', 'Friendly', 'I slept from: 01:00 PM to: 03:00 PM.', 29, 61, 69, '|Potty Event- @03:00 PM I went pee it was an accident', 'sadsf asd fsadf ', '2013-04-03 21:03:39', '2013-04-03 22:47:05'),
+(15, 999, 'SUBMITTED', 3, 'Kate Winslet', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02'),
 (16, 999, 'SUBMITTED', 2, 'Paul', 0, 0, '2004-09-13', 'Happy Happy in the Sun', '', 'Happy|Sleepy', 'I slept from: 12:15 PM to: 03:15 PM.', 21, 96, 98, '|Potty Event- @10:23 PM I went pee', 'We had a great day!', '2013-04-09 18:26:43', '2013-04-09 18:26:43'),
-(21, 4, 'SUBMITTED', 2, 'Paul|Kate Winslut|Little Miss Moffet', 3, 0, '2004-11-13', 'went outside|did arts and crafts', 'Diapers', 'Not Myself|Happy|Curious', 'I slept from: 02:15 PM to: 04:15 PM.', 93, 92, 93, '|Potty Event- @04:00 PM I went pee I made a  BM', 'asd asd sadf sadf ', '2013-04-11 16:20:25', '2013-04-11 16:20:25'),
+(21, 4, 'SUBMITTED', 2, 'Paul|Kate Winslet|Little Miss Moffet', 3, 0, '2004-11-13', 'went outside|did arts and crafts', 'Diapers', 'Not Myself|Happy|Curious', 'I slept from: 02:15 PM to: 04:15 PM.', 93, 92, 93, '|Potty Event- @04:00 PM I went pee I made a  BM', 'asd asd sadf sadf ', '2013-04-11 16:20:25', '2013-04-11 16:20:25'),
 (73, 4, 'DRAFT', 3, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
 (74, 4, 'DRAFT', 2, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
 (75, 4, 'DRAFT', 1, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
@@ -504,7 +504,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
 
 INSERT INTO `teachers` (`id`, `email`, `password`, `name`, `room_id`, `employee_type_id`, `daycare_center_id`) VALUES
 (1, 'makarov9mm@gmail.com', 'paul', 'Paul', 1, 0, 1),
-(2, 'katewinslut@slut.com', 'password', 'Kate Winslut', 1, 0, 1),
+(2, 'katewinslet@actress.com', 'password', 'Kate Winslet', 1, 0, 1),
 (3, 'fooboo@boofoo.com', 'password', 'Little Miss Moffet', 1, 0, 1);
 
 -- --------------------------------------------------------
