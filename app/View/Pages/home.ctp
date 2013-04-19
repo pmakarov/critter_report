@@ -46,8 +46,8 @@ App::uses('Debugger', 'Utility');
 					</div>
 					<fieldset id="user-details">
 						<label for="username">User Name : <span class="required">*</span></label>
-						<input id="username" type="text" name="data[User][username]" value="" /> <label
-								for="password">Password: <span class="required">*</span>
+						<input id="username" type="text" name="data[User][username]" value="" /> 
+						<label for="password">Password: <span class="required">* &nbsp;<?php echo $this->Html->link('(forgot password', array('controller' => 'users', 'action' => 'recover'), array('tabindex' => '-1'));?>)</span>
 						</label> <input id="password" type="password" name="data[User][password]" value="" />
 						<div ><a id="submitBtn" class="btn" href="" role="button">Login &raquo;</a></div>
 						
@@ -268,6 +268,15 @@ You can also add some CSS styles for your pages at: APP/webroot/css.');
 <script type="text/javascript">
 	$(document).ready(function(){
 		
+		$("input").keypress(function(event) {
+		    if (event.which == 13) {
+		        event.preventDefault();
+		       // $("form").submit();
+		       $("#submitBtn").trigger('click');
+		    }
+		});
+
+
 		$("#submitBtn").click(function(event){
 			// Declare the form
 		    var form = $("#f");
@@ -295,9 +304,12 @@ You can also add some CSS styles for your pages at: APP/webroot/css.');
 			 	 	   	if(result.login === "true"){
 			 	 	   		window.location.href=result.redirect;
 			 	 	   	}
-			 	 	   	else if(result.login==="false"){
+			 	 	   	else if(result.login==="false" && result.redirect==""){
 			 	 	   		$("#loginErrorDiv").html(result.error);
-			 	 	   		$("#loginErrorDiv").toggle();
+			 	 	   		$("#loginErrorDiv").show();
+			 	 	   	}
+			 	 	   	else{
+			 	 	   		window.location.href=result.redirect;
 			 	 	   	}
 			 	},
 			 	error: function (request, status, error) {

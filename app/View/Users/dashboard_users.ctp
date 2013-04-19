@@ -17,7 +17,7 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
  <form class="cmxform" id="reportForm" method="post" action="">
   <div class="row-fluid">
     <div class="span12">
-      <div class="well" id="formContainer">
+      <div class="critterWell" id="formContainer">
         <div id="mainForm"> 
               <div id="warnBox" class="alert alert-block">
 			    <button type="button" onclick="javascript:dismissWarning();" class="close" data-dismiss="alert">&times;</button>
@@ -49,7 +49,7 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
               <!--/span-->
 				<div class="span6 pull-right">
                 <div class="control-group pull-right">
-                  <label class="control-label">Todays Date:</label>
+                  <label class="control-label">Today's Date:</label>
                   <div class="controls">
                     <div data-date-format="mm/dd/yy" id="datepicker" class="input-append date">
                       <input type="text"  placeholder="mm/dd/yy" id="datepicker" value="" required="true">
@@ -120,17 +120,19 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
                 </div>
               </div><!-- /navbar-inner -->
             </div>
-	<!-- <div class="pull-right">
-		
-		<a href="" ><span class="icon-download-alt"></span>&nbsp; apply template</a> |
-		<a href="" class="btn btn-small"><span class="icon-pencil"></span>&nbsp; mark absent</a> | 
-		<a href="" class="btn btn-small"><span class="icon-envelope"></span>&nbsp; email</a> | 
-		<a href="" class="btn btn-small"><span class="icon-print"></span>&nbsp; print</a></div> 
-	</div> -->
-	
+	<div class="row-fluid">
+		<div id="actionBar" class="nav" style="display:none">
+            <input id="selectAll" type="checkbox" value="select" name="select" style="margin:0px; vertical-align:middle" onchange="javascript:toggleSelectAll()"/>&nbsp;select / deselect all
+           <span class="alert alert-action">Action: </span> 
+           
+            	<button class="btn btn-success pull-right" type="button" onclick="javascript:handleCurrentDashboardContextAction()" title="Go">Go</button>
+            	<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+	</div>
+	<div class="row-fluid">
 	<table id="reportTable" cellpadding="0" cellspacing="0" class="table table-striped">
 	</table>
-	
+	</div>
 </div>
 </div>
            </div>
@@ -158,7 +160,7 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
 //initialize variables from PHPs
 var userId  = "<?php echo $userId; ?>";
 var userLocation = "<?php echo $userLocation; ?>";
-
+var action = "";
 
 
 var warn = true;
@@ -1003,10 +1005,17 @@ function buildReportGrid(reports){
 }
 function handlePrintClick(){
 	
-	
+	action = "PRINT";
+	$("#actionBar").show();
    $("#reportTable").find('div').show();
    $('#reportTable tr').unbind('click');//(function(event){event.preventDefault();return false;});
 
+}
+function toggleSelectAll(){
+	
+	 var status = $('#selectAll').prop("checked") ;
+	$('#reportTable').find('input:checkbox').prop('checked', status);
+	
 }
 function clearReport(id){
 	$("#spinner").show();
@@ -1046,8 +1055,5 @@ function clearReport(id){
 		
 	 
 }
-
-
-
 	</script>
 </div>

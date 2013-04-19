@@ -48,7 +48,7 @@ class User extends AppModel {
             ),
             'unique' => array(
                 'rule'      => 'isUnique',
-                'message'   => 'Already taken',
+                'message'   => 'An account already exists with this email address',
             ),
         ),
         'password' => array(

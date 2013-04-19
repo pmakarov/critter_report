@@ -61,7 +61,7 @@
  <form class="cmxform" id="reportForm" method="post" action="">
   <div class="row-fluid">
     <div class="span12">
-      <div class="well" id="formContainer">
+      <div class="critterWell" id="formContainer">
         <div id="mainForm"> 
               <div id="warnBox" class="alert alert-block">
 			    <button type="button" onclick="javascript:dismissWarning();" class="close" data-dismiss="alert">&times;</button>

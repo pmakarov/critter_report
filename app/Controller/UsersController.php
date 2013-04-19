@@ -7,7 +7,7 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 	public $helpers = array('Js', 'Html', 'Form', 'Session');
-	var $components = array('Auth', 'Email', 'RequestHandler');
+	public $components = array('Auth', 'Email', 'RequestHandler', 'MathCaptcha' => array('timer' => 3));
 	
 	public function beforeFilter() {
 		
@@ -60,22 +60,29 @@ class UsersController extends AppController {
      */
     public function register()
     {
+    	
+		
 		if($this->request->is('post') && $this->request->data) {
 			if ($this->request->data['User']['password'] == $this->request->data['User']['password_confirm']){
 				$this->User->create();
 				//$roleId = array('role_id'=> '3');
 				//array_push($this->data, $roleId);
-				if ($this->User->save($this->data)) {
-					$this->Session->setFlash(__('The user has been saved'));
-					$id = $this->User->id;
-			        $this->request->data['User'] = array_merge($this->request->data['User'], array('id' => $id));
-			        $this->Auth->login($this->request->data['User']);
-			        //$this->redirect('/users/home');
-					$this->redirect(array('controller'=>'users','action' => 'dashboard_users'), null, false);
-					
-				} else {
-					$message = 'The user could not be saved. Please, try again.';
-					$this->Session->setFlash($message, 'default',  array('class' => 'flash'));
+				if ($this->MathCaptcha->validate($this->request->data['User']['captcha'])) {
+					if ($this->User->save($this->data)) {
+						//$this->Session->setFlash(__('The user has been saved'));
+						$id = $this->User->id;
+				        $this->request->data['User'] = array_merge($this->request->data['User'], array('id' => $id));
+				        $this->Auth->login($this->request->data['User']);
+				        //$this->redirect('/users/home');
+						$this->redirect(array('controller'=>'users','action' => 'dashboard_users'), null, false);
+						
+					} else {
+						$message = 'The user could not be saved. Please, try again.';
+						$this->Session->setFlash($message, 'default',  array('class' => 'flash'));
+					}
+				}
+				else {
+					 $this->Session->setFlash('You suck motherfucker!');
 				}
 			}
 		}
@@ -83,8 +90,9 @@ class UsersController extends AppController {
 		//$roles = $this->Role->findById('3');
 		//$roles = $this->User->Role->field('id', array('id' => '3'));
 		//var_dump($roles);
+		$captcha = $this->MathCaptcha->getCaptcha();
 		$roles = $this->User->Role->find('list');
-		$this->set(compact('roles'));
+		$this->set(compact('roles', 'captcha'));
 	}
 	
 	/**
@@ -405,9 +413,11 @@ class UsersController extends AppController {
 			if ($this->request->is('ajax')) {
 		        $this->layout = 'ajax';
 				$this->autoRender = false;
-				$arr = array("login" => "false" , "error" => "Already Logged in");
-			    echo json_encode($arr);
-			    }
+				$role_name = $this->User->Role->field('name', array('id' => $this->Auth->User('role_id')));
+				$action = 'dashboard_' . $role_name;
+				$arr = array("login" => "false" , "redirect" => Router::url(array("controller"=>"users","action"=>$action)), "error" => "Already Logged in");
+			  	echo json_encode($arr);
+			}
 			else{
 				$this->Session->setFlash('You are logged in!');
 				$role_name = $this->User->Role->field('name', array('id' => $this->Auth->User('role_id')));
@@ -463,7 +473,7 @@ class UsersController extends AppController {
 			    }  
 			    else  
 			    {  
-			         $arr = array("login" => "false" , "error" => "Invalid Username or Password <br> Please try again.");
+			         $arr = array("login" => "false" , "redirect" => Router::url(array("controller"=>"users","action"=>'login')), "error" => "Invalid Username or Password <br> Please try again.");
 			         echo json_encode($arr);
 			    } 
 		 }

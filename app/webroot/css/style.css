@@ -41,6 +41,22 @@
     border-top-color: #6966AD;
     margin-top: 6px;
 }
+
+.critterWell{
+	background-color: #F5F5F5;
+	border: 1px solid #D4D4D4;
+	border-radius: 4px 4px 4px 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+	margin-bottom: 20px;
+	min-height: 20px;
+	padding: 19px;
+}
+.alert-action {
+	  background-color: #FFFFFF;
+	  background-image: url('../images/fieldgroup_grey.png');
+	  border-color: #C0C0C0;
+	  color: #333333;
+}
 #homeContainer{
 	background: #fff;
 	-webkit-border-radius: 5px;
