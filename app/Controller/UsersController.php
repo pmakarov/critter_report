@@ -82,7 +82,7 @@ class UsersController extends AppController {
 					}
 				}
 				else {
-					 $this->Session->setFlash('You suck motherfucker!');
+					 $this->Session->setFlash('Could not complete registration!');
 				}
 			}
 		}
@@ -141,7 +141,9 @@ class UsersController extends AppController {
             // Update the users password
             $password = $this->User->generatePassword();
             $this->User->id = $res['User']['id'];
-            $this->User->saveField('password', $this->Auth->password($password));
+			
+	        $this->User->saveField('password', $password);
+            //$this->User->saveField('password', $this->Auth->password($password));
             $this->set('success', true);
  
             // Send email with new password
