@@ -4,7 +4,11 @@
       <div class="critterWell" id="formContainer">
         <div id="mainForm"> 
         	<div id="flashMessage" class="flash"><?php echo $this->Session->flash(); ?></div>
-<?php echo $this->Form->create('User'); ?>
+              <div class="row-fluid">
+              <div class="span6">
+              <h3>Critter-Report is currently only being released as a closed alpha. Check back soon!</h3> If you are a childcare provider interested in automating your administrative processes, please feel free to <?php echo $this->Html->link('contact us',array('controller'=>'contacts','admin'=>false));?></div>
+                </div>
+<?php /*echo $this->Form->create('User'); ?>
 	<fieldset>
 		<legend><?php echo __('Register'); ?></legend>
 	<?php
@@ -19,7 +23,7 @@
 	?>
 	</fieldset>
 <?php echo $this->Form->submit(__('Create an account'), array('class' => 'btn btn-success'));
- echo $this->Form->end();?>
+ echo $this->Form->end();*/?>
 </div>
 </div>
 </div>
