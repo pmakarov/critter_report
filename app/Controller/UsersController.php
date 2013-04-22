@@ -108,21 +108,23 @@ class UsersController extends AppController {
             $Token = ClassRegistry::init('Token');
             $user = $this->User->findByEmail($this->data['User']['email']);
              
-            if ($user === false) {
+            if (count($user) === 0) {
                 $this->Session->setFlash('No matching user found');
                 return false;
             }
+			else {
              
-            $token = $Token->generate(array('User' => $user['User']));
-            $this->Session->setFlash('An email has been sent to your account, please follow the instructions in this email.');
-            $this->Email->to = $user['User']['email'];
-            $this->Email->subject = 'Password Recovery';
-            $this->Email->from = 'Support <support@critter.com>';
-            $this->Email->template = 'recover';
-            $this->set('user', $user);
-            $this->set('token', $token);
-            $this->Email->send();
-        }
+	            $token = $Token->generate(array('User' => $user['User']));
+	            $this->Session->setFlash('An email has been sent to your account, please follow the instructions in this email.');
+	            $this->Email->to = $user['User']['email'];
+	            $this->Email->subject = 'Password Recovery';
+	            $this->Email->from = 'Support <support@critter.com>';
+	            $this->Email->template = 'recover';
+	            $this->set('user', $user);
+	            $this->set('token', $token);
+	            $this->Email->send();
+			}
+		}
     }
      
     /**

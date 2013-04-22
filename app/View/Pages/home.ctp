@@ -265,6 +265,7 @@ You can also add some CSS styles for your pages at: APP/webroot/css.');
 	<ul><li><?php echo __d('cake_dev', 'CakePHP Tickets, Wiki pages, Roadmap'); ?></li></ul></li>
 </ul>
 -->
+<!--<?php echo $this->element('default_footer') ?>-->
 <script type="text/javascript">
 	$(document).ready(function(){
 		

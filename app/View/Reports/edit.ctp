@@ -86,8 +86,7 @@
               <div class="span6">
                 <label>Child's Name</label>
 				<?php 
-					echo $this->Form->input('child_id', array('required'=>'true', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $childrenOptions_list, 'selected' => $this->data['Report']['child_id']));
-				?>
+					echo $this->Form->input('child_id', array('required'=>'true', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $childrenOptions_list, 'selected' => $this->data['Report']['child_id']));?>
               </div>
               <!--/span-->
               <div class="span6">
@@ -108,7 +107,7 @@
                 <div class="control-group">
                   <label class="control-label">Room:</label>
                   <div class="controls">
-				  	<?php echo $this->Form->input('room_id', array('required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $rooms));?>
+				  	<?php echo $this->Form->input('room_id', array('required'=>'true', 'type'=>'select', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $rooms, 'selected' => $this->data['Report']['room_id']));?>
                   </div>
                 </div>
               </div>
@@ -120,7 +119,7 @@
 					//$options = array(1=>'One', 2=>array('name'=>'Two', 'value'=>2, 'class'=>'extra'), 3=>'Three');
 					//$options = $this->Teacher->find('list');
 					//echo $this->Form->input('teachersList', array('multiple'=>'multiple', 'required'=>'true', 'style'=>'width:300px','type'=>'select'));
-					echo $this->Form->input('teachersList', array('multiple'=>'multiple', 'required'=>'true', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $teacherOptions));
+					echo $this->Form->input('teachersList', array('multiple'=>'multiple', 'required'=>'true', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $teacherOptions, 'selected' => '1'));
 					?>
                    <!-- <select id="teachersList"  multiple="multiple" style="width:300px" required="true"> -->
 					
@@ -400,7 +399,7 @@
              
               <div class="row-fluid">
               	<div class="span12 pull-right">
-              	<div class="pull-right"><a class="btn" id="saveBtn" role="button" ><i class="icon-list-alt"></i>&nbsp;Save</a> <a id="submitBtn" class="btn btn-success" role="button" href="javascript:doSubmit();">Submit »</a></div>
+              	<div class="pull-right"><a class="btn" id="saveBtn" role="button" href="javascript:doSave()"><i class="icon-list-alt"></i>&nbsp;Save</a> <a id="submitBtn" class="btn btn-success" role="button" href="javascript:doSubmit();">Submit »</a></div>
               	</div>
               </div>
              
@@ -434,6 +433,24 @@
 <script type="text/javascript">
 var userId  = "<?php echo $userId; ?>";
 var userLocation = "<?php echo $userLocation; ?>";
+var teacherArray = "<?php echo $this->data['Report']['teacher_list']; ?>";
+
+
+if(teacherArray != null && teacherArray != "")
+{
+	teacherArray = teacherArray.split("|");
+}
+/*for (var i=0; i < teachers.lenght; i++)
+{
+	for(var j=0; j < teacherArray.length; j++)
+	{
+		if(teacherArray[j] == teachers[i].text)
+		{
+			console.log("matched on" + teacherArray[j]);
+		}
+	}
+}*/
+console.log(teacherArray[0]);
 var warn = true;
 var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
@@ -465,14 +482,23 @@ var _REPORT_ID = "<?php echo $id; ?>";
 			        	    placeholder: "Select a Child"
 			        		});
 			        	
+			        	
 			        	$("#room_id").select2({ 
 			        	  
 			        		}); 
 			        	
 			        	
 			        	$("#teachersList").select2({ 
-			        	    placeholder: "Select Teachers"
+			        	    placeholder: "Select Teachers",
+			        	    
+			        	    
 			        		});
+			        		
+			        	if(teacherArray.length > 0)
+			        	{
+			        		console.log("we got teachers " + teacherArray);
+			        		$("#teachersList").select2("val", teacherArray);
+			        	}
 			        	
 			        	$("#neededItemsList").select2({ 
 			        	    placeholder: "Select Needed Items"
@@ -619,6 +645,7 @@ var _REPORT_ID = "<?php echo $id; ?>";
 	function doSave(){
 		_STATUS = "DRAFT";
 	    submitFormData();
+	     $("html, body").animate({ scrollTop: 0 }, "slow");
 	}
 	function doSubmit()	{
 		_STATUS = "SUBMITTED";
