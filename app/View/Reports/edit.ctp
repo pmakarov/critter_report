@@ -158,7 +158,7 @@
                   <label id="activityCheckboxesTwo"   class="control-label">&nbsp;</label>
                   <div  class="controls">
                     <label class="checkbox">
-                      <input id="otherActivity" type="checkbox" value="" id="otherActivity">
+                      <input id="otherActivity" type="checkbox" value="" >
                       Other </label>
                     <div id="otherTextInputDiv">
                       <input type="text" id="otherTextInput" value="" />
@@ -266,10 +266,10 @@
              </div>
             </div>
            <div class="row-fluid">
-           <div id="pottyEventTable">
+           <div id="PottEventContainer"><div id="pottyEventLabel"><strong>Potty Events:</strong></div><div id="pottyEventTable"></div>
            </div>
             
-                  <div class="span2"> <label>&nbsp;</label><a data-toggle="modal" class="btn btn-small" role="button" href="#pottyTrainingTable">Potty Event »</a>
+                  <div class="span2"> <label>&nbsp;</label><a data-toggle="modal" class="btn btn-small" role="button" href="#pottyTrainingTable">Add Potty Event »</a>
                     <div aria-hidden="true" aria-labelledby="pottyTrainingTable" role="dialog" tabindex="-1" class="modal hide fade" id="pottyTrainingTable">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
@@ -389,7 +389,8 @@
               	<div class="control-group">
                 	<label class="control-label">Teachers' Comments</label>
                 	<div class="controls">
-                		<textarea placeholder="Today we ..." rows="6" id="teacherComments" class="field span12" required="true"></textarea>
+                		<?php echo $this->Form->input('notes', array('required'=>'true', 'type'=>'textarea', 'rows'=> '6', 'label'=>false, 'class'=>'field span12', 'placeholder' => 'Today we...', 'value' => $this->data['Report']['notes']));?>
+                		<!--<textarea placeholder="Today we ..." rows="6" id="teacherComments" class="field span12" required="true"></textarea> -->
                 	</div>
                 </div>
               </div> 
@@ -434,9 +435,34 @@
 var userId  = "<?php echo $userId; ?>";
 var userLocation = "<?php echo $userLocation; ?>";
 var teacherArray = "<?php echo $this->data['Report']['teacher_list']; ?>";
+var activities = "<?php echo $this->data['Report']['daily_activity']; ?>";
+var breakfast = "<?php echo $this->data['Report']['breakfast']; ?>";
+var lunch = "<?php echo $this->data['Report']['lunch']; ?>";
+var snack = "<?php echo $this->data['Report']['snack']; ?>";
+var attitude = "<?php echo $this->data['Report']['attitude']; ?>";
+var sleep = "<?php echo $this->data['Report']['sleep']; ?>";
+var potty = "<?php echo $this->data['Report']['potty']; ?>";
+var needed = "<?php echo $this->data['Report']['needed_items']; ?>";
+var sleep = "<?php echo $this->data['Report']['sleep']; ?>";
+
 
 if(teacherArray!= null && teacherArray != ""){
 	teacherArray = teacherArray.split("|");
+}
+if(activities!=null && activities!= ""){
+	activities = activities.split("|");
+}
+
+if(attitude!=null && attitude!= ""){
+	attitude = attitude.split("|");
+}
+
+if(potty!=null && potty!=""){
+	potty = potty.split("|");
+}
+
+if(needed!=null && needed!=""){
+	needed = needed.split("|");
 }
 
 var warn = true;
@@ -510,12 +536,57 @@ var _REPORT_ID = "<?php echo $id; ?>";
 			        	$("#neededItemsList").select2({ 
 			        	    placeholder: "Select Needed Items"
 			        		});
+			        		
+			        	if(needed.length > 0)
+			        	{
+			        		//console.log("we got teachers " + teacherArray);
+			        		
+			        		sel = new Array();
+			        		$("#neededItemsList option").each(function() {
+							    // add $(this).val() to your list
+							    for(var i=0; i < needed.length; i++)
+							    {
+							    	if(needed[i] == $(this).text()){
+							    		
+							    		//console.log("match");
+							    		//$(this).select
+							    		//$(this).selected = true;
+							    		sel.push($(this).val());
+							    	
+							    	}
+							    }
+							   // console.log($(this).text());
+							});
+							$("#neededItemsList").select2("val", sel);
+							sell = null;
+			        	}
 			        	
 			        	$("#personalityList").select2({ 
 			        	    placeholder: "Select a Personality"
 			        		});
 			        	 
+			        	 if(attitude.length > 0){
+			        	 	sel = new Array();
+			        		$("#personalityList option").each(function() {
+							    // add $(this).val() to your list
+							    for(var i=0; i < attitude.length; i++)
+							    {
+							    	if(attitude[i] == $(this).text()){
+							    		
+							    		//console.log("match");
+							    		//$(this).select
+							    		//$(this).selected = true;
+							    		sel.push($(this).val());
+							    	
+							    	}
+							    }
+							   // console.log($(this).text());
+							});
+							$("#personalityList").select2("val", sel);
+							sell = null;
+			        	 }
 			        	
+			        	//sleep start and end pickers
 			        	 $('#timepicker1').timepicker({
 			        	     //defaultTime: false
 			        	 });
@@ -523,6 +594,26 @@ var _REPORT_ID = "<?php echo $id; ?>";
 			        	    // defaultTime: false
 			        	 });
 			        	 
+			        	 
+			        	 if(sleep!=null && sleep !="")
+			        	 {
+			        	 	if(sleep === "I was not sleepy."){
+			        	 		$("#notSleepy").prop('checked', 'checked');
+			        	 		$('#sleepyDiv').hide();
+							 	$('#sleepyDiv2').hide();
+			        	 	}
+			        	 	else {
+			        	 		var started = sleep.replace("I slept from: ","");
+			        	 		var start = started.split("to: ")[0];
+			        	 		var end = started.split("to: ")[1]
+			        	 		console.log(start + " " +  end);
+			        	 		$("#timepicker1").val(start);
+			        	 		$("#timepicker2").val(end);
+			        	 		
+			        	 	}
+			        	 }
+			        	 
+			        	 //potty event picker
 			        	 $('#timepicker3').timepicker({
 			        	    // defaultTime: false
 			        	 });
@@ -556,18 +647,19 @@ var _REPORT_ID = "<?php echo $id; ?>";
 	 					//after the slider create a containing div with p tags of a set width.
 	 					slider.after('<div style="width:'+width+'" ><span style="width:' + width + 'px;display:inline-block;text-align:right">' + options.join('</span><span style="width:' + width + 'px;display:inline-block;text-align:right">') +'</span></div>');
 	 					//slider.after('<div class="ui-slider-legend"><p style="width:' + width + 'px;">' + options.join('</p><p style="width:' + width + 'px;">') +'</p></div>');
+	 					slider.slider('value',breakfast);
 	 					
 	 					var slider2 =  $( "#slider2" ).slider({
 	 					    range: "min"
 	 					    }); 
 	 					slider2.after('<div style="width:'+width+'" ><span style="width:' + width + 'px;display:inline-block;text-align:right">' + options.join('</span><span style="width:' + width + 'px;display:inline-block;text-align:right">') +'</span></div>');
-	 					
+	 					slider2.slider('value', lunch);
 
 	 					var slider3 =  $( "#slider3" ).slider({
 	 					    range: "min"
 	 					    }); 
 	 					slider3.after('<div style="width:'+width+'" ><span style="width:' + width + 'px;display:inline-block;text-align:right">' + options.join('</span><span style="width:' + width + 'px;display:inline-block;text-align:right">') +'</span></div>');
-	 					
+	 					slider3.slider('value', snack);
 	 					
 	 					
 	 					$("#optionsRadios3").change(function(){
@@ -585,6 +677,34 @@ var _REPORT_ID = "<?php echo $id; ?>";
 	 					  
 	 					   
 	 					});
+	 					
+	 					if(activities.length > 0){
+	 						
+	 						$("#activityCheckboxesOneDiv input").each(function(){
+		 						for(var i=0; i < activities.length; i++){
+		 							if(activities[i] === $(this).val())
+		 							{
+		 								$(this).prop('checked', 'checked');
+		 							}
+		 							if(activities[i].indexOf("other::")>-1){
+		 								$("#otherActivity").prop('checked', 'checked');
+		 								$("#otherTextInput").val(activities[i].split("::")[1]);
+		 								$("#otherTextInputDiv").show();
+		 							}
+		 						}
+	 						});
+	 						
+	 						
+	 					}
+	 					
+	 					if(potty.length > 0){
+	 						for(var i =0; i < potty.length; i++){
+	 							var pottyEventItem = $('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>'+potty[i]+'</div>');
+								pottyEventItem.appendTo("#pottyEventTable");
+	 						}
+	 						
+							$("#pottyEventLable").show();
+	 					}
 	 	
 	
 	});
@@ -643,9 +763,9 @@ var _REPORT_ID = "<?php echo $id; ?>";
 			msg += " " +  accidentMsg;
 	    }
 	    
-	    var pottyEventItem = $('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Potty Event- </strong>'+msg+'</div>');
+	    var pottyEventItem = $('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>'+msg+'</div>');
 		pottyEventItem.appendTo("#pottyEventTable");
-		
+		$("#pottyEventLable").show();
 		//reset potty event form:
 		$("#pottyTrainingTable input").attr('checked', false);
 	}
@@ -717,7 +837,7 @@ var _REPORT_ID = "<?php echo $id; ?>";
 		 activityString = dl.get().join("|");
 		 if($("#otherActivity").is(':checked')){
 		     
-		     var otherActString = $("#otherTextInput").val();
+		     var otherActString = "other::" + $("#otherTextInput").val();
 		     activityString = (activityString==="") ? otherActString : activityString+ "|"+otherActString;
 		 }
 		 
@@ -725,7 +845,7 @@ var _REPORT_ID = "<?php echo $id; ?>";
 		 var nl = $("#neededItemsList option:selected").map(function(){return this.text});
 		 
 		 var al = $("#personalityList option:selected").map(function(){return this.text});
-		 console.log("attitude List: " + al.get().join("|"));
+		// console.log("attitude List: " + al.get().join("|"));
 		 
 		 //get sleep status
 		 var sleepMessage = "";
@@ -734,8 +854,12 @@ var _REPORT_ID = "<?php echo $id; ?>";
 		 }
 		 else sleepMessage = "I was not sleepy.";
 		
-		 console.log("sleep message: " + sleepMessage);
-		
+		// console.log("sleep message: " + sleepMessage);
+		//console.log($("#pottyEventTable div").text().split("×").join("|"));
+		var idk = $("#pottyEventTable div").text().split("×").join("|");
+		idk = idk.substr(1, idk.length);
+		var wtf = idk;
+		console.log(wtf);
 		
 		 var creatureReport = {
 		 	 "id" : _REPORT_ID,
@@ -752,8 +876,8 @@ var _REPORT_ID = "<?php echo $id; ?>";
 			 "percentageBreakfastComplete" : $('#slider').slider("option", "value"),
 		 	 "percentageLunchComplete" : $('#slider2').slider("option", "value"),
 		 	 "percentageSnackComplete" : $('#slider3').slider("option", "value"),
-		 	 "pottyEvents" : $("#pottyEventTable div").text().split("×").join("|"),
-		 	 "teacherComments" : $("#teacherComments").val()
+		 	 "pottyEvents" : wtf,
+		 	 "teacherComments" : $("#notes").val()
 			 
 		 }
 	 	 	 	 
@@ -885,7 +1009,7 @@ var _REPORT_ID = "<?php echo $id; ?>";
 			    	else{
 			    		$(el).css('border', 'none');
 			    	}
-			    	console.log($("#otherActivity").is(":checked"));
+			    	//console.log($("#otherActivity").is(":checked"));
 	    		}
 			break;
 			
