@@ -119,7 +119,7 @@
 					//$options = array(1=>'One', 2=>array('name'=>'Two', 'value'=>2, 'class'=>'extra'), 3=>'Three');
 					//$options = $this->Teacher->find('list');
 					//echo $this->Form->input('teachersList', array('multiple'=>'multiple', 'required'=>'true', 'style'=>'width:300px','type'=>'select'));
-					echo $this->Form->input('teachersList', array('multiple'=>'multiple', 'required'=>'true', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $teacherOptions, 'selected' => '1'));
+					echo $this->Form->input('teachersList', array('multiple'=>'multiple', 'required'=>'true', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $teacherOptions));
 					?>
                    <!-- <select id="teachersList"  multiple="multiple" style="width:300px" required="true"> -->
 					
@@ -435,22 +435,10 @@ var userId  = "<?php echo $userId; ?>";
 var userLocation = "<?php echo $userLocation; ?>";
 var teacherArray = "<?php echo $this->data['Report']['teacher_list']; ?>";
 
-
-if(teacherArray != null && teacherArray != "")
-{
+if(teacherArray!= null && teacherArray != ""){
 	teacherArray = teacherArray.split("|");
 }
-/*for (var i=0; i < teachers.lenght; i++)
-{
-	for(var j=0; j < teacherArray.length; j++)
-	{
-		if(teacherArray[j] == teachers[i].text)
-		{
-			console.log("matched on" + teacherArray[j]);
-		}
-	}
-}*/
-console.log(teacherArray[0]);
+
 var warn = true;
 var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
@@ -496,10 +484,29 @@ var _REPORT_ID = "<?php echo $id; ?>";
 			        		
 			        	if(teacherArray.length > 0)
 			        	{
-			        		console.log("we got teachers " + teacherArray);
-			        		$("#teachersList").select2("val", teacherArray);
+			        		//console.log("we got teachers " + teacherArray);
+			        		
+			        		sel = new Array();
+			        		$("#teachersList option").each(function() {
+							    // add $(this).val() to your list
+							    for(var i=0; i < teacherArray.length; i++)
+							    {
+							    	if(teacherArray[i] == $(this).text()){
+							    		
+							    		//console.log("match");
+							    		//$(this).select
+							    		//$(this).selected = true;
+							    		sel.push($(this).val());
+							    	
+							    	}
+							    }
+							   // console.log($(this).text());
+							});
+							$("#teachersList").select2("val", sel);
+							sell = null;
 			        	}
 			        	
+									        	
 			        	$("#neededItemsList").select2({ 
 			        	    placeholder: "Select Needed Items"
 			        		});
