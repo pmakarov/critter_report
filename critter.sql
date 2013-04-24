@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2013 at 10:48 AM
+-- Generation Time: Apr 24, 2013 at 07:05 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `critter`
+-- Database: `cakeblog`
 --
 
 -- --------------------------------------------------------
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `aros` (
   `lft` int(10) DEFAULT NULL,
   `rght` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 --
 -- Dumping data for table `aros`
@@ -179,22 +179,39 @@ CREATE TABLE IF NOT EXISTS `aros` (
 INSERT INTO `aros` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `rght`) VALUES
 (1, NULL, 'Role', 1, NULL, 1, 4),
 (2, NULL, 'Role', 2, NULL, 5, 8),
-(3, NULL, 'Role', 3, NULL, 9, 26),
+(3, NULL, 'Role', 3, NULL, 9, 50),
 (4, 1, 'User', 2, NULL, 2, 3),
 (5, 2, 'User', 3, NULL, 6, 7),
 (6, 3, 'User', 4, NULL, 10, 11),
-(7, 3, 'User', 5, NULL, 22, 23),
+(7, NULL, 'User', 5, NULL, 51, 52),
 (8, 3, 'User', 6, NULL, 12, 13),
 (9, 3, 'User', 7, NULL, 14, 15),
 (10, 3, 'User', 8, NULL, 16, 17),
-(11, NULL, 'User', 9, NULL, 27, 28),
-(12, NULL, 'User', 10, NULL, 29, 30),
-(13, NULL, 'User', 11, NULL, 31, 32),
-(14, NULL, 'User', 12, NULL, 33, 34),
-(15, NULL, 'User', 13, NULL, 35, 36),
-(16, 3, 'User', 5, NULL, 18, 19),
-(17, 3, 'User', 6, NULL, 20, 21),
-(18, 3, 'User', 7, NULL, 24, 25);
+(11, 3, 'User', 9, NULL, 20, 21),
+(12, NULL, 'User', 10, NULL, 53, 54),
+(13, NULL, 'User', 11, NULL, 55, 56),
+(14, NULL, 'User', 12, NULL, 57, 58),
+(15, NULL, 'User', 13, NULL, 59, 60),
+(16, NULL, 'User', 5, NULL, 61, 62),
+(17, NULL, 'User', 5, NULL, 63, 64),
+(18, NULL, 'User', 6, NULL, 65, 66),
+(19, NULL, 'User', 7, NULL, 67, 68),
+(20, NULL, 'User', 8, NULL, 69, 70),
+(21, 3, 'User', 9, NULL, 18, 19),
+(22, 3, 'User', 10, NULL, 22, 23),
+(23, 3, 'User', 11, NULL, 24, 25),
+(24, 3, 'User', 12, NULL, 26, 27),
+(25, 3, 'User', 13, NULL, 28, 29),
+(26, 3, 'User', 14, NULL, 30, 31),
+(27, 3, 'User', 15, NULL, 32, 33),
+(28, 3, 'User', 16, NULL, 34, 35),
+(29, 3, 'User', 17, NULL, 36, 37),
+(30, 3, 'User', 18, NULL, 38, 39),
+(31, 3, 'User', 19, NULL, 40, 41),
+(32, 3, 'User', 20, NULL, 42, 43),
+(33, 3, 'User', 21, NULL, 44, 45),
+(34, 3, 'User', 22, NULL, 46, 47),
+(35, 3, 'User', 23, NULL, 48, 49);
 
 -- --------------------------------------------------------
 
@@ -256,9 +273,9 @@ CREATE TABLE IF NOT EXISTS `children` (
 --
 
 INSERT INTO `children` (`id`, `daycare_center_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `room_id`, `special_needs`) VALUES
-(1, 1, 'Senya', 'Balls', 'Makarow', '1993-02-27', 1, 'needs extra large diapers'),
-(2, 1, 'Mila', 'Christine', 'Makarov', '2010-05-29', 1, 'i ridez the short bus.. durr...'),
-(3, 1, 'Saga', 'F', 'Arnold', '2010-08-31', 1, 'har har yar yo ho ho!');
+(1, 2, 'Corrine', 'Josh', 'Harrington', '2010-02-27', 1, 'N/A'),
+(2, 2, 'Mila', 'Christine', 'Makarov', '2010-05-29', 1, 'None'),
+(3, 2, 'Saga', 'F', 'Arnold', '2010-08-31', 1, 'None');
 
 -- --------------------------------------------------------
 
@@ -271,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `children_guardians` (
   `child_id` int(11) NOT NULL,
   `guardian_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `children_guardians`
@@ -279,7 +296,9 @@ CREATE TABLE IF NOT EXISTS `children_guardians` (
 
 INSERT INTO `children_guardians` (`id`, `child_id`, `guardian_id`) VALUES
 (1, 1, 1),
-(2, 3, 1);
+(3, 3, 3),
+(4, 2, 1),
+(5, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -292,14 +311,15 @@ CREATE TABLE IF NOT EXISTS `daycare_centers` (
   `name` varchar(60) NOT NULL,
   `phone` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `daycare_centers`
 --
 
 INSERT INTO `daycare_centers` (`id`, `name`, `phone`) VALUES
-(1, 'KinderEggCare', '7036235525');
+(1, 'KinderEggCare', '7036235525'),
+(2, 'YMCA - Reston', '703-555-5555');
 
 -- --------------------------------------------------------
 
@@ -337,14 +357,16 @@ CREATE TABLE IF NOT EXISTS `guardians` (
   `zip` int(11) NOT NULL,
   `password` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `guardians`
 --
 
 INSERT INTO `guardians` (`id`, `first_name`, `last_name`, `phone`, `email`, `street`, `city`, `state`, `zip`, `password`) VALUES
-(1, 'Papa', 'Makarov', '', '', '', '', '', 20001, '');
+(1, 'Linda', 'Makarov', '571-232-2675', 'lindamakarov@gmail.com', '11591 North Shore Dr Apt #11', 'Reston', 'VA', 20190, 'password'),
+(2, 'Paul', 'Makarov', '703-623-5525', 'subv14@hotmail.com', '11591 North Shore Dr Apt #11', 'Reston', 'VA', 20190, 'password'),
+(3, 'Krain', 'Arnold', '703-555-5555', 'krain.arnold@gmail.com', '12767 Hemming Way', 'Reston', 'VA', 20190, 'password');
 
 -- --------------------------------------------------------
 
@@ -394,13 +416,13 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `breakfast` int(11) NOT NULL,
   `lunch` int(11) NOT NULL,
   `snack` int(11) NOT NULL,
-  `potty` varchar(200) NOT NULL,
+  `potty` varchar(500) NOT NULL,
   `notes` text NOT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=88 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=102 ;
 
 --
 -- Dumping data for table `reports`
@@ -411,24 +433,18 @@ INSERT INTO `reports` (`id`, `user_id`, `status`, `child_id`, `teacher_list`, `r
 (15, 999, 'SUBMITTED', 3, 'Kate Winslut', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02'),
 (16, 999, 'SUBMITTED', 2, 'Paul', 0, 0, '2004-09-13', 'Happy Happy in the Sun', '', 'Happy|Sleepy', 'I slept from: 12:15 PM to: 03:15 PM.', 21, 96, 98, '|Potty Event- @10:23 PM I went pee', 'We had a great day!', '2013-04-09 18:26:43', '2013-04-09 18:26:43'),
 (21, 4, 'SUBMITTED', 2, 'Paul|Kate Winslut|Little Miss Moffet', 3, 0, '2004-11-13', 'went outside|did arts and crafts', 'Diapers', 'Not Myself|Happy|Curious', 'I slept from: 02:15 PM to: 04:15 PM.', 93, 92, 93, '|Potty Event- @04:00 PM I went pee I made a  BM', 'asd asd sadf sadf ', '2013-04-11 16:20:25', '2013-04-11 16:20:25'),
-(25, 4, 'DRAFT', 1, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28'),
-(26, 4, 'DRAFT', 2, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28'),
-(27, 4, 'DRAFT', 3, '', 0, 0, '2013-04-11', '', '', '', '', 0, 0, 0, '', '', '2013-04-11 19:21:28', '2013-04-11 19:21:28'),
-(73, 4, 'DRAFT', 3, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
-(74, 4, 'DRAFT', 2, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
-(75, 4, 'DRAFT', 1, '', 1, 0, '2013-04-12', '', '', '', '', 0, 0, 0, '', '', '2013-04-12 19:17:36', '2013-04-12 19:17:36'),
-(76, 4, 'DRAFT', 3, '', 1, 0, '2013-04-13', '', '', '', '', 0, 0, 0, '', '', '2013-04-13 14:28:37', '2013-04-13 14:28:37'),
-(77, 4, 'DRAFT', 2, '', 1, 0, '2013-04-13', '', '', '', '', 0, 0, 0, '', '', '2013-04-13 14:28:37', '2013-04-13 14:28:37'),
-(78, 4, 'DRAFT', 1, '', 1, 0, '2013-04-13', '', '', '', '', 0, 0, 0, '', '', '2013-04-13 14:28:37', '2013-04-13 14:28:37'),
-(79, 4, 'DRAFT', 3, '', 1, 0, '2013-04-15', '', '', '', '', 0, 0, 0, '', '', '2013-04-15 20:09:16', '2013-04-15 20:09:16'),
-(80, 4, 'DRAFT', 2, '', 1, 0, '2013-04-15', '', '', '', '', 0, 0, 0, '', '', '2013-04-15 20:09:16', '2013-04-15 20:09:16'),
-(81, 4, 'DRAFT', 1, '', 1, 0, '2013-04-15', '', '', '', '', 0, 0, 0, '', '', '2013-04-15 20:09:16', '2013-04-15 20:09:16'),
-(82, 6, 'SUBMITTED', 3, 'Paul|Little Miss Moffet', 1, 0, '2013-04-18', 'went to the gym|did arts and crafts|made muffins', '', 'Not Myself|Curious', 'I slept from: 02:15 PM to: 04:15 PM.', 82, 44, 70, '|Potty Event- @02:15 PM I tried to go Potty my diaper was wet I went pee I made a  BM it was an accident', 'Today we presented this really cool tool called Critter!\n\nHey boby''s mama, remember that he really does need more diapers.', '2013-04-18 14:10:54', '2013-04-18 16:45:49'),
-(83, 4, 'SUBMITTED', 2, 'Paul|Little Miss Moffet', 1, 0, '2013-04-18', 'went to the gym|went outside', 'Extra Clothes', 'Happy', 'I slept from: 12:00 PM to: 02:00 PM.', 51, 73, 73, '|Potty Event- @02:00 PM I went pee I made a  BM', 'Tomorrow, tomorrow and tomorrow creeps in this petty pace from day to day til the last sylable of recorded time. And all our yesterdays have lighted fools the way to dusty death. out out brief candle, life is but a poor player who struts and frets his time upon the stage and then is heard no more.', '2013-04-18 14:10:54', '2013-04-18 14:12:57'),
-(84, 4, 'DRAFT', 1, '', 1, 0, '2013-04-18', '', '', '', '', 0, 0, 0, '', '', '2013-04-18 14:10:54', '2013-04-18 14:10:54'),
-(85, 5, 'DRAFT', 3, '', 1, 0, '2013-04-19', '', '', '', '', 0, 0, 0, '', '', '2013-04-19 23:31:50', '2013-04-19 23:31:50'),
-(86, 5, 'DRAFT', 2, '', 1, 0, '2013-04-19', '', '', '', '', 0, 0, 0, '', '', '2013-04-19 23:31:50', '2013-04-19 23:31:50'),
-(87, 5, 'DRAFT', 1, '', 1, 0, '2013-04-19', '', '', '', '', 0, 0, 0, '', '', '2013-04-19 23:31:50', '2013-04-19 23:31:50');
+(90, 21, 'DRAFT', 3, '', 1, 0, '2013-04-19', '', '', '', '', 0, 0, 0, '', '', '2013-04-19 10:21:32', '2013-04-19 10:21:32'),
+(91, 21, 'DRAFT', 2, '', 1, 0, '2013-04-19', '', '', '', '', 0, 0, 0, '', '', '2013-04-19 10:21:32', '2013-04-19 10:21:32'),
+(92, 21, 'DRAFT', 1, '', 1, 0, '2013-04-19', '', '', '', '', 0, 0, 0, '', '', '2013-04-19 10:21:32', '2013-04-19 10:21:32'),
+(93, 21, 'DRAFT', 3, 'Paul', 1, 0, '2013-04-22', '', '', '', 'I slept from: 05:45 PM to: 05:45 PM.', 0, 0, 0, '', '', '2013-04-22 14:36:56', '2013-04-22 17:55:40'),
+(94, 21, 'DRAFT', 2, '', 1, 0, '2013-04-22', '', '', '', '', 0, 0, 0, '', '', '2013-04-22 14:36:56', '2013-04-22 14:36:56'),
+(95, 21, 'DRAFT', 1, '', 1, 0, '2013-04-22', '', '', '', '', 0, 0, 0, '', '', '2013-04-22 14:36:56', '2013-04-22 14:36:56'),
+(96, 21, 'DRAFT', 3, '', 1, 0, '2013-04-23', '', '', '', '', 0, 0, 0, '', '', '2013-04-23 13:55:14', '2013-04-23 13:55:14'),
+(97, 21, 'DRAFT', 2, 'Paul|Kate Winslut', 1, 0, '2013-04-23', 'went to the gym|did arts and crafts|other::Im a lur lur', 'Diapers|Extra Clothes|Blanket', 'Sad|Silly|Curious|Quiet|Teary', 'I slept from: 04:30 PM to: 06:30 PM.', 53, 99, 91, '@05:30 PM I tried to go Potty I went pee', 'Tomorrow tomorrow and tomorrow creeps in this petty pace from day to day to the last syllable of recorded time, all our our yesterdays have lighted fools the way to dusty death. out out brief candle, life is but a poor player who struts and frets his hour upon the stage and is heard no more.', '2013-04-23 13:55:14', '2013-04-23 18:37:04'),
+(98, 21, 'DRAFT', 1, '', 1, 0, '2013-04-23', '', '', '', '', 0, 0, 0, '', '', '2013-04-23 13:55:14', '2013-04-23 13:55:14'),
+(99, 21, 'DRAFT', 3, '', 1, 0, '2013-04-24', '', '', '', '', 0, 0, 0, '', '', '2013-04-24 10:59:22', '2013-04-24 10:59:22'),
+(100, 21, 'DRAFT', 2, '', 1, 0, '2013-04-24', '', '', '', '', 0, 0, 0, '', '', '2013-04-24 10:59:22', '2013-04-24 10:59:22'),
+(101, 21, 'DRAFT', 1, '', 1, 0, '2013-04-24', '', '', '', '', 0, 0, 0, '', '', '2013-04-24 10:59:22', '2013-04-24 10:59:22');
 
 -- --------------------------------------------------------
 
@@ -536,7 +552,16 @@ CREATE TABLE IF NOT EXISTS `tokens` (
   `data` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `token` (`token`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tokens`
+--
+
+INSERT INTO `tokens` (`id`, `created`, `modified`, `token`, `data`) VALUES
+(1, '2013-04-19 14:17:10', '2013-04-19 14:17:10', 'a31cfb9017', 'a:1:{s:4:"User";a:9:{s:2:"id";s:2:"21";s:8:"username";s:8:"pmakarov";s:8:"password";s:40:"e4b1019d827d54db74914fafe425e1fb82e245f5";s:5:"email";s:18:"subv14@hotmail.com";s:9:"lastlogin";s:19:"2013-04-19 12:13:46";s:8:"location";s:4:"Blue";s:7:"role_id";s:1:"3";s:7:"created";s:19:"2013-04-17 12:27:27";s:8:"modified";s:19:"2013-04-19 12:13:46";}}'),
+(2, '2013-04-19 14:26:39', '2013-04-19 14:26:39', 'b7fe96d978', 'a:1:{s:4:"User";a:9:{s:2:"id";s:2:"21";s:8:"username";s:8:"pmakarov";s:8:"password";s:40:"e4b1019d827d54db74914fafe425e1fb82e245f5";s:5:"email";s:18:"subv14@hotmail.com";s:9:"lastlogin";s:19:"2013-04-19 12:13:46";s:8:"location";s:4:"Blue";s:7:"role_id";s:1:"3";s:7:"created";s:19:"2013-04-17 12:27:27";s:8:"modified";s:19:"2013-04-19 12:13:46";}}'),
+(3, '2013-04-22 17:22:06', '2013-04-22 17:22:06', '7aaa681393', 'a:1:{s:4:"User";a:11:{s:2:"id";s:2:"21";s:10:"first_name";s:0:"";s:9:"last_name";s:0:"";s:8:"username";s:8:"pmakarov";s:8:"password";s:40:"e4b1019d827d54db74914fafe425e1fb82e245f5";s:5:"email";s:18:"subv14@hotmail.com";s:9:"lastlogin";s:19:"2013-04-22 14:59:02";s:8:"location";s:4:"Blue";s:7:"role_id";s:1:"3";s:7:"created";s:19:"2013-04-17 12:27:27";s:8:"modified";s:19:"2013-04-22 14:59:02";}}');
 
 -- --------------------------------------------------------
 
@@ -558,17 +583,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `lastlogin`, `location`, `role_id`, `created`, `modified`) VALUES
-(2, '', '', 'crAdmin', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-11 17:41:31', '', '1', '2013-03-08 00:02:47', '2013-04-11 17:41:31'),
-(3, '', '', 'crManager', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-08 00:00:00', '', '2', '2013-03-08 00:03:15', '2013-03-08 00:03:15'),
-(4, '', '', 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-18 14:10:50', 'Blue', '3', '2013-03-08 00:03:34', '2013-04-18 14:10:50'),
-(7, 'Paul', 'Makarov', 'pmakarov', 'e4b1019d827d54db74914fafe425e1fb82e245f5', 'subv14@hotmail.com', '2013-04-21 10:27:14', '', '3', '2013-04-19 23:50:51', '2013-04-21 10:27:14');
+(2, '', '', 'crAdmin', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-24 18:32:41', '', '1', '2013-03-08 00:02:47', '2013-04-24 18:32:41'),
+(3, '', '', 'crManager', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', '', '2013-04-24 18:25:01', '', '2', '2013-03-08 00:03:15', '2013-04-24 18:25:01'),
+(11, '', '', 'crUser', '23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9', 'makarov9mm@gmail.com', '0000-00-00 00:00:00', '', '3', '2013-04-17 12:03:56', '2013-04-17 12:03:56'),
+(21, '', '', 'pmakarov', 'e4b1019d827d54db74914fafe425e1fb82e245f5', 'subv14@hotmail.com', '2013-04-24 18:53:54', 'Blue', '3', '2013-04-17 12:27:27', '2013-04-24 18:53:54'),
+(23, 'asd asd sad', 'asd asd fsadf sd fad', 'buffy', 'e4b1019d827d54db74914fafe425e1fb82e245f5', 'krain.arnold+1@gmail.com', '2013-04-19 15:43:38', '', '3', '2013-04-19 15:13:26', '2013-04-19 15:43:38');
 
 -- --------------------------------------------------------
 
