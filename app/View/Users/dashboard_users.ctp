@@ -72,48 +72,44 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
 	    <div class="navbar">
               <div class="navbar-inner">
                 <div class="container">
-                  <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </a>
-                  <a href="#" class="brand">Reports</a>
+                 
+                     
                   <div class="nav-collapse collapse navbar-responsive-collapse">
-                    <ul class="nav pull-right">
+                  	<div class="btn-group">
+					    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					    <span class="icon-check">&nbsp;</span>
+					    <span class="caret"></span>
+					    </a>
+					    <ul class="dropdown-menu">
+					   		<li><a href="javascript:selectAll()">All</a></li>
+					   		<li><a href="javascript:deSelectAll()">None</a></li>
+					   		<li><a href="#">Absent</a></li>
+					   		<li><a href="#">Draft</a></li>
+					   		<li><a href="#">Finalized</a></li>
+					   		<li><a href="#">Sent</a></li>
+					    </ul>
+					</div>
+                    <ul id="actionBar" class="nav pull-right">
                     	
                       <li class="divider-vertical"></li>
-                      <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-pencil"></span>&nbsp;Mark</a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">Mark Absent</a></li>
-                          
-                           <li class="divider"></li>
-                            <li class="nav-header">Clear</li>
-                          		<li><a href="#">Clear Select</a></li>
-                          		<li><a href="#">Clear All</a></li>
-                          		 <li class="divider"></li>
-                          		 <li class="nav-header">Remove</li>
-                          		<li><a href="#">Remove Select</a></li>
-                          		<li><a href="#">Remove All</a></li>
-                        </ul>
+                      <li>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-pencil"></span>&nbsp;Group Data</a>
+                      </li>
+                       <li class="divider-vertical"></li>
+                      <li>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-refresh"></span>&nbsp;Reset</a>
+                      </li>
+                       <li class="divider-vertical"></li>
+                      <li>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-trash"></span>&nbsp;Remove</a>
                       </li>
                       <li class="divider-vertical"></li>
-                      <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-envelope"></span>&nbsp;Email</a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">Email Select</a></li>
-                           <li class="divider"></li>
-                          <li><a href="#">Email All</a></li>
-                        </ul>
+                      <li>
+                        <a  href="javascript:handlePrintClick()"> <span class="icon-envelope"></span>&nbsp;Email</a>
                       </li>
                       <li class="divider-vertical"></li>
-                      <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-print"></span>&nbsp;Print</a>
-                        <ul class="dropdown-menu">
-                          <li><a href="javascript:handlePrintClick()">Print Select</a></li>
-                           <li class="divider"></li>
-                          <li><a href="#">Print All</a></li>
-                        </ul>
+                      <li>
+                        <a id="print" href="javascript:handlePrintClick()"> <span class="icon-print"></span>&nbsp;Print</a>
                       </li>
                     </ul>
                   </div><!-- /.nav-collapse -->
@@ -983,25 +979,30 @@ function getReportsByRoom(date){
 function buildReportGrid(reports){
 	
 	$("#reportTable").html("");
-	$("#reportTable").append("<tr><td><strong>Name</strong></td><td><strong>Status</strong></td><td><strong class='pull-right'></strong></td><td></td></tr>");
+	$("#reportTable").append("<tr><th></th><td><strong>Name</strong></td><td><strong>Status</strong></td><td><strong class='pull-right'></strong></td><td></td></tr>");
 	$.each(reports, function(i, item) {
     	//console.log(reports[i].status);
-    	$("#reportTable").append("<tr id="+reports[i].id+"><td><div style='display:none;float:left;margin:0;vertical-align: middle;'><input  style='margin:0;vertical-align:middle;' type='checkbox' name='vehicle' value='Bike'>&nbsp;&nbsp;</div>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'><!-- <a class='btn btn-danger btn-mini' href='javascript:clearReport("+reports[i].id+")'>clear <span class='icon-warning-sign'></span></a> &nbsp; &nbsp;<a class='' href='../reports/edit/"+reports[i].id+"'></a>--></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
+    	$("#reportTable").append("<tr id="+reports[i].id+"><th width='14'><div style='float:left;margin:0;vertical-align: middle;'><input  style='margin:0;vertical-align:middle;' type='checkbox' name='vehicle' value='Bike'></div></th><td>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'><!-- <a class='btn btn-danger btn-mini' href='javascript:clearReport("+reports[i].id+")'>clear <span class='icon-warning-sign'></span></a> &nbsp; &nbsp;<a class='' href='../reports/edit/"+reports[i].id+"'></a>--></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
 	});
-	$("#reportTable tr").click(function(evt){
-		//console.log(this.id);
-		window.location.href = "../reports/edit/" + this.id;
+	$("#reportTable td").click(function(evt){
+		//console.log($(evt.target).parent().get(0).id);
+		window.location.href = "../reports/edit/" + $(evt.target).parent().get(0).id;
+		//window.location.href = "../reports/edit/" + this.id;
 	});
 	
 	$("tr").not(':first').hover(
 			function () {
-			
 				$(this).addClass("highlight");
 			}, 
 			function () {
 				$(this).removeClass("highlight");
 			}
 		);
+		
+		//TODO: initialize actionBar buttons, set visible to false. code logic to activate/deactivate accordingly
+		//$("#print").parent().addClass('disabled');
+		//$("#actionBar li").hide();
+	
 }
 function handlePrintClick(){
 	
@@ -1015,6 +1016,18 @@ function toggleSelectAll(){
 	
 	 var status = $('#selectAll').prop("checked") ;
 	$('#reportTable').find('input:checkbox').prop('checked', status);
+	
+}
+function selectAll(){
+	
+	
+	$('#reportTable').find('input:checkbox').prop('checked', 'checked');
+	
+}
+function deSelectAll(){
+	
+	
+	$('#reportTable').find('input:checkbox').prop('checked', false);
 	
 }
 function clearReport(id){

@@ -78,7 +78,7 @@
 .highlight{
     background-color: #D2E4F7
 }
-.table-striped tbody tr.highlight:nth-child(odd) td {
+.table-striped tbody tr.highlight:nth-child(odd) td, tbody tr.highlight:nth-child(odd) th {
     background-color: #D2E4F7;
 }
 
