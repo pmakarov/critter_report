@@ -563,10 +563,13 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 			$reports = $data_back->{"reports"};
 			
 			//$this->Report->id =  $reports;
+			ini_set('memory_limit', '512M');
 			$arr = $this->Report->find('all', array('conditions' => array("Report.id" => $reports)));
-			var_dump($arr);
-			die();
+			$this->ext = 'pdf';
 			$this->set('arr', $arr);
+			$this->layout = "";
+			$this->render();
+			
 		}
 				
  }
