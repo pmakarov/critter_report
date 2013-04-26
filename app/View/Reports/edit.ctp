@@ -52,7 +52,7 @@
                       <li class="divider-vertical"></li>
                       <li><a href="#"> <span class="icon-print"></span>&nbsp;Print</a></li>
                       <li class="divider-vertical"></li>
-                      <li><?php echo $this->Html->link(__('PDF'), array('action' => 'view_pdf', 'ext' => 'pdf', $id)); ?></li>
+                      <li><?php echo $this->Html->link(__('PDF'), array('action' => 'view_pdf', 'ext' => 'pdf', $id), array('target' => '_blank')); ?></li>
                     </ul>
                   </div><!-- /.nav-collapse -->
                 </div>

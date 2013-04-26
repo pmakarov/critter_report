@@ -559,8 +559,13 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 		}
 		
 		public function print_reports($reports = null){
+			$data_back = json_decode(file_get_contents('php://input'));
+			$reports = $data_back->{"reports"};
 			
+			//$this->Report->id =  $reports;
 			$arr = $this->Report->find('all', array('conditions' => array("Report.id" => $reports)));
+			var_dump($arr);
+			die();
 			$this->set('arr', $arr);
 		}
 				

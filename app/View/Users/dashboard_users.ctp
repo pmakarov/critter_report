@@ -14,7 +14,7 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
 <div class="reports form">
 <div class="wrapper">
 <div class="container">
- <form class="cmxform" id="reportForm" method="post" action="">
+
   <div class="row-fluid">
     <div class="span12">
       <div class="critterWell" id="formContainer">
@@ -68,61 +68,49 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
  </div> -->
 <div class="row-fluid" id="reportGridRow">
 <div class="span12 well" id="reportGridContainer" >
-	
 	    <div class="navbar">
               <div class="navbar-inner">
                 <div class="container">
-                 
-                     
-                  <div class="nav-collapse collapse navbar-responsive-collapse">
-                  	<div class="btn-group">
-					    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					    <span class="icon-check">&nbsp;</span>
-					    <span class="caret"></span>
-					    </a>
-					    <ul class="dropdown-menu">
-					   		<li><a href="javascript:selectAll()">All</a></li>
-					   		<li><a href="javascript:deSelectAll()">None</a></li>
-					   		<li><a href="#">Absent</a></li>
-					   		<li><a href="#">Draft</a></li>
-					   		<li><a href="#">Finalized</a></li>
-					   		<li><a href="#">Sent</a></li>
-					    </ul>
-					</div>
-                    <ul id="actionBar" class="nav pull-right">
-                    	
-                      <li class="divider-vertical"></li>
-                      <li>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-pencil"></span>&nbsp;Group Data</a>
-                      </li>
-                       <li class="divider-vertical"></li>
-                      <li>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-refresh"></span>&nbsp;Reset</a>
-                      </li>
-                       <li class="divider-vertical"></li>
-                      <li>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-trash"></span>&nbsp;Remove</a>
-                      </li>
-                      <li class="divider-vertical"></li>
-                      <li>
-                        <a  href="javascript:handlePrintClick()"> <span class="icon-envelope"></span>&nbsp;Email</a>
-                      </li>
-                      <li class="divider-vertical"></li>
-                      <li>
-                        <a id="print" href="javascript:handlePrintClick()"> <span class="icon-print"></span>&nbsp;Print</a>
-                      </li>
-                    </ul>
-                  </div><!-- /.nav-collapse -->
+                	
+                  <a class="brand" data-toggle="dropdown" href="#">Reports</a>
+				 
+              	<form class="navbar-search pull-right">
+			      		<input type="text" placeholder="Search" class="search-query">
+			      	</form>
+             
                 </div>
               </div><!-- /navbar-inner -->
-            </div>
+        </div>
 	<div class="row-fluid">
-		<div id="actionBar" class="nav" style="display:none">
-            <input id="selectAll" type="checkbox" value="select" name="select" style="margin:0px; vertical-align:middle" onchange="javascript:toggleSelectAll()"/>&nbsp;select / deselect all
-           <span class="alert alert-action">Action: </span> 
-           
-            	<button class="btn btn-success pull-right" type="button" onclick="javascript:handleCurrentDashboardContextAction()" title="Go">Go</button>
-            	<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<div id="actionBar" class="nav" >
+               <div style="margin: 0;" class="btn-toolbar">
+               
+              <div id="actionButtons" class="btn-group pull-right">
+                <button id="tagBtn" class="btn"><span class="icon-tag"></span></button>
+                <button id="clearBtn" class="btn"><span class="icon-minus-sign"></span></button>
+                <button id="deleteBtn" class="btn"><span class="icon-trash"></span></button>
+                <button id="printBtn" class="btn" data-toggle="tooltip"  title="Print" formtarget="_blank" ><span class="icon-print"></span></button>
+                <button id="emailBtn" class="btn" data-toggle="tooltip"  title="Email"><span class="icon-envelope"></span></button>
+              </div>
+               <div class="btn-group">
+               	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					<span class="icon-check">&nbsp;</span>
+					<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a href="javascript:selectAll()">All</a></li>
+						<li><a href="javascript:deSelectAll()">None</a></li>
+						<li><a href="#">Absent</a></li>
+					   	<li><a href="#">Draft</a></li>
+					   	<li><a href="#">Finalized</a></li>
+					   	<li><a href="#">Sent</a></li>
+					</ul>
+              </div>
+               <div class="btn-group">
+                 <button id="refreshReports" class="btn" data-toggle="tooltip"  title="Refresh"><span class="icon-refresh"></span></button>
+              </div>
+              
+            </div>
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -132,17 +120,10 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
 </div>
 </div>
            </div>
-             
-            <!--  <div class="row-fluid">
-              	<div class="span12 pull-right">
-              	<div class="pull-right"><a class="btn" id="saveBtn" role="button" ><i class="icon-list-alt"></i>&nbsp;Save</a> <a id="submitBtn" class="btn btn-success" role="button" href="javascript:doSubmit();">Submit »</a></div>
-              	</div>
-              </div>-->
-             
             </div>
           </div>
           </div>
-          </form><!--/mainForm--> 
+         
         </div><!--/end container Div -->
       </div><!--/end Wrapper Div -->
       
@@ -169,11 +150,7 @@ var _REPORT_ID = "";
 		
 						
 					
-						$("#saveBtn").click(function(){
-							doSave();
-							
-						});
-
+					
 			        	  var d = new Date();
 
 			        	  var month = d.getMonth()+1;
@@ -188,9 +165,7 @@ var _REPORT_ID = "";
 			        	 $("#errorBox").hide();
 			        	 $('#datepicker').datepicker('setValue', d);
 			        	
-			        	$("#childrenList").select2({ 
-			        	    placeholder: "Select a Child"
-			        		});
+			        	
 			        	
 			        	$("#room_id").select2({ 
 			        		 placeholder: "Select a Personality"
@@ -203,7 +178,27 @@ var _REPORT_ID = "";
 			        	
 			        	
 			        	
+			        	$("#refreshReports").click(function(){
+			        		
+			        		getReportsByRoom();
+			        	});
 			        
+			        	$("#refreshReports").tooltip({
+			        	
+			        	});
+	
+						$("#printBtn").click(function(){
+							
+							doPrintSelected();
+						});
+						$("#printBtn").tooltip();
+						
+						$("#emailBtn").click(function(){
+							
+							doEmailSelected();
+						});
+						$("#emailBtn").tooltip();
+						
 	
 						//console.log("curernt user: " + userId);
 						if(userId==="" ){
@@ -262,576 +257,10 @@ var _REPORT_ID = "";
 			}
 		);
 						
-
+					
 	});
 	
-	function addPottyEvent(evt){
-	   // console.log("new potty event @"+ $("#timepicker3").val());
-	   var msg = "";
-	   
-	   var timeMsg = "@" + $("#timepicker3").val();
-	   msg += timeMsg;
-	   
-	    var triedMsg  = "";
-	    if($("#triedBox").is(":checked")){
-			triedMsg = "I tried to go Potty";
-			msg+=" " + triedMsg;
-	    }
-	    
-	    var wetMsg = "";
-	    if($("#wetBox").is(":checked")){
-			wetMsg = "my diaper was wet";
-			msg+= " " +wetMsg;
-	    }
-	    else if($("#dryBox").is(":checked")){
-		 	var dryMsg = "";
-		    
-				dryMsg = "my diaper was checked but I was dry";
-				msg += " " + dryMsg;
-		    
-	    }
-	   
-	    
-	    var peeMsg = "";
-	    if($("#peeBox").is(":checked") && $("#diapersBox").is(":checked")){
-			peeMsg = "I had done a pee";
-			msg += " " + peeMsg;
-	    }
-	    else if($("#peeBox").is(":checked") && !$("#diapersBox").is(":checked")){
-			peeMsg = "I went pee";
-			msg += " " + peeMsg;
-	    }
-	    
-	    var bmMsg = "";
-	    if($("#pooBox").is(":checked") && $("#diapersBox").is(":checked")){
-			bmMsg = "I had done a BM";
-			msg += " " + bmMsg;
-	    }
-	    else if ($("#pooBox").is(":checked") && !$("#diapersBox").is(":checked")){
-			bmMsg = "I made a  BM";
-			msg += " " + bmMsg;
-	    }
-	    
-	    var accidentMsg = "";
-	    if($("#accidentBox").is(":checked")){
-		
-			accidentMsg = "it was an accident";
-			msg += " " +  accidentMsg;
-	    }
-	    
-	    var pottyEventItem = $('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Potty Event- </strong>'+msg+'</div>');
-		pottyEventItem.appendTo("#pottyEventTable");
-		
-		//reset potty event form:
-		$("#pottyTrainingTable input").attr('checked', false);
-	}
-	function doSave(){
-		_STATUS = "DRAFT";
-	    submitFormData();
-	}
-	function doSubmit()	{
-		_STATUS = "SUBMITTED";
-		validateForm();
 	
-	}
-	function validateForm() {
-	   
-	    if(warn) {
-	    	doCheckWarning();
-	    }
-	  
-	   $("#errorTextContainer").html("");
-	   var hasError = false;
-	   hasError = validateItem();
-	  
-	   	if(hasError===false){
-			$("#errorTextContainer").html("");
-			$("#errorBox").hide();
-			
-			if(!warn){
-				submitFormData();
-			}
-		}
-	   else{
-		 	$("#errorBox").show();
-		}
-	   	 $("html, body").animate({ scrollTop: 0 }, "slow");
-	 
-	}
-	
-	function submitFormData()
-	{
-	 
-	 	$("#spinner").show();
-	 	$("#submitBtn").addClass("disabled");
-	 	$("#saveBtn").addClass("disabled");
-	 	/*$("#submitBtn").click(function(event){
-	 	   event.preventDefault(); 
-	 	});*/
-	 	
-	 	//var jsonObjects = [{id:1, name:"amit"}, {id:2, name:"ankit"},{id:3, name:"atin"},{id:1, name:"puneet"}];
-	 	/* 
-	 	jQuery.ajax({
-	 	          url: <Url of the action>,
-	 	          type: "POST",
-	 	          data: {students: JSON.stringify(jsonObjects) },
-	 	          dataType: "json",
-	 	          beforeSend: function(x) {
-	 	            if (x && x.overrideMimeType) {
-	 	              x.overrideMimeType("application/j-son;charset=UTF-8");
-	 	            }
-	 	          },
-	 	          success: function(result) {
-	 	 	     //Write your code here
-	 	 	     alert("success motha flower");
-	 	          }
-	 	});*/
-	 	
-	 	 //$.get("http://localhost/critter/critter.php", function(data){cb(data)});
-	 	 //$.get('https://pawsbk.ncr.disa.mil/DDOrderEntry-tsr/DDOELookup?id=Agency', function(data){cb(data)});
-	 	// console.log("Date: " + $("#datepicker").data('date'));
-	 	
-	 	 /*console.log("Child: " + $("#childrenList option:selected").text());
-	 	 console.log("Teachers: " + $("#teachersList option:selected").text());
-	 	 console.log($("#teachersList").val());
-	 	 console.log("Needed items: " + $("#neededItemsList option:selected").val());
-	 	 console.log($("#personalityList").val());
-	 	 console.log($("#timepicker1").val());
-	 	 console.log($("#timepicker2").val());
-	 	 console.log($("#notSleepy").is(':checked'));
-	 	 console.log($("#gymActivity").is(':checked'));
-		 console.log($("#outsideActivity").is(':checked'));
-		 console.log($("#artsActivity").is(':checked'));
-		 console.log($("#otherActivity").is(':checked'));
-		 console.log($("#otherTextInput").val());
-		 console.log($('#slider').slider("option", "value"));
-		 console.log($('#slider2').slider("option", "value"));
-		 console.log($('#slider3').slider("option", "value"));*/
-		 
-		 //get teachers list from dropdown
-		 var tl = $("#teachersList option:selected").map(function(){return this.text});
-		 
-		 //get daily activities items
-		 var dl = $("#activityCheckboxesOneDiv label input:checked").map(function(){return this.value});
-		 activityString = dl.get().join("|");
-		 if($("#otherActivity").is(':checked')){
-		     
-		     var otherActString = $("#otherTextInput").val();
-		     activityString = (activityString==="") ? otherActString : activityString+ "|"+otherActString;
-		 }
-		 
-		 //get needed items
-		 var nl = $("#neededItemsList option:selected").map(function(){return this.text});
-		 
-		 var al = $("#personalityList option:selected").map(function(){return this.text});
-		// console.log("attitude List: " + al.get().join("|"));
-		 
-		 //get sleep status
-		 var sleepMessage = "";
-		 if(!$("#notSleepy").is(':checked')){
-		     sleepMessage = "I slept from: " + $("#timepicker1").val() + " to: "+ $("#timepicker2").val()+ ".";
-		 }
-		 else sleepMessage = "I was not sleepy.";
-		
-		// console.log("sleep message: " + sleepMessage);
-		
-		
-		 var creatureReport = {
-		 	 "id" : _REPORT_ID,
-		 	 "userId" : "999",
-			 "status" : _STATUS,
-			 "student" : $("#childrenList option:selected").val(),
-			 "date" : $("#datepicker").data('date'),
-			 "teachers" : tl.get().join("|"),
-			 "dailyActivity" : activityString,
-			 "neededItems" : nl.get().join("|"),
-			 "attitudes" : al.get().join("|"),
-			 "sleepMessage" : sleepMessage,
-			 "percentageBreakfastComplete" : $('#slider').slider("option", "value"),
-		 	 "percentageLunchComplete" : $('#slider2').slider("option", "value"),
-		 	 "percentageSnackComplete" : $('#slider3').slider("option", "value"),
-		 	 "pottyEvents" : $("#pottyEventTable div").text().split("×").join("|"),
-		 	 "teacherComments" : $("#teacherComments").val()
-			 
-		 }
-	 	 	 	 
-	 	 	 //var URL = (_REPORT_ID === "") ? '../reports/ajax_function' : '../reports/edit/' + _REPORT_ID;
-	 	 $.ajax({
-	 	        type: "POST",
-	 	        async: false,
-	 	        data: JSON.stringify(creatureReport),
-	 	        dataType: "JSON",
-	 	        url: '../reports/ajax_function',
-	 	        beforeSend: function(x) {
-	 	            if (x && x.overrideMimeType) {
-	 	              x.overrideMimeType("application/j-son;charset=UTF-8");
-	 	            }
-	 	        },
-	 	        success: function(result) {
-	 	 	   		//TODO: Reset form, 
-	 	 	   		//console.log("Report id:"+ result.id +" for : " + result.student + " was successfully submitted by: " + result.userId + " on: " + result.date);
-	 	 	   		_REPORT_ID = result.id;
-	 	 	   		if(!_STATUS === "DRAFT"){
-	 	 	   			resetForm();
-	 	 	   		}
-	 	 	   		else{
-	 	 	   			$("#submitBtn").removeClass("disabled");
-	 	 				$("#saveBtn").removeClass("disabled");
-	 	 	   		}
-	 	 	   		$("#spinner").hide();
-	 	          },
-	 	       error: function (request, status, error) {
-	 		   		alert(status + " : " + error);
-	 		        //alert(request.responseText);
-	 		   		if(!_STATUS === "DRAFT"){
-	 	 	   			resetForm();
-	 	 	   		}
-	 	 	   			$("#spinner").hide();
-	 		    }
-	 	    });
-	}
-	function resetForm(){
-	    /*console.log("Child: " + $("#childrenList option:selected").text());
-	 	 console.log("Teachers: " + $("#teachersList option:selected").text());
-	 	 console.log($("#teachersList").val());
-	 	 console.log("Needed items: " + $("#neededItemsList option:selected").val());
-	 	 console.log($("#personalityList").val());
-	 	 console.log($("#timepicker1").val());
-	 	 console.log($("#timepicker2").val());
-	 	 console.log($("#notSleepy").is(':checked'));
-	 	 console.log($("#gymActivity").is(':checked'));
-		 console.log($("#outsideActivity").is(':checked'));
-		 console.log($("#artsActivity").is(':checked'));
-		 console.log($("#otherActivity").is(':checked'));
-		 console.log($("#otherTextInput").val());
-		 console.log($('#slider').slider("option", "value"));
-		 console.log($('#slider2').slider("option", "value"));
-		 console.log($('#slider3').slider("option", "value"));*/
-		
-		 $("#childrenList").select2("data", null);
-		 $("#teachersList").select2("data", null);
-		 $("#personalityList").select2("data", null);
-		 $("#neededItemsList").select2("data", null);
-		 $("#timepicker1").val("");
-		 $("#timepicker1").timepicker('setTime', 'current');
-		 $("#timepicker2").val("");
-		 $("#timepicker2").timepicker('setTime', 'current');
-		 $("#timepicker3").val("");
-		 $("#timepicker3").timepicker('setTime', 'current');
-		 $("#notSleepy").attr("checked", false);
-		 $("#gymActivity").attr("checked", false);
-		 $("#outsideActivity").attr("checked", false);
-		 $("#artsActivity").attr("checked", false);
-		 $("#otherActivity").attr("checked", false);
-		 $("#otherTextInput").val("");
-		
-		 $("#slider").slider("value", $("#slider").slider("option", "min") );
-		 $("#slider2").slider("value", $("#slider2").slider("option", "min") );
-		 $("#slider3").slider("value", $("#slider3").slider("option", "min") );
-		 
-		 $("#pottyEventTable").html("");
-		 
-		
-	}
-	function cb(data){
-	    
-	    alert( data.user.name);
-	   // myTweets = dataToObj;
-	    //document.write(myTweets.user.name + " says:<br/>\"" + myTweets.text + "\"");
-	}
-	function validateItem(){
-	    var hasError= false;
-	    $('*[required="true"]').each(function(i, el){
-	    	
-	    switch($(el).get(0).tagName){
-	    	case "LABEL":
-	    	    if($(el).attr('id') === "sleepy")
-			    {
-	    			if($("#timepicker1").val()==="" || ($("#timepicker1").val()=== $("#timepicker2").val()) && !$("#notSleepy").is(":checked")){
-		    			var msg = "Error: You must indicate when a child took a nap or else indicate that he/she did not."
-					    	
-					    var p = $('<p>'+msg+'</p>');
-					    p.appendTo("#errorTextContainer");  
-					    $(el).css('border', '1px solid #f00');
-					    hasError = true;
-	    			}
-	    			else{
-	    			    $(el).css('border', 'none');
-	    			}
-	    			    
-	    			
-			    		
-			    }
-	    	    else
-	    		{
-	    		    		
-			    	if(!didActivity()){
-				    	var msg = "Error: You did not select an activity."
-				    	
-					    var p = $('<p>'+msg+'</p>');
-					    p.appendTo("#errorTextContainer");  
-					    $(el).css('border', '1px solid #f00');
-					    hasError = true;
-			    	}
-			    	else if($("#otherActivity").is(":checked") && $("#otherTextInput").val().trim()===""){
-						var msg = "Error: You did not enter any description for 'other' activity."
-					    var p = $('<p>'+msg+'</p>');
-					    p.appendTo("#errorTextContainer");  
-					    $(el).css('border', '1px solid #f00');
-					    hasError = true;
-				    }
-			    	else{
-			    		$(el).css('border', 'none');
-			    	}
-			    	//console.log($("#otherActivity").is(":checked"));
-	    		}
-			break;
-			
-		    case "SELECT":
-			var select = $(el).attr('id');
-			//if(select == "childrenList" || select == "neededItemsList" || select == "teachersList" || select == "personalityList")
-			//handleSelect2ComboboxValidation(select);
-			var tmp = $("#" + select).select2("data");
-			
-			if(select == "childrenList" && (tmp == null || tmp.length == 0))
-			{
-			   
-			    var msg = "Error: You did not select a child."
-			    var p = $('<p>'+msg+'</p>');
-			    p.appendTo("#errorTextContainer");  
-			    $("#s2id_"+select).css('border', '1px solid #f00');
-			    hasError = true;
-			      
-			}
-			else if(select == "teachersList" && (tmp == null || tmp.length == 0))
-			{
-			    var msg = "Error: You did not select a teacher."
-			    var p = $('<p>'+msg+'</p>');
-			    p.appendTo("#errorTextContainer");  
-			    $("#s2id_"+select).css('border', '1px solid #f00');
-			    hasError = true;
-			      
-			}
-			
-			else if(select == "personalityList" && (tmp == null || tmp.length == 0))
-			{
-			    var msg = "Error: You did not select a personality."
-			    var p = $('<p>'+msg+'</p>');
-			    p.appendTo("#errorTextContainer");  
-			    $("#s2id_"+select).css('border', '1px solid #f00');
-			    hasError = true;
-			      
-			}
-			else{
-				$("#s2id_"+select).css('border', 'none');
-			}
-			break;
-			
-		    case "TEXTAREA":
-				//$(el).css('border', '1px solid #f00');
-				if($(el).val().trim()==="")
-				{
-				    var msg = "Error: You did not enter teacher comments."
-					var p = $('<p>'+msg+'</p>');
-					p.appendTo("#errorTextContainer"); 
-					$(el).css('border', '1px solid #f00');
-					hasError = true;
-				}
-				else{
-				    $(el).css('border', 'none');
-				}
-			break;
-			
-		    case "INPUT":
-			var input = $(el).attr('id');
-			//$(el).css('border', '1px solid #f00');
-			if($(el).val().trim()==="" && input==="")
-			{
-			    var msg = "Error: You did not enter teacher comments."
-				var p = $('<p>'+msg+'</p>');
-				p.appendTo("#errorTextContainer"); 
-				$(el).css('border', '1px solid #f00');
-				hasError = true;
-			}
-			else{
-			    $(el).css('border', 'none');
-			}
-		break;
-			
-		   
-		
-			default:
-		    break
-	    }
-	    
-	    });
-	   
-	    return hasError;
-	}
-	function didActivity(){
-	    
-	    /*console.log($("#gymActivity").is(':checked'));
-	    console.log($("#outsideActivity").is(':checked'));
-	    console.log($("#artsActivity").is(':checked'));
-	    console.log($("#otherActivity").is(':checked'));
-	    console.log($("#otherTextInput").val());*/
-	    if($("#gymActivity").is(':checked') || $("#outsideActivity").is(':checked') || $("#artsActivity").is(':checked') || $("#otherActivity").is(':checked') )
-	    return true;
-	    else return false;
-	}
-	function handleSelect2ComboboxValidation(select)
-	{
-	    
-	    var tmp = $("#" + select).select2("data");
-	    /*for(var i=0; i < tmp.length; i++)
-		{
-			console.log(tmp[i].text);
-		}*/
-		if(tmp == null || tmp.length == 0)
-		{
-		    switch(select)
-		    {
-			    case "childrenList":
-				$("#s2id_"+select).css('border', '1px solid #f00');
-				//$("#s2id_"+select).attr('title', "Please select a child from the dropdown");
-				$("#s2id_"+select).alert();
-				/*$("#s2id_"+select).popover({
-				    html: "true",
-				    title: "<strong>Select a Child</strong>",
-				    content: "Please select a child from the dropdown",
-					trigger: "hover"    
-				});
-				$("#s2id_"+select).click(function(){
-				    $(this).popover('hide');
-				    $(this).popover('disable');
-				});*/
-				break;
-				
-			    default:
-				    break;
-		    }
-	    	
-		}
-	}
-	
-	function doCheckWarning(){
-	  //clear warn/error headers:
-		  $("#warningTextContainer").html("");
-		  var hasWarning = false;
-
-		 
-		  
-		  var val = $('#slider').slider("option", "value");
-		  if(val===0)
-		  {
-		      var msg = "Warning: No breakfast eaten?"
-		      var p = $('<p>'+msg+'</p>');
-		  	  p.appendTo("#warningTextContainer");  
-		      hasWarning = true;
-		  }
-		  
-		  var val2 = $('#slider2').slider("option", "value");
-		  if(val2===0)
-		  {
-		      var msg = "Warning: No lunch eaten?"
-		      var p = $('<p>'+msg+'</p>');
-		  	  p.appendTo("#warningTextContainer");  
-		      hasWarning = true;
-		  }
-		  
-		  var val3 = $('#slider3').slider("option", "value");
-		  if(val3===0)
-		  {
-		      var msg = "Warning: No snack eaten?"
-		      var p = $('<p>'+msg+'</p>');
-		  	  p.appendTo("#warningTextContainer");  
-		      hasWarning = true;
-		  }
-		  
-
-		  if($("#pottyEventTable").children().size() === 0){
-		      var msg = "Warning: You did not list any potty events for today."
-			     var p = $('<p>'+msg+'</p>');
-			     p.appendTo("#warningTextContainer"); 
-		      hasWarning = true;
-		  }
-		  
-		  /* Do time check
-		  *
-		  * uh...  would much rather
-		  * just convert time to 24 hours
-		  */
-		  var time1 = $("#timepicker1").val();
-		  time1 = convertToMeridian(time1);
-		  var time2 = $("#timepicker2").val();
-		  time2 = convertToMeridian(time2);
-		  var ind = compareTime(time1,time2);//returns -1 if A<B, 0 if A==B, and 1 if A>B
-		 // console.log("ind: " + ind);
-		 if(ind>0){
-		     //console.log("gotta be something wrong, time is long");
-		     var msg = "Warning: The start and end time of the nap appears to be quite long."
-		     var p = $('<p>'+msg+'</p>');
-		     p.appendTo("#warningTextContainer");  
-		     hasWarning = true;
-		 }
-		
-		  if(hasWarning===false)
-		  {
-		      $("#warningTextContainer").html("");
-		      $("#warnBox").hide();
-		      warn = false;
-		  }
-		  else{
-		 	$("#warnBox").show();
-		  }
-	}
-	function convertToMeridian(time){
-	     
-		  var dayPeriod1 = time.split(" ")[1];
-		  var hour1 = parseInt(time.split(":")[0]);
-		  var min1 = parseInt(time.split(":")[1]);
-		  
-		
-		  if(dayPeriod1==="PM" && hour1 !== 12){
-		      hour1+=12;
-		  }
-		  else if(dayPeriod1==="AM" && hour1 === 12){
-		  	hour1 = 0;
-		  }
-		  //console.log(hour1+":"+min1);
-		  return hour1+":"+min1;  
-	}
-	function compareTime(A,B)
-	{
-	    var tmpA = A.split(":");
-	    var hoursA = parseInt(tmpA[0]);
-	    var minsA = parseInt(tmpA[1]);
-	    
-	    var tmpB = B.split(":");
-	    var hoursB = parseInt(tmpB[0]);
-	    var minsB = parseInt(tmpB[1]);
-	    if(hoursA > hoursB)
-		{
-			return 1;
-		}
-	    else if(hoursA < hoursB)
-		{
-			return -1;
-		}
-	    else{
-			if(minsA === minsB){
-				return 0;
-			}
-			else if(minsA > minsB){
-					return 1;
-			}
-			else if(minsA < minsB){
-			    return -1;
-			}
-			
-	    }
-		
-	}
 	
 function dismissWarning(){
 	//console.log("dismissWarning called");
@@ -918,9 +347,7 @@ function getReportsByRoom(date){
 	    ((''+hour).length<2 ? '0' :'') + hour + ':' +
 	    ((''+minute).length<2 ? '0' :'') + minute + ':' +
 	    ((''+second).length<2 ? '0' :'') + second; */
-	    
-	    
-	   // console.log(userLocation);
+	   //console.log(userLocation);
 	    var hack = 0;
 	    switch(userLocation){
 	    	case "Blue":
@@ -982,12 +409,17 @@ function buildReportGrid(reports){
 	$("#reportTable").append("<tr><th></th><td><strong>Name</strong></td><td><strong>Status</strong></td><td><strong class='pull-right'></strong></td><td></td></tr>");
 	$.each(reports, function(i, item) {
     	//console.log(reports[i].status);
-    	$("#reportTable").append("<tr id="+reports[i].id+"><th width='14'><div style='float:left;margin:0;vertical-align: middle;'><input  style='margin:0;vertical-align:middle;' type='checkbox' name='vehicle' value='Bike'></div></th><td>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'><!-- <a class='btn btn-danger btn-mini' href='javascript:clearReport("+reports[i].id+")'>clear <span class='icon-warning-sign'></span></a> &nbsp; &nbsp;<a class='' href='../reports/edit/"+reports[i].id+"'></a>--></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
+    	$("#reportTable").append("<tr id="+reports[i].id+"><th width='14'><div style='float:left;margin:0;vertical-align: middle;'><input  style='margin:0;vertical-align:middle;' type='checkbox' name='"+reports[i].id+"' value='"+reports[i].status+"'></div></th><td>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'><!-- <a class='btn btn-danger btn-mini' href='javascript:clearReport("+reports[i].id+")'>clear <span class='icon-warning-sign'></span></a> &nbsp; &nbsp;<a class='' href='../reports/edit/"+reports[i].id+"'></a>--></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
 	});
 	$("#reportTable td").click(function(evt){
 		//console.log($(evt.target).parent().get(0).id);
 		window.location.href = "../reports/edit/" + $(evt.target).parent().get(0).id;
 		//window.location.href = "../reports/edit/" + this.id;
+	});
+	
+	$('#reportTable').find('input:checkbox').click(function(){
+		//console.log($(this).val());
+		handleActionBar();
 	});
 	
 	$("tr").not(':first').hover(
@@ -1002,7 +434,82 @@ function buildReportGrid(reports){
 		//TODO: initialize actionBar buttons, set visible to false. code logic to activate/deactivate accordingly
 		//$("#print").parent().addClass('disabled');
 		//$("#actionBar li").hide();
+		disableAllActions();
 	
+}
+function handleActionBar(){
+	
+	var status = "";
+	var check = "";
+	var cut = false;
+	if($('#reportTable th input:checked').length == 0)
+	{
+		disableAllActions();
+	}
+	else {
+		$('#reportTable').find('input:checkbox').each(function(){
+			if($(this).prop("checked")){
+				
+				status = $(this).val();
+				//console.log($(this).prop('name') + " is active");
+				if(status == check || check===""){
+					//console.log("all the same status");
+					check = status;
+				}
+				else{
+					enableAllButPrintEmail();
+					cut = true;
+					return false;
+				}
+			}
+		});
+		
+		if(status == check && status != ""){
+			if(status === "DRAFT"){
+				enableAllButPrintEmail();
+			}
+			else{
+				enableAllActions();
+			}
+		}
+	
+	}
+	
+		//console.log("All selected? " + $('#reportTable th input:checked').length + " : " + $('#reportTable th input').length);
+		//console.log( $('#reportTable th input:checked').length  === $('#reportTable th input').length);
+		
+	/*if(status == check && status != ""){
+		if(status === "DRAFT"){
+			enableAllButPrintEmail();
+		}
+		else{
+			enableAllActions();
+		}
+	}
+	else if(cut == true){
+		
+	}*/
+}
+function enableAllButPrintEmail(){
+	$("#actionButtons button").each(function(){
+		//console.log($(this).prop('id') == "printBtn");
+		if($(this).prop('id')== "printBtn" ||$(this).prop('id')== "emailBtn" ){
+			$(this).addClass('disabled');
+		}
+		else{
+			$(this).removeClass('disabled');
+		}
+	});
+}
+function disableAllActions(){
+	$("#actionButtons button").each(function(){
+		$(this).addClass('disabled');
+	});
+}
+function enableAllActions(){
+	$("#actionButtons button").each(function(){
+		$(this).removeClass('disabled');
+	});
 }
 function handlePrintClick(){
 	
@@ -1022,14 +529,56 @@ function selectAll(){
 	
 	
 	$('#reportTable').find('input:checkbox').prop('checked', 'checked');
-	
+	handleActionBar();
 }
 function deSelectAll(){
 	
 	
 	$('#reportTable').find('input:checkbox').prop('checked', false);
+	handleActionBar();
 	
 }
+
+function doPrintSelected(){
+	
+	$("#spinner").show();
+	var id = new Array();
+	$("#reportTable input:checked").each(function(){
+		id.push($(this).prop('name'));
+	});
+	
+	//console.log(id);
+	
+	var msg = {
+		"reports" : id
+	};
+	//console.log(JSON.stringify(msg));
+	$.ajax({
+			  type: "POST",
+			  async: false,
+			  data: JSON.stringify(msg),
+			  dataType: "JSON",
+			  url: '../reports/print_reports',
+			  beforeSend: function(x) {
+				  if (x && x.overrideMimeType) {
+					  x.overrideMimeType("application/j-son;charset=UTF-8");
+				  }
+			  },
+			  success: function(result) {
+				  console.log("report " + id+ " as successfully printed: " + result.success);
+			
+				 $("#spinner").hide();
+			
+				
+			 },
+			 error: function (request, status, error) {
+							 alert(status + " : " + error);
+						 $("#spinner").hide();
+					  }
+				  });
+		
+}
+
 function clearReport(id){
 	$("#spinner").show();
 	
