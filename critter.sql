@@ -429,10 +429,10 @@ CREATE TABLE IF NOT EXISTS `reports` (
 --
 
 INSERT INTO `reports` (`id`, `user_id`, `status`, `child_id`, `teacher_list`, `room_id`, `daycare_center_id`, `date`, `daily_activity`, `needed_items`, `attitude`, `sleep`, `breakfast`, `lunch`, `snack`, `potty`, `notes`, `created`, `modified`) VALUES
-(10, 999, 'SUBMITTED', 2, 'Kate Winslut', 1, 1, '2004-03-13', 'went to the gym', 'Sheet', 'Friendly', 'I slept from: 01:00 PM to: 03:00 PM.', 29, 61, 69, '|Potty Event- @03:00 PM I went pee it was an accident', 'sadsf asd fsadf ', '2013-04-03 21:03:39', '2013-04-03 22:47:05'),
-(15, 999, 'SUBMITTED', 3, 'Kate Winslut', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02'),
+(10, 999, 'SUBMITTED', 2, 'Kate Winslet', 1, 1, '2004-03-13', 'went to the gym', 'Sheet', 'Friendly', 'I slept from: 01:00 PM to: 03:00 PM.', 29, 61, 69, '|Potty Event- @03:00 PM I went pee it was an accident', 'sadsf asd fsadf ', '2013-04-03 21:03:39', '2013-04-03 22:47:05'),
+(15, 999, 'SUBMITTED', 3, 'Kate Winslet', 0, 0, '2004-03-13', 'asasd', 'Extra Clothes', 'Silly', 'I slept from: 05:13 PM to: 05:34 PM.', 56, 50, 47, '|Potty Event- @03:00 PM my diaper was wet', 'adsfsadf ', '2013-04-03 23:07:02', '2013-04-03 23:07:02'),
 (16, 999, 'SUBMITTED', 2, 'Paul', 0, 0, '2004-09-13', 'Happy Happy in the Sun', '', 'Happy|Sleepy', 'I slept from: 12:15 PM to: 03:15 PM.', 21, 96, 98, '|Potty Event- @10:23 PM I went pee', 'We had a great day!', '2013-04-09 18:26:43', '2013-04-09 18:26:43'),
-(21, 4, 'SUBMITTED', 2, 'Paul|Kate Winslut|Little Miss Moffet', 3, 0, '2004-11-13', 'went outside|did arts and crafts', 'Diapers', 'Not Myself|Happy|Curious', 'I slept from: 02:15 PM to: 04:15 PM.', 93, 92, 93, '|Potty Event- @04:00 PM I went pee I made a  BM', 'asd asd sadf sadf ', '2013-04-11 16:20:25', '2013-04-11 16:20:25'),
+(21, 4, 'SUBMITTED', 2, 'Paul|Kate Winslet|Little Miss Moffet', 3, 0, '2004-11-13', 'went outside|did arts and crafts', 'Diapers', 'Not Myself|Happy|Curious', 'I slept from: 02:15 PM to: 04:15 PM.', 93, 92, 93, '|Potty Event- @04:00 PM I went pee I made a  BM', 'asd asd sadf sadf ', '2013-04-11 16:20:25', '2013-04-11 16:20:25'),
 (90, 21, 'DRAFT', 3, '', 1, 0, '2013-04-19', '', '', '', '', 0, 0, 0, '', '', '2013-04-19 10:21:32', '2013-04-19 10:21:32'),
 (91, 21, 'DRAFT', 2, '', 1, 0, '2013-04-19', '', '', '', '', 0, 0, 0, '', '', '2013-04-19 10:21:32', '2013-04-19 10:21:32'),
 (92, 21, 'DRAFT', 1, '', 1, 0, '2013-04-19', '', '', '', '', 0, 0, 0, '', '', '2013-04-19 10:21:32', '2013-04-19 10:21:32'),
@@ -440,7 +440,7 @@ INSERT INTO `reports` (`id`, `user_id`, `status`, `child_id`, `teacher_list`, `r
 (94, 21, 'DRAFT', 2, '', 1, 0, '2013-04-22', '', '', '', '', 0, 0, 0, '', '', '2013-04-22 14:36:56', '2013-04-22 14:36:56'),
 (95, 21, 'DRAFT', 1, '', 1, 0, '2013-04-22', '', '', '', '', 0, 0, 0, '', '', '2013-04-22 14:36:56', '2013-04-22 14:36:56'),
 (96, 21, 'DRAFT', 3, '', 1, 0, '2013-04-23', '', '', '', '', 0, 0, 0, '', '', '2013-04-23 13:55:14', '2013-04-23 13:55:14'),
-(97, 21, 'DRAFT', 2, 'Paul|Kate Winslut', 1, 0, '2013-04-23', 'went to the gym|did arts and crafts|other::Im a lur lur', 'Diapers|Extra Clothes|Blanket', 'Sad|Silly|Curious|Quiet|Teary', 'I slept from: 04:30 PM to: 06:30 PM.', 53, 99, 91, '@05:30 PM I tried to go Potty I went pee', 'Tomorrow tomorrow and tomorrow creeps in this petty pace from day to day to the last syllable of recorded time, all our our yesterdays have lighted fools the way to dusty death. out out brief candle, life is but a poor player who struts and frets his hour upon the stage and is heard no more.', '2013-04-23 13:55:14', '2013-04-23 18:37:04'),
+(97, 21, 'DRAFT', 2, 'Paul|Kate Winslet', 1, 0, '2013-04-23', 'went to the gym|did arts and crafts|other::Im a lur lur', 'Diapers|Extra Clothes|Blanket', 'Sad|Silly|Curious|Quiet|Teary', 'I slept from: 04:30 PM to: 06:30 PM.', 53, 99, 91, '@05:30 PM I tried to go Potty I went pee', 'Tomorrow tomorrow and tomorrow creeps in this petty pace from day to day to the last syllable of recorded time, all our our yesterdays have lighted fools the way to dusty death. out out brief candle, life is but a poor player who struts and frets his hour upon the stage and is heard no more.', '2013-04-23 13:55:14', '2013-04-23 18:37:04'),
 (98, 21, 'DRAFT', 1, '', 1, 0, '2013-04-23', '', '', '', '', 0, 0, 0, '', '', '2013-04-23 13:55:14', '2013-04-23 13:55:14'),
 (99, 21, 'DRAFT', 3, '', 1, 0, '2013-04-24', '', '', '', '', 0, 0, 0, '', '', '2013-04-24 10:59:22', '2013-04-24 10:59:22'),
 (100, 21, 'DRAFT', 2, '', 1, 0, '2013-04-24', '', '', '', '', 0, 0, 0, '', '', '2013-04-24 10:59:22', '2013-04-24 10:59:22'),
@@ -535,7 +535,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
 
 INSERT INTO `teachers` (`id`, `email`, `password`, `name`, `room_id`, `employee_type_id`, `daycare_center_id`) VALUES
 (1, 'makarov9mm@gmail.com', 'paul', 'Paul', 1, 0, 1),
-(2, 'katewinslut@slut.com', 'password', 'Kate Winslut', 1, 0, 1),
+(2, 'katewinslet@slet.com', 'password', 'Kate Winslet', 1, 0, 1),
 (3, 'fooboo@boofoo.com', 'password', 'Little Miss Moffet', 1, 0, 1);
 
 -- --------------------------------------------------------
