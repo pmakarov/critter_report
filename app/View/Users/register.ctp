@@ -6,7 +6,7 @@
         	<div id="flashMessage" class="flash"><?php echo $this->Session->flash(); ?></div>
               <div class="row-fluid">
               <div class="span6">
-              <h3>Critter-Report is currently only being released in select day cares. Check back soon!</h3> If you are a childcare provider interested in automating your administrative processes, please feel free to <?php echo $this->Html->link('contact us',array('controller'=>'contacts','admin'=>false));?></div>
+              <h3>Critter-Report is currently only being released as a closed alpha. Check back soon!</h3> If you are a childcare provider interested in automating your administrative processes, please feel free to <?php echo $this->Html->link('contact us',array('controller'=>'contacts','admin'=>false));?></div>
                 </div>
 <?php /*echo $this->Form->create('User'); ?>
 	<fieldset>

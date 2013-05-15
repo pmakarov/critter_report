@@ -775,7 +775,7 @@ var _REPORT_ID = "<?php echo $id; ?>";
 	     $("html, body").animate({ scrollTop: 0 }, "slow");
 	}
 	function doSubmit()	{
-		_STATUS = "SUBMITTED";
+		_STATUS = "FINALIZED";
 		validateForm();
 	
 	}

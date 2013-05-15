@@ -526,15 +526,7 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 			}
 		}
 		
-		public function view_pdf($id = null) {
-		    $this->Report->id = $id;
-		    if (!$this->Report->exists()) {
-		        throw new NotFoundException(__('Invalid report'));
-		    }
-		    // increase memory limit in PHP
-		    ini_set('memory_limit', '512M');
-		    $this->set('report', $this->Report->read(null, $id));
-		}
+		
 		
 		public function send_report($id = null) {
 			$this->Report->id = $id;
@@ -558,6 +550,16 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 			$this->redirect(array('controller' => 'users', 'action' => 'dashboard_users'));
 		}
 		
+		public function view_pdf($id = null) {
+		    $this->Report->id = $id;
+		    if (!$this->Report->exists()) {
+		        throw new NotFoundException(__('Invalid report'));
+		    }
+		    // increase memory limit in PHP
+		    ini_set('memory_limit', '512M');
+		    $this->set('report', $this->Report->read(null, $id));
+		}
+		
 		public function print_reports($reports = null){
 			$data_back = json_decode(file_get_contents('php://input'));
 			$reports = $data_back->{"reports"};
@@ -567,8 +569,58 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 			$arr = $this->Report->find('all', array('conditions' => array("Report.id" => $reports)));
 			$this->ext = 'pdf';
 			$this->set('arr', $arr);
-			$this->layout = "";
-			$this->render();
+			
+			//$this->layout = "";
+			//$this->render();
+			
+		}
+		
+		public function email_reports($reports = null){
+			$data_back = json_decode(file_get_contents('php://input'));
+			$reports = $data_back->{"reports"};
+			
+			for ($i=0; $i<count($reports); $i++)
+			{
+				$id = $reports[$i];
+				$this->Report->id = $id;
+				if (!$this->Report->exists()) {
+			        throw new NotFoundException(__('Invalid report'));
+			    }
+				
+				$report = $this->Report->read(null, $id);
+				$this->Report->set('status', 'SENT');
+				$this->Report->save();
+				
+				$this->Report->Child->id = $report['Report']['child_id'];
+				
+				$guard = $this->Report->Child->Guardian->find('all');
+				$recipients = array();
+				foreach ($guard as $key ) {
+					array_push($recipients, $key['Guardian']['email']);
+				}
+				
+				$Email = new CakeEmail('default');	
+				$Email->viewVars(compact('report'));
+				$Email->template('critter_report');
+			    $Email->emailFormat('html');
+				$today = date('m/d/Y');
+				$subject = 'Critter Report- ' . $today;
+				$Email->subject($subject);
+			    $Email->to($recipients);
+			    $Email->from('info@critter-report.com');
+			    $Email->send();
+				
+				}
+				
+				
+				return new CakeResponse(array('body'=> json_encode(array('success' => true,'message'=>'Reports sent')),'status'=>200));
+				//$response = array('success' => true, 'message' => "wut?", 'status' => '200');
+				//$this->layout = 'ajax';
+				//$this->autoRender = false;
+				//$this->set('response', $response);
+				
+				
+				 
 			
 		}
 				

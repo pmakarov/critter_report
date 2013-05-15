@@ -86,9 +86,10 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
                <div style="margin: 0;" class="btn-toolbar">
                
               <div id="actionButtons" class="btn-group pull-right">
-                <button id="tagBtn" class="btn"><span class="icon-tag"></span></button>
-                <button id="clearBtn" class="btn"><span class="icon-minus-sign"></span></button>
-                <button id="deleteBtn" class="btn"><span class="icon-trash"></span></button>
+                <button id="tagBtn" class="btn" data-toggle="tooltip"><span class="icon-tag"></span></button>
+                <button id="absentBtn" class="btn" data-toggle="tooltip"><span class="icon-remove"></span></button>
+                <button id="clearBtn" class="btn" data-toggle="tooltip"><span class="icon-minus-sign"></span></button>
+                <button id="deleteBtn" class="btn" data-toggle="tooltip"><span class="icon-trash"></span></button>
                 <button id="printBtn" class="btn" data-toggle="tooltip"  title="Print" formtarget="_blank" ><span class="icon-print"></span></button>
                 <button id="emailBtn" class="btn" data-toggle="tooltip"  title="Email"><span class="icon-envelope"></span></button>
               </div>
@@ -101,9 +102,9 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
 						<li><a href="javascript:selectAll()">All</a></li>
 						<li><a href="javascript:deSelectAll()">None</a></li>
 						<li><a href="#">Absent</a></li>
-					   	<li><a href="#">Draft</a></li>
-					   	<li><a href="#">Finalized</a></li>
-					   	<li><a href="#">Sent</a></li>
+					   	<li><a href="javascript:selectDrafts()">Draft</a></li>
+					   	<li><a href="javascript:selectFinalized()">Finalized</a></li>
+					   	<li><a href="javascript:selectSent()">Sent</a></li>
 					</ul>
               </div>
                <div class="btn-group">
@@ -116,6 +117,19 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
 	<div class="row-fluid">
 	<table id="reportTable" cellpadding="0" cellspacing="0" class="table table-striped">
 	</table>
+	<!-- <div class="row-fluid">
+		<div id="actionBar" class="nav" >
+               <div style="margin: 0;" class="btn-toolbar">
+               
+              <div id="actionButtons" class="btn-group pull-right">
+                <button id="tagBtn" class="btn" data-toggle="tooltip"><span class="icon-tag"></span></button>
+                <button id="absentBtn" class="btn" data-toggle="tooltip"><span class="icon-remove"></span></button>
+                <button id="clearBtn" class="btn" data-toggle="tooltip"><span class="icon-minus-sign"></span></button>
+                <button id="deleteBtn" class="btn" data-toggle="tooltip"><span class="icon-trash"></span></button>
+                <button id="printBtn" class="btn" data-toggle="tooltip"  title="Print" formtarget="_blank" ><span class="icon-print"></span></button>
+                <button id="emailBtn" class="btn" data-toggle="tooltip"  title="Email"><span class="icon-envelope"></span></button>
+              </div>
+	</div>-->
 	</div>
 </div>
 </div>
@@ -526,17 +540,25 @@ function toggleSelectAll(){
 	
 }
 function selectAll(){
-	
-	
 	$('#reportTable').find('input:checkbox').prop('checked', 'checked');
 	handleActionBar();
 }
 function deSelectAll(){
-	
-	
 	$('#reportTable').find('input:checkbox').prop('checked', false);
-	handleActionBar();
-	
+	handleActionBar();	
+}
+
+function selectDrafts(){
+	$('#reportTable').find('input:checkbox[value="DRAFT"]').prop('checked', 'checked');
+	handleActionBar();	
+}
+function selectFinalized(){
+	$('#reportTable').find('input:checkbox[value="FINALIZED"]').prop('checked', 'checked');
+	handleActionBar();	
+}
+function selectSent(){
+	$('#reportTable').find('input:checkbox[value="SENT"]').prop('checked', 'checked');
+	handleActionBar();	
 }
 
 function doPrintSelected(){
@@ -578,6 +600,47 @@ function doPrintSelected(){
 				  });
 		
 }
+
+function doEmailSelected(){
+	
+	$("#spinner").show();
+	var id = new Array();
+	$("#reportTable input:checked").each(function(){
+		id.push($(this).prop('name'));
+	});
+	
+	//console.log(id);
+	
+	var msg = {
+		"reports" : id
+	};
+	//console.log(JSON.stringify(msg));
+	$.ajax({
+			  type: "POST",
+			  async: false,
+			  data: JSON.stringify(msg),
+			  dataType: "JSON",
+			  url: '../reports/email_reports',
+			  beforeSend: function(x) {
+				  if (x && x.overrideMimeType) {
+					  x.overrideMimeType("application/j-son;charset=UTF-8");
+				  }
+			  },
+			  success: function(result) {
+				  console.log("success " + result.success+ " " + result.message);
+			
+				 $("#spinner").hide();
+				getReportsByRoom();
+				
+			 },
+			 error: function (request, status, error) {
+							 alert(status + " : " + error);
+						 $("#spinner").hide();
+					  }
+				  });
+		
+}
+
 
 function clearReport(id){
 	$("#spinner").show();
