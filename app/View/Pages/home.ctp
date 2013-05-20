@@ -22,44 +22,60 @@ App::uses('Debugger', 'Utility');
 ?>
 <div class="wrapper">
 	<div class="container" id="homeContainer">
-	
-         <div class="row-fluid">
-         	<div class="span6">
-	          <h2>Welcome to Critter!</h2>
-	          <p>Our mission is to provide a simple and intuitive interface that allows users to easily create and publish report content. Our goal has been to amplify and optimize the reporting process through the use of the following:</p>
-	         
-	       	<ul>
-	       		<li><strong>Critter Dashboard</strong>: an easy-to-use workspace that allows you to manage, edit, and publish your reports</li>
-	       		<li><strong>Critter Report</strong>: a form built, not just to store your data, but to optimize the way in which you report. With the ability to add dynamic data, we hope to make reporting more powerful and personal</li>
-	       	</ul>
-	          <p><?php echo $this->Html->link('Register ' . '&raquo;', array('controller' => 'users', 'action' => 'register'), array('class' => 'btn btn-success', 'role' => 'button', 'escape' => false )); ?></p>
-	        </div>
-	        <div class="span2">
-	        	
-	        </div>
-         	<div class="span4 well">
-		        <form id="f" action="" class="cmxform">
-		         <h2>Sign In</h2>
-		         <div class="errorblock " id="loginErrorDiv" style="display:none">
-					Invalid Username or Password <br>
-					Please try again.
-					</div>
-					<fieldset id="user-details">
-						<label for="username">User Name : <span class="required">*</span></label>
-						<input id="username" type="text" name="data[User][username]" value="" /> 
-						<label for="password">Password: <span class="required">* &nbsp;<?php echo $this->Html->link('(forgot password', array('controller' => 'users', 'action' => 'recover'), array('tabindex' => '-1'));?>)</span>
-						</label> <input id="password" type="password" name="data[User][password]" value="" />
-						<div ><a id="submitBtn" class="btn" href="" role="button">Login &raquo;</a></div>
-						
-					</fieldset>
-				</form>
-	        </div>
+	 <div class="jumbotron well ">
+         <h2>Sign Up Today!</h2>
+				<ul class="lead">
+					<li><small>[placeholder content] Create you daily reports with ease and style!</small></li>
+					<li> <small>[placeholder content] Download our Mobile App and free yourself from the tedium!</small></li>
+					<li><small>[placeholder content] Use our reporting tools to chart progress.</small></li>
+					<li><small>[placeholder content] Earn back that lost time from having to handwrite all reports! </small></li>
+				</ul>
+				<a class="btn btn-success" href="#">More &raquo;</a>
+        </div>
+      <hr>
+      
+       <!-- Example row of columns -->
+      <div class="row-fluid">
         
-       </div>
-        
+        <div class="span4">
+          <h2>News</h2>
+          <ul>
+					<li><small>[placeholder content] The CopperNickel team is feverishly working to bring you Critter Report Alpha!</small></li>
+					<li> <small>[placeholder content] Download our Mobile App and free yourself from the tedium!</small></li>
+					<li><small>[placeholder content] Use our reporting tools to chart progress.</small></li>
+					<li><small>[placeholder content] Earn back that lost time from having to handwrite all reports! </small></li>
+				</ul>
+<!--           <p><a class="btn" href="#">View details &raquo;</a></p> -->
+        </div>
+       <div class="span4">
+          <h2>Service</h2>
+          <ul>
+					<li><small>[placeholder content] <a class="link" href="#">View our Terms of Service (TOS)</a></small></li>
+					<li> <small>[placeholder content] <a class="link" href="#">Customer Support</a></small></li>
+					<li><small>[placeholder content] Use our reporting tools to chart progress.</small></li>
+					<li><small>[placeholder content] Earn back that lost time from having to handwrite all reports! </small></li>
+				</ul>
+<!--           <p><a class="btn" href="#">View details &raquo;</a></p> -->
+        </div>
+        <div class="span4 well">
+        <form id="f" action="" class="cmxform">
+         <h2>Sign In</h2>
+         <div class="errorblock " id="loginErrorDiv" style="display:none">
+			Invalid Username or Password <br>
+			Please try again.
+			</div>
+			<fieldset id="user-details">
+				<label for="username">User Name : <span class="required">*</span></label>
+				<input id="username" type="text" name="data[User][username]" value="" /> <label
+						for="password">Password: <span class="required">*</span>
+				</label> <input id="password" type="password" name="data[User][password]" value="" />
+				<div ><a id="submitBtn" class="btn" href="" role="button">Login &raquo;</a></div>
+				
+			</fieldset>
+		</form>
+        </div>
       </div>
-
-<!-- <hr>
+<hr>
 <iframe src="http://cakephp.org/bake-banner" width="830" height="160" style="overflow:hidden; border:none;">
 	<p>For updates and important announcements, visit http://cakefest.org</p>
 </iframe>
@@ -264,20 +280,10 @@ You can also add some CSS styles for your pages at: APP/webroot/css.');
 	<li><a href="http://cakephp.lighthouseapp.com/"><?php echo __d('cake_dev', 'CakePHP Lighthouse'); ?> </a>
 	<ul><li><?php echo __d('cake_dev', 'CakePHP Tickets, Wiki pages, Roadmap'); ?></li></ul></li>
 </ul>
--->
-<!--<?php echo $this->element('default_footer') ?>-->
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		$("input").keypress(function(event) {
-		    if (event.which == 13) {
-		        event.preventDefault();
-		       // $("form").submit();
-		       $("#submitBtn").trigger('click');
-		    }
-		});
-
-
 		$("#submitBtn").click(function(event){
 			// Declare the form
 		    var form = $("#f");
@@ -305,12 +311,9 @@ You can also add some CSS styles for your pages at: APP/webroot/css.');
 			 	 	   	if(result.login === "true"){
 			 	 	   		window.location.href=result.redirect;
 			 	 	   	}
-			 	 	   	else if(result.login==="false" && result.redirect==""){
+			 	 	   	else if(result.login==="false"){
 			 	 	   		$("#loginErrorDiv").html(result.error);
-			 	 	   		$("#loginErrorDiv").show();
-			 	 	   	}
-			 	 	   	else{
-			 	 	   		window.location.href=result.redirect;
+			 	 	   		$("#loginErrorDiv").toggle();
 			 	 	   	}
 			 	},
 			 	error: function (request, status, error) {
