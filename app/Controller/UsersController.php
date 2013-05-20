@@ -7,7 +7,7 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 	public $helpers = array('Js', 'Html', 'Form', 'Session');
-	var $components = array('Auth', 'Email', 'RequestHandler');
+	public $components = array('Auth', 'Email', 'RequestHandler', 'MathCaptcha' => array('timer' => 3));
 	
 	public function beforeFilter() {
 		
@@ -21,11 +21,11 @@ class UsersController extends AppController {
 		// For CakePHP 2.1 and up
 		$this->Auth->allow();
 		
-		$this->Auth->allow('initDB'); // We can remove this line after we're finished
+		//$this->Auth->allow('initDB'); // We can remove this line after we're finished
 	}
 
 	//custom function to quickset ACLs Son...
-	public function initDB() {
+	/*public function initDB() {
     $role = $this->User->Role;
     //Allow admins to everything
     $role->id = 1;
@@ -53,27 +53,46 @@ class UsersController extends AppController {
     //we add an exit to avoid an ugly "missing views" error message
     echo "all done";
     exit;
-	}
+	}*/
 	
 	/**
      * Registration page for new users
      */
     public function register()
     {
+    	
+		
 		if($this->request->is('post') && $this->request->data) {
 			if ($this->request->data['User']['password'] == $this->request->data['User']['password_confirm']){
 				$this->User->create();
-				if ($this->User->save($this->data)) {
-					$this->Session->setFlash(__('The user has been saved'));
-					$this->redirect(array('action' => 'index'));
-				} else {
-					$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+				//$roleId = array('role_id'=> '3');
+				//array_push($this->data, $roleId);
+				if ($this->MathCaptcha->validate($this->request->data['User']['captcha'])) {
+					if ($this->User->save($this->data)) {
+						//$this->Session->setFlash(__('The user has been saved'));
+						$id = $this->User->id;
+				        $this->request->data['User'] = array_merge($this->request->data['User'], array('id' => $id));
+				        $this->Auth->login($this->request->data['User']);
+				        //$this->redirect('/users/home');
+						$this->redirect(array('controller'=>'users','action' => 'dashboard_users'), null, false);
+						
+					} else {
+						$message = 'The user could not be saved. Please, try again.';
+						$this->Session->setFlash($message, 'default',  array('class' => 'flash'));
+					}
+				}
+				else {
+					 $this->Session->setFlash('Could not complete registration!');
 				}
 			}
 		}
 		
+		//$roles = $this->Role->findById('3');
+		//$roles = $this->User->Role->field('id', array('id' => '3'));
+		//var_dump($roles);
+		$captcha = $this->MathCaptcha->getCaptcha();
 		$roles = $this->User->Role->find('list');
-		$this->set(compact('roles'));
+		$this->set(compact('roles', 'captcha'));
 	}
 	
 	/**
@@ -89,21 +108,23 @@ class UsersController extends AppController {
             $Token = ClassRegistry::init('Token');
             $user = $this->User->findByEmail($this->data['User']['email']);
              
-            if ($user === false) {
+            if (count($user) === 0) {
                 $this->Session->setFlash('No matching user found');
                 return false;
             }
+			else {
              
-            $token = $Token->generate(array('User' => $user['User']));
-            $this->Session->setFlash('An email has been sent to your account, please follow the instructions in this email.');
-            $this->Email->to = $user['User']['email'];
-            $this->Email->subject = 'Password Recovery';
-            $this->Email->from = 'Support <support@critter.com>';
-            $this->Email->template = 'recover';
-            $this->set('user', $user);
-            $this->set('token', $token);
-            $this->Email->send();
-        }
+	            $token = $Token->generate(array('User' => $user['User']));
+	            $this->Session->setFlash('An email has been sent to your account, please follow the instructions in this email.');
+	            $this->Email->to = $user['User']['email'];
+	            $this->Email->subject = 'Password Recovery';
+	            $this->Email->from = 'Support <support@critter.com>';
+	            $this->Email->template = 'recover';
+	            $this->set('user', $user);
+	            $this->set('token', $token);
+	            $this->Email->send();
+			}
+		}
     }
      
     /**
@@ -122,7 +143,9 @@ class UsersController extends AppController {
             // Update the users password
             $password = $this->User->generatePassword();
             $this->User->id = $res['User']['id'];
-            $this->User->saveField('password', $this->Auth->password($password));
+			
+	        $this->User->saveField('password', $password);
+            //$this->User->saveField('password', $this->Auth->password($password));
             $this->set('success', true);
  
             // Send email with new password
@@ -141,29 +164,34 @@ class UsersController extends AppController {
      */
     public function account()
     {
+    	$this->layout = "dashboard";
         // Set User's ID in model which is needed for validation
         $this->User->id = $this->Auth->user('id');
-         
+        if ($this->Auth->user()) {
         // Load the user (avoid populating $this->data)
-        $current_user = $this->User->findById($this->User->id);
-        $this->set('current_user', $current_user);
- 
-        $this->User->useValidationRules('ChangePassword');
-        $this->User->validate['password_confirm']['compare']['rule'] = array('password_match', 'password', false);
- 
-        $this->User->set($this->data);
-        if (!empty($this->data) && $this->User->validates()) {
-		
-			// old algorithm asked to hass $password w/ Auth comp but no need.
-		   $password = $this->data['User']['password'];
-			//echo AuthComponent::password($password) . "<br/>";
-			//die(); //23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9 for password hash
-            $this->User->saveField('password', $password);
- 
-            $this->Session->setFlash('Your password has been updated');
-            $this->redirect(array('action' => 'account'));
-        }       
-    }
+	        $current_user = $this->User->findById($this->User->id);
+	        $this->set('current_user', $current_user);
+	 
+	        $this->User->useValidationRules('ChangePassword');
+	        $this->User->validate['password_confirm']['compare']['rule'] = array('password_match', 'password', false);
+	 
+	        $this->User->set($this->data);
+	        if (!empty($this->data) && $this->User->validates()) {
+			
+				// old algorithm asked to hass $password w/ Auth comp but no need.
+			   $password = $this->data['User']['password'];
+				//echo AuthComponent::password($password) . "<br/>";
+				//die(); //23bd3f160cd86e6f3ef90c0d11c64d797eaa71d9 for password hash
+	            $this->User->saveField('password', $password);
+	 
+	            $this->Session->setFlash('Your password has been updated');
+	            $this->redirect(array('action' => 'account'));
+	        }       
+    	}
+		   else{
+		   		 $this->redirect(array('action' => 'login'));
+		   }
+	}
 
 /**
 * Dashboards
@@ -237,6 +265,15 @@ class UsersController extends AppController {
  }
  public function dashboard_users() {
  $this->layout = 'dashboard';
+ 
+ 
+ if(is_null($this->Session->read('Auth.User.id')== null))
+ {
+ 	echo "here mother fucker";
+	die();
+ 	$this->Session->setFlash(__("you've been logged out of the system"));
+	$this->redirect(array('controller'=>'users', 'action'=>'login'));
+ }
  
  //see if user has selected a location
  $this->set('userId', $this->Session->read('Auth.User.id'));
@@ -380,9 +417,11 @@ class UsersController extends AppController {
 			if ($this->request->is('ajax')) {
 		        $this->layout = 'ajax';
 				$this->autoRender = false;
-				$arr = array("login" => "false" , "error" => "Already Logged in");
-			    echo json_encode($arr);
-			    }
+				$role_name = $this->User->Role->field('name', array('id' => $this->Auth->User('role_id')));
+				$action = 'dashboard_' . $role_name;
+				$arr = array("login" => "false" , "redirect" => Router::url(array("controller"=>"users","action"=>$action)), "error" => "Already Logged in");
+			  	echo json_encode($arr);
+			}
 			else{
 				$this->Session->setFlash('You are logged in!');
 				$role_name = $this->User->Role->field('name', array('id' => $this->Auth->User('role_id')));
@@ -438,7 +477,7 @@ class UsersController extends AppController {
 			    }  
 			    else  
 			    {  
-			         $arr = array("login" => "false" , "error" => "Invalid Username or Password <br> Please try again.");
+			         $arr = array("login" => "false" , "redirect" => Router::url(array("controller"=>"users","action"=>'login')), "error" => "Invalid Username or Password <br> Please try again.");
 			         echo json_encode($arr);
 			    } 
 		 }
