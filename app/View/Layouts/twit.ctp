@@ -71,19 +71,20 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
 <header>
   <div id="headerPanel" class="headerPanel">
   <div class="container">
-  	<div class="pull-right">
+  	<!-- <div class="pull-right">
 	<?php
 		if($this->Session->read('Auth')) {
-		   echo $this->Html->link('Logout', array('controller'=>'users', 'action'=>'logout')); 
+			//echo $this->Session->read("Auth.User.username");
+		   echo $this->Html->link('Logout: '.  $this->Session->read("Auth.User.username"), array('controller'=>'users', 'action'=>'logout')); 
 		} 
 		else {
 		  
 		   echo $this->Html->link('Login', array('controller'=>'users', 'action'=>'login')); 
 		}
 	?>
-	</div>
+	</div> -->
     <div class="panelL"> <?php echo $this->Html->image('logo.png')?>
-     <h3>Critter Report - v 0.0.0.1</h3>
+     
     </div>
    </div>
   </div>
@@ -94,34 +95,13 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
 		<div class="container" id="menuBar">
 			<ul class="nav nav-pills">
 				<li><?php echo $this->Html->link('Home', '/'); ?></li>
-				 <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Admin <!-- <b class="caret"></b> --></a>
-				
-				    <ul class="dropdown-menu" >
-					    <li><a tabindex="-1" href="#">Add Students</a></li>
-					    <li><a tabindex="-1" href="#">Add Teachers</a></li>
-					    <li class="divider"></li>
-					    <li><a tabindex="-1" href="#">Admin Dashboard</a></li>
-				    </ul>
-				</li>
-				 <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						User <!-- <b class="caret"></b> --></a>
-				    <ul class="dropdown-menu" >
-					    <li><?php echo $this->Html->link('Create Report', array("controller"=>"reports", "action" => "add", "admin"=>false), array("tabindex" => "-1")); ?></li>
-					    <li class="divider"></li>
-					    <li><a tabindex="-1" href="#">User Dashboard</a></li>
-				    </ul>
-				</li>
 				<li><a href="#">About</a></li>
-				<li><a href="signup.htm">Sign Up</a></li>
-				<li><a href="#">Mobile</a></li>
 				<li><?php echo $this->Html->link('Contact Us', array("controller"=>"contacts", "admin"=>false)); ?></li>
 				
 			</ul>
 		</div>
 	</div>
+
 
 	<div class="wrapper">
 		<div class="container home-container">

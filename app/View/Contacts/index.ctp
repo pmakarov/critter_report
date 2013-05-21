@@ -1,23 +1,30 @@
-<p>Thank you for your interest in our company. Leave a message.</p>
-<?php echo $this->Form->create('Contact', array('action' => 'send')); ?>
-<table style="border:none;">
-    <tr>
-        <td>Name</td>
-        <td><?php echo $this->Form->input('Contact.name', array('label' => false, 'maxlength' => 100, 'size' => 40)); ?></td>
-    </tr>
-    <tr>
-        <td>Company</td>
-        <td><?php echo $this->Form->input('Contact.company', array('label' => false, 'maxlength' => 100, 'size' => 40)); ?></td>
-    </tr>
-    <tr>
-        <td>E-Mail</td>
-        <td><?php echo $this->Form->input('Contact.email', array('label' => false, 'maxlength' => 100, 'size' => 40)); ?></td>
-    </tr>
-    <tr>
-        <td style="vertical-align: top;">Your comment</td>
-        <td><?php echo $this->Form->input('Contact.message', array('label' => false, 'cols' => 50, 'rows' => 10)); ?></td>
-    </tr>
-    <tr>
-        <td colspan="2" align="center"><br><?php echo $this->Form->end('Send'); ?></td>
-    </tr>
-</table>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="critterWell" id="formContainer">
+      	
+        <div id="mainForm"> 
+        	<div id="flashMessage" class="flash"><?php echo $this->Session->flash(); ?></div>
+              <div class="row-fluid">
+              	
+              	 <?php echo $this->Form->create('Contact', array('action' => 'send')); ?>
+ 		<fieldset>
+        <legend><?php echo __('Contact Us'); ?></legend> 
+	 <p>Thank you for your interest in our company. Leave a message.</p>
+       <?php echo $this->Form->input('Contact.name', array('maxlength' => 100, 'size' => 40));
+       echo $this->Form->input('Contact.company', array('maxlength' => 100, 'size' => 40)); 
+       echo $this->Form->input('Contact.email', array( 'maxlength' => 100, 'size' => 40)); 
+  	   echo $this->Form->input('Contact.message', array('required'=>'true', 'type'=>'textarea', 'rows'=> '6',  'class'=>'field span6', 'placeholder' => 'Your message here...'));
+  	   echo $this->Form->input('Contact.captcha', array('label' => 'Calculate this: '.$captcha)); ?>
+	   </fieldset>
+  	 <?php echo $this->Form->submit(__('Contact Us'), array('class' => 'btn btn-success'));
+ 		echo $this->Form->end();?>
+   		
+                </div>
+
+</div>
+</div>
+</div>
+</div>
+
+

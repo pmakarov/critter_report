@@ -1,3 +1,18 @@
+<?php
+	echo $this->Html->css('custom-theme/jquery-ui-1.10.0.custom.css');
+	echo $this->Html->css('datepicker.css');
+	echo $this->Html->css('bootstrap-timepicker.css');
+	echo $this->Html->css('select2.css');
+	echo $this->Html->css('timepicker.css');
+  	
+  	echo $this->Html->script('jquery-ui-1.10.0.custom.min.js');
+    echo $this->Html->script('bootstrap-typeahead.js');
+    echo $this->Html->script('select2.js');
+    echo $this->Html->script('bootstrap-datepicker.js');
+    echo $this->Html->script('bootstrap-timepicker.js');
+	
+       
+?>
 <div class="children form">
 <?php echo $this->Form->create('Child'); ?>
 	<fieldset>
@@ -11,7 +26,7 @@
 		echo $this->Form->input('birthday');
 		echo $this->Form->input('room_id');
 		echo $this->Form->input('special_needs');
-		echo $this->Form->input('Guardian');
+		echo $this->Form->input('Guardian', array('multiple'=>'multiple', 'required'=>'false', 'style'=>'width:300px','type'=>'select'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
@@ -30,3 +45,8 @@
 		<li><?php echo $this->Html->link(__('New Guardian'), array('controller' => 'guardians', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#GuardianGuardian").select2();
+	});
+</script>

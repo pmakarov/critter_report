@@ -36,15 +36,7 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
 </title>
  <meta name="description" content="Wrangling and reporting on your little monsters so you can determine what to do with them">
       
-       
-      
-       echo $this->Html->css('custom-theme/jquery-ui-1.10.0.custom.css');
-  	
-        <!--
-        <script src="js/jquery-1.9.0.min.js" ></script>        
-        <script src="js/modernizr-2.6.2.min.js"></script>
-        -->
-        
+     
    <?php
 		echo $this->Html->meta('icon');
 
@@ -53,6 +45,7 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
  		echo $this->Html->css('main.css');
         echo $this->Html->css('bootstrap.min.css');
         echo $this->Html->css('bootstrap-responsive.min.css');
+        echo $this->Html->css('custom-theme/jquery-ui-1.10.0.custom.css');
         echo $this->Html->css('style.css');
         echo $this->Html->script('jquery-1.9.0.min.js');
         echo $this->Html->script('modernizr-2.6.2.min.js');
@@ -71,27 +64,36 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
 <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="#" class="brand">Critter Report</a>
-          <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              Logged in as <?php
+         <!-- <?php echo $this->Html->link($this->Html->image("critter2.gif", array("alt" => "Critter")), "/",array('escape' => false, 'class' => 'brand')); ?> -->
+          <a href="#" class="brand">Critter</a>
+                  <div class="nav-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav pull-right">
+                   	<li class="divider-vertical"></li>
+            	 	<li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-cog"></span>&nbsp;Settings &nbsp;<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><?php echo $this->Html->link('Change Password', array('controller' => 'users', 'action' => 'account'), array('escape' => false)); ?></li>
+                        </ul>
+                      </li>
+                      <li class="divider-vertical"></li>
+                    
+                      <li class="dropdown">
+              			  <?php echo $this->Html->link( '<span style="color:#808080">Logged in as</span> <span style="color:#0088CC">' . $this->Session->read("Auth.User.username"). '</span>' . '&nbsp;<b class="caret"></b>','#', array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'escape' => false)); ?>
+
+						<!-- <?php
 							if($this->Session->read('Auth')) {
 							   echo $this->Html->link( $this->Session->read("Auth.User.username"), array('controller'=>'users', 'action'=>'logout', 'class'=>'navbar-link')); 
 							} 
 							else {
 							  
 							   echo $this->Html->link( $this->Session->read("Auth.User.username"), array('controller'=>'users', 'action'=>'login', 'class'=>'navbar-link')); 
-							}?>
-            </p>
-			<ul class="nav nav-pills">
-				<li class="active"><?php $this->Html->link('Home', array('controller' => 'users', 'action' => 'dashboard_users')); ?>  </li>
-				
-			</ul>
+							}?> -->
+							<ul class="dropdown-menu">
+                          <li><?php echo $this->Html->link('Sign Out', array('controller' => 'users', 'action' => 'logout')); ?></li>
+                      
+                        </ul>
+            	</ul>
+			
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -109,7 +111,7 @@ $cakeDescription = __d('cake_dev', 'Critter Report: wrangle your critters!');
 		</div>
 
 	</div>
-	<div class="footer">
+	<div class="footer ">
         <p>&copy; CopperNickel 2013</p>
     </div>
 </body>
