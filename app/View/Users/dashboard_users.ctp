@@ -86,10 +86,10 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
                <div style="margin: 0;" class="btn-toolbar">
                
               <div id="actionButtons" class="btn-group pull-right">
-                <button id="tagBtn" class="btn" data-toggle="tooltip" title="Add Tag"><span class="icon-tag"></span></button>
-                <button id="absentBtn" class="btn" data-toggle="tooltip" title="Mark Absent"><span class="icon-remove"></span></button>
-                <button id="clearBtn" class="btn" data-toggle="tooltip" title="Clear"><span class="icon-minus-sign"></span></button>
-                <button id="deleteBtn" class="btn" data-toggle="tooltip" title="Delete"><span class="icon-trash"></span></button>
+                <button id="tagBtn" class="btn" data-toggle="tooltip"><span class="icon-tag"></span></button>
+                <button id="absentBtn" class="btn" data-toggle="tooltip"><span class="icon-remove"></span></button>
+                <button id="clearBtn" class="btn" data-toggle="tooltip"><span class="icon-minus-sign"></span></button>
+                <button id="deleteBtn" class="btn" data-toggle="tooltip"><span class="icon-trash"></span></button>
                 <button id="printBtn" class="btn" data-toggle="tooltip"  title="Print" formtarget="_blank" ><span class="icon-print"></span></button>
                 <button id="emailBtn" class="btn" data-toggle="tooltip"  title="Email"><span class="icon-envelope"></span></button>
               </div>
@@ -207,34 +207,12 @@ var _REPORT_ID = "";
 						});
 						$("#printBtn").tooltip();
 						
-						$("#emailBtn").bind('click', doEmailSelected);
+						$("#emailBtn").click(function(){
 							
-							
+							doEmailSelected();
+						});
 						$("#emailBtn").tooltip();
 						
-						$("#absentBtn").click(function(){
-							
-							doMarkAbsentSelected();
-						});
-						$("#absentBtn").tooltip();
-						
-						$("#tagBtn").click(function(){
-							
-							doTagSelected();
-						});
-						$("#tagBtn").tooltip();
-						
-						$("#clearBtn").click(function(){
-							
-							doClearSelected();
-						});
-						$("#clearBtn").tooltip();
-						
-						$("#deleteBtn").click(function(){
-							
-							doDeleteSelected();
-						});
-						$("#deleteBtn").tooltip();
 	
 						//console.log("curernt user: " + userId);
 						if(userId==="" ){
@@ -539,16 +517,13 @@ function enableAllButPrintEmail(){
 }
 function disableAllActions(){
 	$("#actionButtons button").each(function(){
-		
 		$(this).addClass('disabled');
 	});
-	$("#emailBtn").unbind('click', doEmailSelected);
 }
 function enableAllActions(){
 	$("#actionButtons button").each(function(){
 		$(this).removeClass('disabled');
 	});
-	$("#emailBtn").bind('click', doEmailSelected);
 }
 function handlePrintClick(){
 	

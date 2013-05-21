@@ -24,6 +24,6 @@
 <body>
 	<?php echo $this->fetch('content');?>
 
-	<p>This email was sent using the <a href="http://cakephp.org">CakePHP Framework</a></p>
+	<p>This email was automatically generated (with love) by <a href="http://critter-report.com">the Critter Report Team.</a></br>If you have any questions, feel free to respond and a real live human will be in touch with you shortly.</br></br>Best regards,</br></br>The Critter</p>
 </body>
 </html>
