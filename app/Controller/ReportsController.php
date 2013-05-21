@@ -561,18 +561,41 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 		}
 		
 		public function print_reports($reports = null){
+			//App::import('Vendor', 'dompdf', array('file'=> 'dompdf' . DS . 'dompdf_config.inc.php'));
+			
 			$data_back = json_decode(file_get_contents('php://input'));
 			$reports = $data_back->{"reports"};
-			
-			//$this->Report->id =  $reports;
 			ini_set('memory_limit', '512M');
 			$arr = $this->Report->find('all', array('conditions' => array("Report.id" => $reports)));
-			$this->ext = 'pdf';
-			$this->set('arr', $arr);
 			
-			//$this->layout = "";
-			//$this->render();
+			//$this->ext = 'pdf';
+			//$this->set('arr', $arr);
+			//$this->response->type('pdf');
+		/*	$html = '<html><body>' .
+			'<p> Put your shit here fucker' . '</p></body></html>';
+			$this->dompdf = new DOMPDF();
+			$papersize = "legal";
+			$orientaion = "portrait";
+		
+			$this->dompdf->load_html($html);
+			$this->dompdf->set_paper($papersize, $orientaion);
+			$this->dompdf->render();
+
+			$output = $this->dompdf->output();
+			file_put_contents('Reports.pdf', $output);*/
+			//$this->Report->id =  $reports;
 			
+			//$this->set('report', $this->Report->read(null, 223));
+			//return new CakeResponse(array('body'=> json_encode(array('success' => true,'message'=>'Reports sent to Print')),'status'=>200));
+				
+			//$this->layout = 'pdf';
+			if($this->RequestHandler->isAjax()){
+		       //  $this->render('/Reports/pdf/print_reports', 'pdf\default'); 
+				$this->response->download('biff.pdf');
+		    }
+			//$this->autoRender = false;
+			//$this->render('pdf/print_reports');
+			 //$this->redirect(array('action' => 'index'));
 		}
 		
 		public function email_reports($reports = null){
