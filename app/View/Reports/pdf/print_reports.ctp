@@ -32,6 +32,6 @@
 </head>
 <body>
 	
-<?php echo "<br/>" . 'fuk'; ?>
+<?php echo "<br/>" . 'fun filled fantastic fantasies'; ?>
 </body>
 </html>

@@ -445,10 +445,11 @@ function buildReportGrid(reports){
 	$("#reportTable").append("<tr><th></th><td><strong>Name</strong></td><td><strong>Status</strong></td><td><strong class='pull-right'></strong></td><td></td></tr>");
 	$.each(reports, function(i, item) {
     	//console.log(reports[i].status);
-    	$("#reportTable").append("<tr id="+reports[i].id+"><th width='14'><div style='float:left;margin:0;vertical-align: middle;'><input  style='margin:0;vertical-align:middle;' type='checkbox' name='"+reports[i].id+"' value='"+reports[i].status+"'></div></th><td>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'><!-- <a class='btn btn-danger btn-mini' href='javascript:clearReport("+reports[i].id+")'>clear <span class='icon-warning-sign'></span></a> &nbsp; &nbsp;<a class='' href='../reports/edit/"+reports[i].id+"'></a>--></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
+    	$("#reportTable").append("<tr id="+reports[i].id+"><th width='14'><div style='float:left;margin:0;vertical-align: middle;'><input  style='margin:0;vertical-align:middle;' type='checkbox' name='"+reports[i].id+"' value='"+reports[i].status+"'></div></th><td>" + reports[i].child_name + "</td><td>" + reports[i].status +"</td><td><div class='pull-right'></div></td><td><span class='icon-chevron-right pull-right'></span></td></tr>");
 	});
 	$("#reportTable td").click(function(evt){
 		//console.log($(evt.target).parent().get(0).id);
+		if($(evt.target).parent().get(0).id!="")
 		window.location.href = "../reports/edit/" + $(evt.target).parent().get(0).id;
 		//window.location.href = "../reports/edit/" + this.id;
 	});
@@ -588,7 +589,6 @@ function selectSent(){
 
 function doPrintSelected(){
 	
-	$("#spinner").show();
 	var id = new Array();
 	$("#reportTable input:checked").each(function(){
 		id.push($(this).prop('name'));
@@ -599,6 +599,9 @@ function doPrintSelected(){
 	var msg = {
 		"reports" : id
 	};
+	var popup = window.open("../reports/print_reports/" + "reports:" + JSON.stringify(id) +"","_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400");
+	/*
+	
 	//console.log(JSON.stringify(msg));
 	$.ajax({
 			  type: "POST",
@@ -624,6 +627,7 @@ function doPrintSelected(){
 					  }
 				  });
 		
+		*/
 }
 
 function doEmailSelected(){
