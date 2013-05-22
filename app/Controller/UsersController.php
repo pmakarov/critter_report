@@ -269,8 +269,6 @@ class UsersController extends AppController {
  
  if(is_null($this->Session->read('Auth.User.id')== null))
  {
- 	echo "here mother fucker";
-	die();
  	$this->Session->setFlash(__("you've been logged out of the system"));
 	$this->redirect(array('controller'=>'users', 'action'=>'login'));
  }
@@ -293,6 +291,9 @@ class UsersController extends AppController {
 	 $childrenOptions = $this->Child->find('all',array('fields' => array('first_name','last_name','id')));
 	 $childrenOptions_list = Set::combine($childrenOptions, '{n}.Child.id', array('{0} {1}', '{n}.Child.first_name', '{n}.Child.last_name'));
 	 $this->set('childrenOptions', $childrenOptions_list);
+ 
+ 
+ 
  
 	 //when out of demo- should by find all by user's domain/location 
 	$this->loadModel('Report');
@@ -498,5 +499,20 @@ class UsersController extends AppController {
 	public function logout() {
 		$this->Session->setFlash('Good-Bye');
 		$this->redirect($this->Auth->logout());
+	}
+	
+	public function set_tag_data($data = null){
+		$data_back = json_decode(file_get_contents('php://input'));
+		$location = $data_back->{"location"};
+		
+		$id = $this->User->id = $this->Auth->user('id');
+		
+		$response = array('success' => true, 'userId' => $id,  'message' => __('My success message', true),
+				'status' => '200');
+				$this->layout = 'ajax';
+				$this->autoRender = false;
+			    echo json_encode($response);
+			
+		$this->Session->write('Auth.User.teacher_notes', 'Today we had a fabulous time doing fabulous things with fabulous people!');
 	}
 }

@@ -37,22 +37,21 @@
                   	</ul>
                     <ul class="nav pull-right">
                     	
-                      <li class="divider-vertical"></li>
-                      <li class="dropdown">
+                    
+                      <!--<li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="icon-pencil"></span>&nbsp;Mark</a>
                         <ul class="dropdown-menu">
                           	<li><a href="#">Mark Absent</a></li>
                          	<li><a href="#">Clear</a></li>
-                          	<!-- <li><a href="#">Remove</a></li> -->
+                          	
                         </ul>
-                      </li>
+                      </li>-->
                       <li class="divider-vertical"></li>
                       <li><?php echo $this->Html->link('<span class="icon-envelope"></span>&nbsp;'. 'Email', array('action' => 'send_report', $id), array('escape' => false)); ?></li>
                      
                       <li class="divider-vertical"></li>
-                      <li><a href="#"> <span class="icon-print"></span>&nbsp;Print</a></li>
-                      <li class="divider-vertical"></li>
-                      <li><?php echo $this->Html->link(__('PDF'), array('action' => 'view_pdf', 'ext' => 'pdf', $id), array('target' => '_blank')); ?></li>
+           
+                      <li><?php echo $this->Html->link('<span class="icon-print"></span>&nbsp;'. 'Print', array('action' => 'view_pdf', 'ext' => 'pdf', $id), array('target' => '_blank', 'escape' => false)); ?></li>
                     </ul>
                   </div><!-- /.nav-collapse -->
                 </div>

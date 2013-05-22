@@ -5,7 +5,7 @@
  		echo $this->Html->css('main.css', null, array('fullBase' => true));
         echo $this->Html->css('bootstrap.min.css', null, array('fullBase' => true));
         echo $this->Html->css('bootstrap-responsive.min.css', null, array('fullBase' => true));
-        echo $this->Html->css('style.css', null, array('fullBase' => true));
+        //echo $this->Html->css('style.css', null, array('fullBase' => true));
         echo $this->Html->script('jquery-1.9.0.min.js' , array('fullBase' => true));
         echo $this->Html->script('modernizr-2.6.2.min.js', array('fullBase' => true));
         echo $this->Html->script('bootstrap.min.js', array('fullBase' => true));

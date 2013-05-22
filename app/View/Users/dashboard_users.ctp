@@ -60,13 +60,77 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
             </div>
             <!--/row -->
             
-    
+    <div class="row-fluid">
+    	
+	<div class="span12">
        <button type="button" class="btn" data-toggle="collapse" data-target="#templateContainer">Today's Tags
     <span class="icon-tags">&nbsp;</span>    </button>
- <div class="collapse" id="templateContainer">
-	bull xuit
+ <div class="collapse " id="templateContainer">
+	 <div class="span6">
+	 	<div>&nbsp;</div>
+                <div class="control-group">
+                  <label class="control-label">My Teachers Today:</label>
+                  <div class="controls">
+				  <?php
+					echo $this->Form->input('teachersList', array('multiple'=>'multiple', 'required'=>'true', 'style'=>'width:300px','type'=>'select', 'label'=>false, 'options'=> $teachers));
+					?>
+                    </select>
+                  </div>
+                </div>
+                <div class="span3">
+                <div class="control-group">
+                  <label id="activityCheckboxesOne" required="true" class="control-label">Today I...</label>
+                  <div id="activityCheckboxesOneDiv" class="controls">
+                    <label class="checkbox">
+                      <input id="gymActivity" type="checkbox" value="went to the gym">
+                      Went to the Gym </label>
+                    <label class="checkbox">
+                      <input id="outsideActivity" type="checkbox" value="went outside">
+                      Went Ouside </label>
+                    <label class="checkbox">
+                      <input id="artsActivity" type="checkbox" value="did arts and crafts">
+                      Did Arts and Crafts </label>
+                  </div>
+                </div>
+              </div>
+              <div class="span3">
+                <div class="control-group">
+                  <label id="activityCheckboxesTwo"   class="control-label">&nbsp;</label>
+                  <div  class="controls">
+                    <label class="checkbox">
+                      <input id="otherActivity" type="checkbox" value="" >
+                      Other </label>
+                    <div id="otherTextInputDiv">
+                      <input type="text" id="otherTextInput" value="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+                
+                
+                
+              </div>
+              <div class="span6">
+              	<div>&nbsp;</div>
+              	<div class="control-group">
+                	<label class="control-label">Teachers' Comments</label>
+                	<div class="controls">
+                		<?php echo $this->Form->input('notes', array('required'=>'true', 'type'=>'textarea', 'rows'=> '6', 'label'=>false, 'class'=>'field span12', 'placeholder' => 'Today we...', 'value' => $this->Session->read("Auth.User.teacher_notes")));?>
+                	</div>
+                </div>
+              </div> 
+              <div class="row-fluid">
+              	<div class="span12 ">
+			 		<button id="tagInputBtn" class="btn btn-success pull-right">Save »</button>
+			 	</div>
+              </div>
+              
+ </div>
+ <div class="row-fluid">
+ 	
  </div>
  &nbsp;<br/>
+ </div></div>
 <div class="row-fluid" id="reportGridRow">
 <div class="span12 well" id="reportGridContainer" >
 	    <div class="navbar">
@@ -75,9 +139,9 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
                 	
                   <a class="brand" data-toggle="dropdown" href="#">Reports</a>
 				 
-              	<form class="navbar-search pull-right">
+              	<!--<form class="navbar-search pull-right">
 			      		<input type="text" placeholder="Search" class="search-query">
-			      	</form>
+			      	</form> -->
              
                 </div>
               </div><!-- /navbar-inner -->
@@ -180,7 +244,11 @@ var _REPORT_ID = "";
 			        	 $("#errorBox").hide();
 			        	 $('#datepicker').datepicker('setValue', d);
 			        	
-			        	
+			        	$("#teachersList").select2({ 
+			        	    placeholder: "Select Teachers",
+			        	    
+			        	    
+			        		});
 			        	
 			        	$("#room_id").select2({ 
 			        		 placeholder: "Select a Personality"
@@ -191,6 +259,23 @@ var _REPORT_ID = "";
 							setRoom($("#room_id option:selected").text());
 						});
 			        	
+			        	
+			        	 $('#otherActivity').click(function(event){
+			        	    
+			        	     $('#otherTextInputDiv').toggle('fast');
+			        	     if(!$("#otherActivity").is(":checked")){
+			        	     	$("#otherTextInput").val("");
+			        	 	}
+			        	     
+			        	 });
+						 
+						 	$('#otherTextInputDiv').hide();
+	
+			        	
+			        	$("#tagInputBtn").click(function(){
+							//console.log("here?");
+							updateTagData();
+						});
 			        	
 			        	
 			        	$("#refreshReports").click(function(){
@@ -283,6 +368,8 @@ var _REPORT_ID = "";
 			        		getReportsByRoom();
 							
 						}
+						
+						
 	 	
 	 	$("tr").not(':first').hover(
 			function () {
@@ -709,6 +796,47 @@ function clearReport(id){
 				  });
 		
 	 
+}
+
+//  ========== 
+//  = Update Tag Data = 
+//  ========== 
+function updateTagData(){
+	
+	var ul = "Blue";
+	
+	var msg = {
+		"location" : ul
+	};
+	 $.ajax({
+	 	type: "POST",
+	 	async: false,
+	 	data: JSON.stringify(msg),
+	 	dataType: "JSON",
+	 	url: '../users/set_tag_data',
+	 	beforeSend: function(x) {
+	 		if (x && x.overrideMimeType) {
+	 			x.overrideMimeType("application/j-son;charset=UTF-8");
+	 		}
+	 	},
+	 	success: function(result) {
+	 		console.log("location: was successfully submitted by: " + result.userId);
+			//userLocation = room;
+			//console.log(userLocation + " after set_location");
+			/*$("#room_id").select2({ 
+				disabled:true,
+				}).select2("disable"); */
+			//$("#room_id").popover("destroy");	
+	 	 	$("#spinner").hide();
+			
+			//get report list by room filter by today's date
+			//getReportsByRoom();
+		},
+		error: function (request, status, error) {
+	 		   		alert(status + " : " + error);
+					$("#spinner").hide();
+	 		    }
+	 	    });
 }
 	</script>
 </div>
