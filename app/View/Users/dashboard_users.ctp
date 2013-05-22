@@ -676,46 +676,46 @@ function selectSent(){
 }
 
 function doPrintSelected(){
-	
-	var id = new Array();
-	$("#reportTable input:checked").each(function(){
-		id.push($(this).prop('name'));
-	});
-	
-	//console.log(id);
-	
-	var msg = {
-		"reports" : id
-	};
-	var popup = window.open("../reports/print_reports/" + "reports:" + JSON.stringify(id) +"","_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400");
-	/*
-	
-	//console.log(JSON.stringify(msg));
-	$.ajax({
-			  type: "POST",
-			  async: false,
-			  data: JSON.stringify(msg),
-			  dataType: "JSON",
-			  url: '../reports/print_reports',
-			  beforeSend: function(x) {
-				  if (x && x.overrideMimeType) {
-					  x.overrideMimeType("application/j-son;charset=UTF-8");
-				  }
-			  },
-			  success: function(result) {
-				  console.log("report " + id+ " as successfully printed: " + result.success);
-			
-				 $("#spinner").hide();
-			
-				
-			 },
-			 error: function (request, status, error) {
-							 alert(status + " : " + error);
-						 $("#spinner").hide();
-					  }
-				  });
-		
-		*/
+   
+    var id = new Array();
+    $("#reportTable input:checked").each(function(){
+        id.push($(this).prop('name'));
+    });
+   
+    //console.log(id);
+   
+    var msg = {
+        "reports" : id
+    };
+    var popup = window.open("../reports/print_reports/" + "reports:" + JSON.stringify(id) +"","_blank","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=yes, width=1024, height=768");
+    /*
+   
+    //console.log(JSON.stringify(msg));
+    $.ajax({
+              type: "POST",
+              async: false,
+              data: JSON.stringify(msg),
+              dataType: "JSON",
+              url: '../reports/print_reports',
+              beforeSend: function(x) {
+                  if (x && x.overrideMimeType) {
+                      x.overrideMimeType("application/j-son;charset=UTF-8");
+                  }
+              },
+              success: function(result) {
+                  console.log("report " + id+ " as successfully printed: " + result.success);
+           
+                 $("#spinner").hide();
+           
+               
+             },
+             error: function (request, status, error) {
+                             alert(status + " : " + error);
+                         $("#spinner").hide();
+                      }
+                  });
+       
+        */
 }
 
 function doEmailSelected(){

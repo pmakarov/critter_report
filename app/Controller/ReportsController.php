@@ -561,47 +561,70 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 		}
 		
 		public function print_reports($reports = null){
-			App::import('Vendor', 'dompdf', array('file'=> 'dompdf' . DS . 'dompdf_config.inc.php'));
-			
-			$id = json_decode($this->request->params['named']['reports']); 
-			
-			//echo($id[0]) . "<br/>";
-			//echo($id[1]) . "<br/>";
-			//$data_back = json_decode(file_get_contents('php://input'));
-			//$reports = $data_back->{"reports"};
-			$reports = $id;
-			ini_set('memory_limit', '512M');
-			$arr = $this->Report->find('all', array('conditions' => array("Report.id" => $reports)));
-			
-			$html = '<html><body>' .
-			'<p> Put your stuff here guy' . '</p></body></html>';
-			$this->dompdf = new DOMPDF();
-			$papersize = "legal";
-			$orientaion = "portrait";
-		
-			$this->dompdf->load_html($html);
-			$this->dompdf->set_paper($papersize, $orientaion);
-			$this->dompdf->render();
-			
-			$output = $this->dompdf->output();
-			echo $output;
-			file_put_contents('Reports.pdf', $output);
-			
-			//$this->ext = 'pdf';
-			$this->set('arr', $arr);
-			$this->response->type('pdf');
-		   
-			//$this->Report->id =  $reports;
-			
-			//$this->set('report', $this->Report->read(null, 223));
-			//return new CakeResponse(array('body'=> json_encode(array('success' => true,'message'=>'Reports sent to Print')),'status'=>200));
-				
-			//$this->layout = 'pdf';
-			//$this->response->download('biff.pdf');
-			//$this->autoRender = false;
-			//$this->render('pdf/print_reports');
-			 //$this->redirect(array('action' => 'index'));
-		}
+            App::import('Vendor', 'dompdf', array('file'=> 'dompdf' . DS . 'dompdf_config.inc.php'));
+           
+            $id = json_decode($this->request->params['named']['reports']);
+           
+            //echo($id[0]) . "<br/>";
+            //echo($id[1]) . "<br/>";
+            //$data_back = json_decode(file_get_contents('php://input'));
+            //$reports = $data_back->{"reports"};
+            $reports = $id;
+            ini_set('memory_limit', '512M');
+            $arr = $this->Report->find('all', array('conditions' => array("Report.id" => $reports)));
+            $children = $this->Report->Child->find(
+                    'all',
+                    array( 'order' => array('Child.last_name' => 'ASC'),
+                    )
+                );
+               
+                //var_dump($arr);
+                //die();
+            $html = '<html><body>';
+            foreach ($arr as $key) {
+                           
+                $div = '<div STYLE="page-break-after: always">' . '<h2>Critter Report</h2>'
+                . '<strong>Date: </strogn>' . $key['Report']['date'] . "<br/>"
+                . '<strong>Room: </strong>'. $key['Room']['name'] . "<br/>"
+                . $key['Report']['user_id'] . "<br/>"
+                . $key['Report']['room_id'] . "<br/>"
+                . $key['Report']['status'] . "<br/>"
+                . $key['Report']['date'] . "<br/>"
+                . $key['Report']['child_id'] . "<br/>"
+                . '</div>';
+                $html .= $div;
+            }
+           
+            $html .= '</body></html>';
+           
+           
+            $this->dompdf = new DOMPDF();
+            $papersize = "legal";
+            $orientaion = "portrait";
+       
+            $this->dompdf->load_html($html);
+            $this->dompdf->set_paper($papersize, $orientaion);
+            $this->dompdf->render();
+           
+            $output = $this->dompdf->output();
+            echo $output;
+            file_put_contents('Reports.pdf', $output);
+           
+            //$this->ext = 'pdf';
+            $this->set('arr', $arr);
+            $this->response->type('pdf');
+          
+            //$this->Report->id =  $reports;
+           
+            //$this->set('report', $this->Report->read(null, 223));
+            //return new CakeResponse(array('body'=> json_encode(array('success' => true,'message'=>'Reports sent to Print')),'status'=>200));
+               
+            //$this->layout = 'pdf';
+            //$this->response->download('biff.pdf');
+            //$this->autoRender = false;
+            //$this->render('pdf/print_reports');
+             //$this->redirect(array('action' => 'index'));
+        }
 		
 		public function email_reports($reports = null){
 			$data_back = json_decode(file_get_contents('php://input'));
