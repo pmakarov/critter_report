@@ -60,12 +60,13 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
             </div>
             <!--/row -->
             
-              
- <!-- <div class="row-fluid" id="templateRow">
- <div class="span12 well pull-right" id="templateContainer">
-	<span class="label">Default</span><span class="label label-success">Success</span><span class="label label-warning">Warning</span><span class="label label-important">Important</span><span class="label label-info">Info</span>
+    
+       <button type="button" class="btn" data-toggle="collapse" data-target="#templateContainer">Today's Tags
+    <span class="icon-tags">&nbsp;</span>    </button>
+ <div class="collapse" id="templateContainer">
+	bull xuit
  </div>
- </div> -->
+ &nbsp;<br/>
 <div class="row-fluid" id="reportGridRow">
 <div class="span12 well" id="reportGridContainer" >
 	    <div class="navbar">
