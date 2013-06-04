@@ -503,16 +503,21 @@ class UsersController extends AppController {
 	
 	public function set_tag_data($data = null){
 		$data_back = json_decode(file_get_contents('php://input'));
-		$location = $data_back->{"location"};
+		
+		$teacher_comments = $data_back->{"teacherComments"};
+		$teachers = $data_back->{"teachers"};
+		$activities = $data_back->{"dailyActivity"};
 		
 		$id = $this->User->id = $this->Auth->user('id');
+					
+		$this->Session->write('Auth.User.teacher_notes', $teacher_comments);
+		$this->Session->write('Auth.User.activities', $activities);
+		$this->Session->write('Auth.User.teachers', $teachers);
 		
 		$response = array('success' => true, 'userId' => $id,  'message' => __('My success message', true),
 				'status' => '200');
 				$this->layout = 'ajax';
 				$this->autoRender = false;
 			    echo json_encode($response);
-			
-		$this->Session->write('Auth.User.teacher_notes', 'Today we had a fabulous time doing fabulous things with fabulous people!');
 	}
 }

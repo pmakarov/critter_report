@@ -306,55 +306,7 @@
 	                  		</div>
 	                  		</div>
 	                  </div>
-	                  </div>
-<!--                         <table id="pottyTrainingDataTable" class="table table-striped"> -->
-<!--                         <thead> -->
-<!--                             <tr> -->
-<!--                              <th></th> -->
-<!--                               <th>9am</th> -->
-<!--                               <th>12pm</th> -->
-<!--                               <th>3pm</th> -->
-<!--                               <th>5pm</th> -->
-<!--                             </tr> -->
-<!--                           </thead> -->
-<!--                           <tbody> -->
-<!--                            <tr> -->
-<!--                               <th>Wet</th> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                             </tr> -->
-<!--                              <tr> -->
-<!--                               <th>Dry</th> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                             </tr> -->
-<!--                              <tr> -->
-<!--                               <th>Tried</th> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                             </tr> -->
-<!--                             <tr> -->
-<!--                               <th>Peed</th> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                             </tr> -->
-<!--                             <tr> -->
-<!--                               <th>BM</th> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                               <td><input type="checkbox" value="9AMPee"/></td> -->
-<!--                             </tr> -->
-<!--                           </tbody> -->
-<!--                         </table> -->
+	                  </div>                    
                       </div>
                       <div class="modal-footer">
                         <button aria-hidden="true" data-dismiss="modal" onclick="javascript:addPottyEvent(event);" class="btn">OK</button>
@@ -366,8 +318,40 @@
         </div>
        
         <!-- #second_step -->
+        
         <div id="second_step">
         <legend>Incidentals and Comments</legend>
+        
+        <div id="booBooReportDiv">
+        	<div class="row-fluid">
+           <div id="booBooReportContainer"><div id="booBooEventLabel"><strong>Boo Boo Events:</strong></div><div id="booBooTable"></div>
+           </div>
+            
+                  <div class="span2"> <label>&nbsp;</label><a data-toggle="modal" class="btn btn-small" role="button" href="#booBooEventTable">Add Boo Boo Event »</a>
+                    <div aria-hidden="true" aria-labelledby="booBooEventTable" role="dialog" tabindex="-1" class="modal hide fade" id="booBooEventTable">
+                      <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h3 id="leadTimeLabel">BooBoo Event:</h3>
+                      </div>
+                      <div class="modal-body">
+	                  <div class="row-fluid">
+		                   <div id="BooBooSelectorDiv" class="span4">
+		                    <label id="pottyTimeSelector">Boo Boo Event Time:</label>
+		                    <div class="input-append bootstrap-timepicker">
+		                      <input id="timepicker3" type="text" class="input-small" required="true">
+		                      <span class="add-on"><i class="icon-time"></i></span> </div>
+		                  </div>
+	                  </div>
+	                  
+	                                   
+                      </div>
+                      <div class="modal-footer">
+                        <button aria-hidden="true" data-dismiss="modal" onclick="javascript:addBooBooEvent(event);" class="btn">OK</button>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
           <div class="row-fluid">
               <div class="span6">
                 <div class="control-group">
@@ -858,7 +842,7 @@ var _REPORT_ID = "<?php echo $id; ?>";
 		var idk = $("#pottyEventTable div").text().split("×").join("|");
 		idk = idk.substr(1, idk.length);
 		var wtf = idk;
-		console.log(wtf);
+		//console.log(wtf);
 		
 		 var creatureReport = {
 		 	 "id" : _REPORT_ID,

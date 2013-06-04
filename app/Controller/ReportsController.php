@@ -484,23 +484,6 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 				}
 				
 				
-			
-			/*if ($this->User->saveField('location', $location)) {
-				$response = array('success' => true, 'userId' =>$id,  'message' => __('My success message', true),
-				'status' => '200');
-				$this->layout = 'ajax';
-				$this->autoRender = false;
-			    echo json_encode($response);
-				//$this->layout = '';
-				//$this->set('response', $response);
-				
-			}
-			else {
-				$response = array('success' => false,  'userId' => $id, 'message' => __('My error message', true),
-				'status' => '200');
-				$this->layout = '';
-				$this->set('response', $response);
-			}*/
 		}
 		public function clear_report($data = null){
 		
@@ -639,8 +622,8 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 			    }
 				
 				$report = $this->Report->read(null, $id);
-				$this->Report->set('status', 'SENT');
-				$this->Report->save();
+				$this->Report->saveField('status', 'SENT');
+				//$this->Report->save();
 				
 				$this->Report->Child->id = $report['Report']['child_id'];
 				
@@ -670,12 +653,50 @@ var $components = array('Auth', 'Email', 'RequestHandler');
 				//$this->autoRender = false;
 				//$this->set('response', $response);
 				
-				
-				 
-			
 		}
+
+		public function set_tag_data($reports = null){
+			$data_back = json_decode(file_get_contents('php://input'));
+			$reports = $data_back->{"reports"};
+			
+			$teacher_comments = $this->Session->read('Auth.User.teacher_notes');
+			$activities = $this->Session->read('Auth.User.activities');
+			$teachers = $this->Session->read('Auth.User.teachers');
+			
+			for ($i=0; $i<count($reports); $i++)
+			{
+				$id = $reports[$i];
+				$this->Report->id = $id;
+				if (!$this->Report->exists()) {
+			        throw new NotFoundException(__('Invalid report'));
+			    }
 				
- }
+				$report = $this->Report->read(null, $id);
+				$this->Report->saveField('teacher_list', $teachers);
+				$this->Report->saveField('daily_activity', $activities);
+				$this->Report->saveField('notes', $teacher_comments);
+			}
+			return new CakeResponse(array('body'=> json_encode(array('success' => true,'message'=>'Tag data saved to reports')),'status'=>200));		
+ 		}
+		
+		public function mark_absent($reports = null){
+			$data_back = json_decode(file_get_contents('php://input'));
+			$reports = $data_back->{"reports"};
+			
+			for ($i=0; $i<count($reports); $i++)
+			{
+				$id = $reports[$i];
+				$this->Report->id = $id;
+				if (!$this->Report->exists()) {
+			        throw new NotFoundException(__('Invalid report'));
+			    }
+				
+				$report = $this->Report->read(null, $id);
+				$this->Report->saveField('status', 'ABSENT');
+			}
+			return new CakeResponse(array('body'=> json_encode(array('success' => true,'message'=>'Reports marked absent')),'status'=>200));		
+ 		}
 	
+	}
 
 

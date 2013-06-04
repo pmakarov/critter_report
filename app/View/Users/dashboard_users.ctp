@@ -63,7 +63,7 @@ echo $this -> Html -> script('bootstrap-timepicker.js');
     <div class="row-fluid">
     	
 	<div class="span12">
-       <button type="button" class="btn" data-toggle="collapse" data-target="#templateContainer">Today's Tags
+       <button type="button" id="tagToggle" class="btn" data-toggle="collapse" data-target="#templateContainer">Today's Tags
     <span class="icon-tags">&nbsp;</span>    </button>
  <div class="collapse " id="templateContainer">
 	 <div class="span6">
@@ -224,6 +224,15 @@ var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
 var _REPORT_ID = "";
 
+var teacherArray = "<?php echo $this->Session->read("Auth.User.teachers"); ?>";
+var activities = "<?php echo $this->Session->read("Auth.User.activities"); ?>";
+if(teacherArray!= null && teacherArray != ""){
+	teacherArray = teacherArray.split("|");
+}
+if(activities!=null && activities!= ""){
+	activities = activities.split("|");
+}
+
 
 	$(document).ready(function(){
 		
@@ -249,7 +258,29 @@ var _REPORT_ID = "";
 			        	    
 			        	    
 			        		});
-			        	
+			        	if(teacherArray.length > 0)
+			        	{
+			        		//console.log("we got teachers " + teacherArray);
+			        		
+			        		sel = new Array();
+			        		$("#teachersList option").each(function() {
+							    // add $(this).val() to your list
+							    for(var i=0; i < teacherArray.length; i++)
+							    {
+							    	if(teacherArray[i] == $(this).text()){
+							    		
+							    		//console.log("match");
+							    		//$(this).select
+							    		//$(this).selected = true;
+							    		sel.push($(this).val());
+							    	
+							    	}
+							    }
+							   // console.log($(this).text());
+							});
+							$("#teachersList").select2("val", sel);
+							sell = null;
+			        	}
 			        	$("#room_id").select2({ 
 			        		 placeholder: "Select a Personality"
 			        		}).select2(); 
@@ -268,8 +299,28 @@ var _REPORT_ID = "";
 			        	 	}
 			        	     
 			        	 });
+						 $('#otherTextInputDiv').hide();
 						 
-						 	$('#otherTextInputDiv').hide();
+						 if(activities.length > 0){
+	 						
+	 						$("#activityCheckboxesOneDiv input").each(function(){
+		 						for(var i=0; i < activities.length; i++){
+		 							if(activities[i] === $(this).val())
+		 							{
+		 								$(this).prop('checked', 'checked');
+		 							}
+		 							if(activities[i].indexOf("other::")>-1){
+		 								$("#otherActivity").prop('checked', 'checked');
+		 								$("#otherTextInput").val(activities[i].split("::")[1]);
+		 								$("#otherTextInputDiv").show();
+		 							}
+		 						}
+	 						});
+	 						
+	 						
+	 					}
+						 
+						 	
 	
 			        	
 			        	$("#tagInputBtn").click(function(){
@@ -744,7 +795,7 @@ function doEmailSelected(){
 				  }
 			  },
 			  success: function(result) {
-				  console.log("success " + result.success+ " " + result.message);
+				  //console.log("success " + result.success+ " " + result.message);
 			
 				 $("#spinner").hide();
 				getReportsByRoom();
@@ -803,11 +854,26 @@ function clearReport(id){
 //  ========== 
 function updateTagData(){
 	
-	var ul = "Blue";
+	//get teachers list from dropdown
+	var tl = $("#teachersList option:selected").map(function(){return this.text});	 
 	
+	//get daily activities items
+	var dl = $("#activityCheckboxesOneDiv label input:checked").map(function(){return this.value});
+	
+	activityString = dl.get().join("|");
+	
+	if($("#otherActivity").is(':checked')){
+		var otherActString = "other::" + $("#otherTextInput").val();
+		activityString = (activityString==="") ? otherActString : activityString+ "|"+otherActString;
+	}
+	
+	//console.log($("#notes").val());
 	var msg = {
-		"location" : ul
-	};
+			 "teachers" : tl.get().join("|"),
+			 "dailyActivity" : activityString,
+		 	 "teacherComments" : $("#notes").val()
+		 }
+		 
 	 $.ajax({
 	 	type: "POST",
 	 	async: false,
@@ -820,23 +886,101 @@ function updateTagData(){
 	 		}
 	 	},
 	 	success: function(result) {
-	 		console.log("location: was successfully submitted by: " + result.userId);
-			//userLocation = room;
-			//console.log(userLocation + " after set_location");
-			/*$("#room_id").select2({ 
-				disabled:true,
-				}).select2("disable"); */
-			//$("#room_id").popover("destroy");	
+	 		//console.log(result.message);
 	 	 	$("#spinner").hide();
-			
-			//get report list by room filter by today's date
-			//getReportsByRoom();
+	 	 	//c.collapse({toggle:true});
+	 	 	//$("#templateContainer").collapse({toggle:true});
+	 	 	var $collapse = $("#templateContainer").closest('.collapse-group').find('.collapse');
+    		$("#templateContainer").collapse('toggle');
+			getReportsByRoom();
 		},
 		error: function (request, status, error) {
-	 		   		alert(status + " : " + error);
-					$("#spinner").hide();
-	 		    }
-	 	    });
+	 		alert(status + " : " + error);
+			$("#spinner").hide();
+	 	}
+	 });
+}
+
+
+function doTagSelected(){
+	
+	$("#spinner").show();
+	var id = new Array();
+	$("#reportTable input:checked").each(function(){
+		id.push($(this).prop('name'));
+	});
+	
+	//console.log(id);
+	
+	var msg = {
+		"reports" : id
+	};
+	//console.log(JSON.stringify(msg));
+	$.ajax({
+			  type: "POST",
+			  async: false,
+			  data: JSON.stringify(msg),
+			  dataType: "JSON",
+			  url: '../reports/set_tag_data',
+			  beforeSend: function(x) {
+				  if (x && x.overrideMimeType) {
+					  x.overrideMimeType("application/j-son;charset=UTF-8");
+				  }
+			  },
+			  success: function(result) {
+				 // console.log("success " + result.success+ " " + result.message);
+			
+				 $("#spinner").hide();
+				 deSelectAll();
+				//getReportsByRoom();
+				
+			 },
+			 error: function (request, status, error) {
+							 alert(status + " : " + error);
+						 $("#spinner").hide();
+					  }
+				  });
+		
+}
+
+function doMarkAbsentSelected(){
+	
+	$("#spinner").show();
+	var id = new Array();
+	$("#reportTable input:checked").each(function(){
+		id.push($(this).prop('name'));
+	});
+	
+	//console.log(id);
+	
+	var msg = {
+		"reports" : id
+	};
+	//console.log(JSON.stringify(msg));
+	$.ajax({
+			  type: "POST",
+			  async: false,
+			  data: JSON.stringify(msg),
+			  dataType: "JSON",
+			  url: '../reports/mark_absent',
+			  beforeSend: function(x) {
+				  if (x && x.overrideMimeType) {
+					  x.overrideMimeType("application/j-son;charset=UTF-8");
+				  }
+			  },
+			  success: function(result) {
+				 // console.log("success " + result.success+ " " + result.message);
+			
+				 $("#spinner").hide();
+					getReportsByRoom();
+				
+			 },
+			 error: function (request, status, error) {
+							 alert(status + " : " + error);
+						 $("#spinner").hide();
+					  }
+				  });
+		
 }
 	</script>
 </div>
