@@ -218,7 +218,6 @@ var userId  = "<?php echo $userId; ?>";
 var userLocation = "<?php echo $userLocation; ?>";
 var action = "";
 
-
 var warn = true;
 var isValid = false;
 var _STATUS = "DRAFT"; //DRAFT / SUBMITTED / SENT
@@ -251,7 +250,10 @@ if(activities!=null && activities!= ""){
 			        	 
 			        	 $("#warnBox").hide();
 			        	 $("#errorBox").hide();
-			        	 $('#datepicker').datepicker('setValue', d);
+			        	// $('#datepicker').datepicker('setValue', d);
+			        	 $('#datepicker').datepicker('setValue',
+						         '<?php echo date("d/m/Y"); ?>'
+							);
 			        	
 			        	$("#teachersList").select2({ 
 			        	    placeholder: "Select Teachers",
