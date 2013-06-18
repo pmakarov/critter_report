@@ -473,7 +473,10 @@ var _REPORT_ID = "<?php echo $id; ?>";
 			        	 
 			        	 $("#warnBox").hide();
 			        	 $("#errorBox").hide();
-			        	 $('#datepicker').datepicker('setValue', d);
+			        	// $('#datepicker').datepicker('setValue', d);
+			        	 $('#datepicker').datepicker('setValue',
+						         '<?php echo date("d/m/Y"); ?>'
+							);
 			        	
 			        	$("#child_id").select2({ 
 			        	    placeholder: "Select a Child"
